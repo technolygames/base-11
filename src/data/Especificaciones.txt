@@ -1,0 +1,5 @@
+General:
+-Para que pueda mostrar notificaciones, es necesario tener instalado sistemas operativos como: Windows 10, GNOME o KDE. No soporta versiones anteriores de Windows (ej.: Windows XP, Vista, 7, 8-8.1)
+Formulario:
+-Para introducir una imagen, seleccionar alguno de los formatos disponibles.
+-Para tomar una foto, dar varios clics seguidos en el recuadro. Después, aparecerá una ventana emergente con las webcams disponibles. Clic en "Aceptar", tomar la foto con clic izquierdo, clic en el botón "tomar foto" y listo
