@@ -1,25 +1,22 @@
 package venSecundarias;
 
-import clases.hilos;
+import clases.thread;
 import java.awt.Image;
 import java.awt.Toolkit;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.util.Properties;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class exportWindow extends javax.swing.JDialog{
     public exportWindow(java.awt.Frame parent,boolean modal){
@@ -51,10 +48,9 @@ public class exportWindow extends javax.swing.JDialog{
     }
     
     protected File f;
-    protected Process pr;
     protected InputStream is;
+    protected OutputStream os;
     protected JFileChooser j;
-    protected FileOutputStream fos;
     
     protected Image retValue;
     protected Properties p;
@@ -89,44 +85,28 @@ public class exportWindow extends javax.swing.JDialog{
     }
     
     protected void copia(){
-        String unombre=jTextField1.getText();
-        String upass=jTextField2.getText();
+        String nombreUsuario=jTextField1.getText();
+        String passUsuario=jPasswordField1.getPassword().toString();
         String based=jTextField3.getText();
-        String basedg=jTextField4.getText();
+        String nombrebdExportada=based+".sql";
+        
         try{
-            p=new Properties();
-            p.load(new FileInputStream("src/data/config/filechooserd.properties"));
-            j=new JFileChooser(p.getProperty("lastdirectory_database_export"));
+            Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump -u "+nombreUsuario+" -p "+passUsuario+" "+based+">"+nombrebdExportada);
             
-            j.setFileFilter(new FileNameExtensionFilter("Archivo SQL","sql"));
+            is=pr.getInputStream();
+            os=new FileOutputStream("src/data/database/MySQL/"+nombrebdExportada);
             
-            int ñ=j.showSaveDialog(null);
-            if(JFileChooser.APPROVE_OPTION==ñ){
-                try{
-                    f=new File(j.getSelectedFile().toString());
-                    new hilos(pr.getErrorStream()).start();
-                    pr=Runtime.getRuntime().exec("cmd cd C:\\xampp\\mysql\\bin mysqldump -u "+unombre+" -p "+upass+" "+based+"");
-                    
-                    is=pr.getInputStream();
-                    fos=new FileOutputStream(f.getAbsoluteFile());
-                    
-                    buffer=new byte[1048];
-                    while(leido>0){
-                        fos.write(buffer,0,leido);
-                        JOptionPane.showMessageDialog(null,"Se ha guardado la base de datos","Rel 1E",JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    
-                    fos.flush();
-                    fos.close();
-                    
-                    p.setProperty("lastdirectory_database_export",f.getParent());
-                    p.store(new BufferedWriter(new FileWriter("src/data/config/filechooserd.properties")),"JFileChooserDirection");
-                }catch(IOException e){
-                    JOptionPane.showMessageDialog(this,"Error:\n"+e.getMessage(),"Error 8",JOptionPane.WARNING_MESSAGE);
-                }
-            }
-        }catch(IOException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage());
+            new thread(is,os).start();
+            
+            JOptionPane.showMessageDialog(null,"Se ha exportado la base de datos correctamente","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            
+            os.close();
+            os.flush();
+            is.close();
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 8",JOptionPane.WARNING_MESSAGE);
+        }catch(NullPointerException x){
+            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
         }
     }
     
@@ -137,14 +117,11 @@ public class exportWindow extends javax.swing.JDialog{
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         exportButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(getIconImage());
@@ -157,11 +134,7 @@ public class exportWindow extends javax.swing.JDialog{
 
         exportButton.setText("Exportar");
 
-        jButton2.setText("Buscar");
-
         backButton.setText("Regresar");
-
-        jLabel4.setText("Ruta de guardado:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,28 +145,20 @@ public class exportWindow extends javax.swing.JDialog{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(exportButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                         .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(62, 62, 62)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                                    .addComponent(jTextField2))))
-                        .addGap(0, 208, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(31, 31, 31)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                .addComponent(jPasswordField1)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -206,16 +171,11 @@ public class exportWindow extends javax.swing.JDialog{
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(exportButton)
@@ -233,14 +193,11 @@ public class exportWindow extends javax.swing.JDialog{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JButton exportButton;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

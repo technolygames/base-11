@@ -1,7 +1,7 @@
 package venTerciarias;
 
 import clases.datos;
-import venPrimarias.formulario2;
+import venSecundarias.importWindow;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -17,9 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class validacionVentana1 extends javax.swing.JDialog{
-    public validacionVentana1(java.awt.Frame parent,boolean modal){
-        super(parent,modal);
+public class validacionVentana8 extends javax.swing.JDialog{
+    public validacionVentana8(java.awt.Frame parent, boolean modal){
+        super(parent, modal);
         initComponents();
         try{
             Properties style=new Properties();
@@ -65,7 +65,7 @@ public class validacionVentana1 extends javax.swing.JDialog{
     
     protected final void botones(){
         backButton.addActionListener((ae)->{
-            setVisible(true);
+            setVisible(false);
             dispose();
         });
         
@@ -79,10 +79,10 @@ public class validacionVentana1 extends javax.swing.JDialog{
                 PreparedStatement ps=new datos().getConnection().prepareStatement(consulta);
                 ResultSet rs=ps.executeQuery();
                 if(rs.next()){
-                    if(rs.getString("puesto").equals("Dueño")||rs.getString("puesto").equals("Programador")||rs.getString("puesto").equals("Desarrollador")){
-                        new formulario2().setVisible(true);
+                    if(rs.getString("puesto").equals("Programador")||rs.getString("puesto").equals("Desarrollador")){
+                        new importWindow(new javax.swing.JFrame(),true).setVisible(true);
                         dispose();
-                    }else if(rs.getString("puesto").equals("Empleado")){
+                    }else if(rs.getString("puesto").equals("Dueño")||rs.getString("puesto").equals("Empleado")){
                         JOptionPane.showMessageDialog(null,"Acceso restringido","Error 37",JOptionPane.WARNING_MESSAGE);
                     }
                 }
@@ -93,28 +93,27 @@ public class validacionVentana1 extends javax.swing.JDialog{
             }
         });
     }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backButton = new javax.swing.JButton();
-        valButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
+        valButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(getIconImage());
 
-        backButton.setText("Regresar");
-
-        valButton.setText("Validar");
-
         jLabel1.setText("Usuario:");
 
         jLabel2.setText("Contraseña:");
+
+        valButton.setText("Validar");
+
+        backButton.setText("Regresar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,24 +122,24 @@ public class validacionVentana1 extends javax.swing.JDialog{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(valButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(valButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(backButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -151,8 +150,8 @@ public class validacionVentana1 extends javax.swing.JDialog{
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backButton)
-                    .addComponent(valButton))
+                    .addComponent(valButton)
+                    .addComponent(backButton))
                 .addContainerGap())
         );
 
@@ -160,7 +159,8 @@ public class validacionVentana1 extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]){
-        new validacionVentana1(new javax.swing.JFrame(),true).setVisible(true);
+        new validacionVentana8(new javax.swing.JFrame(), true).setVisible(true);
+            
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

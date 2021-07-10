@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class datosTicket{
-    public void imTicket(int codigo_prod,String nombre_prod,int precio,int cantidad,int total){
+    public void imTicket(int codigoProducto,String nombreProducto,int precio,int cantidad,int total){
         try{
             Date date=new Date();
             

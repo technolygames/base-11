@@ -46,8 +46,6 @@ public class validacionVentana2 extends javax.swing.JDialog{
         setTitle("Validación");
     }
     
-    protected datos d;
-    
     protected Image retValue;
     protected Properties p;
     
@@ -72,34 +70,28 @@ public class validacionVentana2 extends javax.swing.JDialog{
         });
         
         valButton.addActionListener((ae)->{
-            consulta();
-        });
-    }
-    
-    protected final void consulta(){
-        d=new datos();
-        
-        String usuario=jTextField1.getText();
-        String contra=String.valueOf(jPasswordField1.getPassword());
-        
-        String consulta="select * from empleados where password='"+contra+"' and nombre_emp='"+usuario+"';";
-        
-        try{
-            PreparedStatement ps=d.getConnection().prepareStatement(consulta);
-            ResultSet rs=ps.executeQuery();
-            if(rs.next()){
-                if(rs.getString("puesto").equals("Dueño")||rs.getString("puesto").equals("Programador")||rs.getString("puesto").equals("Desarrollador")){
-                    new formulario1().setVisible(true);
-                    dispose();
-                }else if(rs.getString("puesto").equals("Empleado")){
-                    JOptionPane.showMessageDialog(null,"Acceso restringido","Error 37",JOptionPane.WARNING_MESSAGE);
+            String usuario=jTextField1.getText();
+            String contra=String.valueOf(jPasswordField1.getPassword());
+            
+            String consulta="select * from empleados where password='"+contra+"' and nombre_emp='"+usuario+"';";
+            
+            try{
+                PreparedStatement ps=new datos().getConnection().prepareStatement(consulta);
+                ResultSet rs=ps.executeQuery();
+                if(rs.next()){
+                    if(rs.getString("puesto").equals("Dueño")||rs.getString("puesto").equals("Programador")||rs.getString("puesto").equals("Desarrollador")){
+                        new formulario1().setVisible(true);
+                        dispose();
+                    }else if(rs.getString("puesto").equals("Empleado")){
+                        JOptionPane.showMessageDialog(null,"Acceso restringido","Error 37",JOptionPane.WARNING_MESSAGE);
+                    }
                 }
+                ps.close();
+                rs.close();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 9",JOptionPane.WARNING_MESSAGE);
             }
-            ps.close();
-            rs.close();
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 9",JOptionPane.WARNING_MESSAGE);
-        }
+        });
     }
     
     @SuppressWarnings("unchecked")
@@ -167,7 +159,7 @@ public class validacionVentana2 extends javax.swing.JDialog{
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    public static void main(String args[]){
+    public static void main(String args[]){ 
         new validacionVentana2(new javax.swing.JFrame(),true).setVisible(true);
     }
     

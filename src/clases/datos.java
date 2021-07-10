@@ -50,11 +50,11 @@ public class datos{
     }
     
     public void insertarDatosProducto(int codigoProducto,String nombreProducto,String marcaProducto,int cantidad,int precio,int total){
-        String ins1_query="insert into productos values('"+codigoProducto+"','"+nombreProducto+"','"+marcaProducto+"','"+cantidad+"','"+precio+"','"+total+"',now())";
+        String ins1_query="insert into productos values('"+codigoProducto+"','"+nombreProducto+"','"+marcaProducto+"','"+cantidad+"','"+precio+"','"+total+"',now());";
         try{
             ps=getConnection().prepareStatement(ins1_query);
             ps.execute();
-            JOptionPane.showConfirmDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.WARNING_MESSAGE);
@@ -66,7 +66,7 @@ public class datos{
         try{
             ps=getConnection().prepareStatement(ins2_query);
             ps.execute();
-            JOptionPane.showConfirmDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.WARNING_MESSAGE);
@@ -78,7 +78,7 @@ public class datos{
         try{
             ps=getConnection().prepareStatement(ins3_query);
             ps.execute();
-            JOptionPane.showConfirmDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.WARNING_MESSAGE);
@@ -114,7 +114,7 @@ public class datos{
         try{
             ps=getConnection().prepareStatement(up1_query);
             ps.executeUpdate();
-            JOptionPane.showConfirmDialog(null,"Se ha actualizado el registro","Rel 2",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Se ha actualizado el registro","Rel 2",JOptionPane.INFORMATION_MESSAGE);
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 12",JOptionPane.WARNING_MESSAGE);

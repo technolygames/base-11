@@ -88,24 +88,6 @@ public final class formulario1 extends javax.swing.JFrame{
     }
     
     protected final void botones(){
-        actButton.addActionListener((ae)->{
-            try{
-                String password=String.valueOf(txtContraseña.getPassword());
-                int codigo_emp=Integer.parseInt(txtCodigo.getText());
-                String nombre_emp=txtNombre.getText();
-                String apellidop_emp=txtAP.getText();
-                String apellidom_emp=txtAM.getText();
-                String puesto=jComboBox1.getSelectedItem().toString();
-                String experiencia=txtExp.getText();
-                String grado_estudios=txtEstudios.getText();
-                int edad=Integer.parseInt(txtEdad.getText());
-                
-                new datos().actualizarDatosEmpleado(password,codigo_emp,nombre_emp,apellidop_emp,apellidom_emp,puesto,experiencia,grado_estudios,edad);
-            }catch(NumberFormatException h){
-                JOptionPane.showMessageDialog(null,"Error:\n"+h.getMessage(),"Error 18",JOptionPane.WARNING_MESSAGE);
-            }
-        });
-        
         backButton.addActionListener((ae)->{
             setVisible(false);
             dispose();
@@ -122,16 +104,6 @@ public final class formulario1 extends javax.swing.JFrame{
             txtEdad.setText("");
             picLabel.setIcon(null);
             new PlaceHolder(txtNombre,"Primer y/o segundo nombre");
-        });
-        
-        delButton.addActionListener((ae)->{
-            try{
-                int codigo_emp=Integer.parseInt(txtCodigo.getText());
-                
-                new datos().eliminarDatosEmpleado(codigo_emp);
-            }catch(NumberFormatException p){
-                JOptionPane.showMessageDialog(null,"Error:\n"+p.getMessage(),"Error 18",JOptionPane.WARNING_MESSAGE);
-            }
         });
         
         insimgButton.addActionListener((ae)->{
@@ -213,8 +185,6 @@ public final class formulario1 extends javax.swing.JFrame{
         txtEstudios = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        actButton = new javax.swing.JButton();
-        delButton = new javax.swing.JButton();
         txtEstatus = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtEdad = new javax.swing.JTextField();
@@ -300,10 +270,6 @@ public final class formulario1 extends javax.swing.JFrame{
             }
         });
 
-        actButton.setText("Actualizar datos");
-
-        delButton.setText("Eliminar datos");
-
         jLabel3.setText("Edad:");
 
         txtEdad.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -355,10 +321,8 @@ public final class formulario1 extends javax.swing.JFrame{
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(actButton)
-                                    .addComponent(jLabel10))
-                                .addGap(9, 9, 9)
+                                .addComponent(jLabel10)
+                                .addGap(57, 57, 57)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
@@ -393,8 +357,6 @@ public final class formulario1 extends javax.swing.JFrame{
                             .addComponent(picLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(svdtButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(backButton)))
                 .addContainerGap())
@@ -443,9 +405,7 @@ public final class formulario1 extends javax.swing.JFrame{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(actButton))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(picLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -458,7 +418,6 @@ public final class formulario1 extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(svdtButton)
-                    .addComponent(delButton)
                     .addComponent(backButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtEstatus))
@@ -521,10 +480,8 @@ public final class formulario1 extends javax.swing.JFrame{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton actButton;
     private javax.swing.JButton backButton;
     private javax.swing.JButton cleanButton;
-    private javax.swing.JButton delButton;
     private javax.swing.JButton insimgButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;

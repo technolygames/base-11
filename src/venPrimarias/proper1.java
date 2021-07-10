@@ -1,6 +1,7 @@
 package venPrimarias;
 
 import clases.datos;
+import clases.thread;
 import venSecundarias.exportWindow;
 import venSecundarias.importWindow;
 
@@ -28,6 +29,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.ActionEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import venTerciarias.validacionVentana7;
+import venTerciarias.validacionVentana8;
 
 public final class proper1 extends javax.swing.JFrame{
     public proper1(){
@@ -54,7 +57,7 @@ public final class proper1 extends javax.swing.JFrame{
         }
         
         configIn();
-        boton();
+        botones();
         combo1();
         combo2();
         
@@ -140,7 +143,7 @@ public final class proper1 extends javax.swing.JFrame{
         }
     }
     
-    protected final void boton(){
+    protected final void botones(){
         p=new Properties();
         
         backButton.addActionListener((ae)->{
@@ -149,11 +152,11 @@ public final class proper1 extends javax.swing.JFrame{
         });
         
         expButton.addActionListener((ae)->{
-            new exportWindow(new javax.swing.JFrame(),true).setVisible(true);
+            new validacionVentana7(new javax.swing.JFrame(),true).setVisible(true);
         });
         
         impButton.addActionListener((ae)->{
-            new importWindow(new javax.swing.JFrame(),true).setVisible(true);
+            new validacionVentana8(new javax.swing.JFrame(),true).setVisible(true);
         });
         
         iconButton.addActionListener((ae)->{
@@ -304,15 +307,10 @@ public final class proper1 extends javax.swing.JFrame{
                 is=new FileInputStream(direccion);
                 os=new FileOutputStream(dato+nombreArchivo1);
                 
-                buffer=new byte[1024];
-                
-                while((leido=is.read(buffer))>0){
-                    os.write(buffer,0,leido);
-                }
+                new thread(is,os).start();
                 
                 p.setProperty("imagen_respaldo",dato+nombreArchivo1);
                 p.setProperty("lenguaje",String.valueOf(lenguaje.getBytes("utf-8")));
-                p.setProperty("bgcolor",/*Boolean.toString(jCheckBox1.isSelected())*/"null");
                 p.setProperty("look_and_feel",diseños);
                 p.setProperty("icono",icono);
                 p.setProperty("nombre",jTextField1.getText());
@@ -320,11 +318,7 @@ public final class proper1 extends javax.swing.JFrame{
                 is=new FileInputStream(icono);
                 os=new FileOutputStream("src/data/media/copy/icon/"+nombreArchivo2);
                 
-                buffer=new byte[1024];
-                
-                while((leido=is.read(buffer))>0){
-                    os.write(buffer,0,leido);
-                }
+                new thread(is,os).start();
                 
                 p.store(new BufferedWriter(new FileWriter("src/data/config/config.properties")),"config1");
                 

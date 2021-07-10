@@ -191,16 +191,15 @@ public final class ventana extends javax.swing.JFrame{
         
         svdtButton.addActionListener((ae)->{
             try{
-                for(int i=0;i<dtm.getRowCount();i++){
+                for(int i=0;i<=(dtm.getRowCount()-1);i++){
                     codigo_prod=Integer.parseInt(dtm.getValueAt(i,0).toString());
                     nombre_prod=dtm.getValueAt(i,1).toString();
                     marca_prod=dtm.getValueAt(i,2).toString();
                     cantidad=Integer.parseInt(dtm.getValueAt(i,3).toString());
                     precio=Integer.parseInt(dtm.getValueAt(i,4).toString());
                     total=Integer.parseInt(dtm.getValueAt(i,5).toString());
-                    
-                    new datos().insertarDatosProducto(codigo_prod,nombre_prod,marca_prod,cantidad,precio,total);
                 }
+                new datos().insertarDatosProducto(codigo_prod,nombre_prod,marca_prod,cantidad,precio,total);
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 18",JOptionPane.WARNING_MESSAGE);
             }catch(NullPointerException x){
