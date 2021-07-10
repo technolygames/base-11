@@ -2,8 +2,8 @@ package venPrimarias;
 
 import clases.datos;
 import clases.thread;
-import venSecundarias.exportWindow;
-import venSecundarias.importWindow;
+import venTerciarias.validacionVentana7;
+import venTerciarias.validacionVentana8;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -29,8 +29,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.ActionEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import venTerciarias.validacionVentana7;
-import venTerciarias.validacionVentana8;
 
 public final class proper1 extends javax.swing.JFrame{
     public proper1(){

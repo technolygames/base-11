@@ -1,19 +1,28 @@
 package venSecundarias;
 
 import clases.thread;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedWriter;
+import java.io.File;
 
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class importWindow extends javax.swing.JDialog{
     public importWindow(java.awt.Frame parent,boolean modal){
@@ -72,6 +81,27 @@ public class importWindow extends javax.swing.JDialog{
             dispose();
         });
         
+        fileButton.addActionListener((ae)->{
+            try{
+                p=new Properties();
+                p.load(new FileInputStream("src/data/config/filechooserd.properties"));
+                JFileChooser chooser=new JFileChooser(p.getProperty("lastdirectory_database_import"));
+                
+                chooser.setFileFilter(new FileNameExtensionFilter("Archivo SQL","sql"));
+                
+                int i=chooser.showOpenDialog(null);
+                if(JFileChooser.APPROVE_OPTION==i){
+                    File f=chooser.getSelectedFile().getAbsoluteFile();
+                    direccion=f.getAbsolutePath();
+                    
+                    p.setProperty("lastdirectory_database_import",f.getParent());
+                    p.store(new BufferedWriter(new FileWriter("src/data/config/filechooserd.properties")),"JFileChooserDirection");
+                }
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(this,"Error:\n"+e.getMessage(),"Error 8",JOptionPane.WARNING_MESSAGE);
+            }
+        });
+        
         importButton.addActionListener((ae)->{
             restaurar();
         });
@@ -83,7 +113,8 @@ public class importWindow extends javax.swing.JDialog{
         String based=jTextField3.getText();
         
         try{
-            Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysql -u "+nombreUsuario+" -p "+passUsuario+" "+based+">"+direccion);
+            Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysql -u "+nombreUsuario+" -p "+passUsuario+" "+based);
+            
             os=pr.getOutputStream();
             is=new FileInputStream(direccion);
             
@@ -113,7 +144,7 @@ public class importWindow extends javax.swing.JDialog{
         importButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        fileButton = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -131,7 +162,7 @@ public class importWindow extends javax.swing.JDialog{
 
         jLabel4.setText("Base de datos a importar:");
 
-        jButton1.setText("Buscar");
+        fileButton.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,11 +170,7 @@ public class importWindow extends javax.swing.JDialog{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(importButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(backButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -157,10 +184,14 @@ public class importWindow extends javax.swing.JDialog{
                                     .addComponent(jLabel2))
                                 .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addComponent(jPasswordField1))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)))
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                    .addComponent(jPasswordField1)
+                                    .addComponent(fileButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 80, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(importButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(backButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -181,7 +212,7 @@ public class importWindow extends javax.swing.JDialog{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jButton1))
+                    .addComponent(fileButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(importButton)
@@ -198,8 +229,8 @@ public class importWindow extends javax.swing.JDialog{
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JButton fileButton;
     private javax.swing.JButton importButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

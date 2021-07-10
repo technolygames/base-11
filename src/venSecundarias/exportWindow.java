@@ -91,7 +91,7 @@ public class exportWindow extends javax.swing.JDialog{
         String nombrebdExportada=based+".sql";
         
         try{
-            Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump -u "+nombreUsuario+" -p "+passUsuario+" "+based+">"+nombrebdExportada);
+            Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump -u "+nombreUsuario+" -p "+passUsuario+" "+based);
             
             is=pr.getInputStream();
             os=new FileOutputStream("src/data/database/MySQL/"+nombrebdExportada);
