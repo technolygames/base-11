@@ -10,7 +10,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
 public class metodosExternos{
-    public Image getImage(byte[] bytes, boolean isThumbnail) throws IOException {
+    public Image getImage(byte[] bytes,boolean isThumbnail) throws IOException{
         ByteArrayInputStream bais=new ByteArrayInputStream(bytes);
         Iterator readers=ImageIO.getImageReadersByFormatName("");
         ImageReader reader=(ImageReader)readers.next();
@@ -21,6 +21,7 @@ public class metodosExternos{
         if(isThumbnail){
             param.setSourceSubsampling(4,4,0,0);
         }
+        
         return reader.read(0,param);
     }
 }
