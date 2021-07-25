@@ -44,26 +44,23 @@ Error 36NM: las traducciones no pudieron ser guardadas en el archivo de configur
 Error 37: el programa no encontró el driver de conexión a la base de datos
 Error 37: error de validación; solo roles específicos son aceptados1
 
-- Exclusivo para desarrollador
+-Exclusivo para desarrollador
 Rel 1E: se creó o importó correctamente
 
 Error 1E: no pudo iniciar la clase JRStyledTextParser
-
-Error 1E: no se pudo crear la base de datos
-Error 2E: las consultas hacen demasiadas conexiones
-
--Errores no mapeados (esta sección es para los errores especiales que no fueron encontrados al momento de programar la aplicación)
+Error 2E: no se pudo crear la base de datos
+Error 3E: las consultas hacen demasiadas conexiones
 
 -Errores especiales
 _T1: error al imprimir ticket
-_T1.1. error al imprimir (es del método de la clase
+_T1.1: error al imprimir (es del método de la clase)
 _T2: error al dar formato al ticket
 _H1: error al momento de ejecutar el hilo
 
--Errores de Entrada/Salida:
-Error 1IO: error al encontrar el archivo de configuración
+-Errores de Entrada/Salida
+Error 1IO: error al encontrar el/los archivos
 Error 2IO: error de flujo de datos
 
 -Errores de conexión a internet
-Error 1I: error al conectar a la dirección de las librerías
+Error 1I: no se pudo conectar a la dirección web asignada
 Error 2I: el enlace no soporta flujo de datos

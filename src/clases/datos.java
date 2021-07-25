@@ -10,6 +10,10 @@ import java.sql.PreparedStatement;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase intermedia entre el gestor de base de datos y el programa.
+ * Se encarga de registrar, actualizar y eliminar los datos que el usuario desee.
+ */
 public class datos{
     protected Connection cn;
     protected PreparedStatement ps;
@@ -23,6 +27,10 @@ public class datos{
     protected String usuario;
     protected String contraseña;
     
+    /**
+     * Conexión a la base de datos
+     * @return Obtiene la confirmación de la base de datos
+     */
     public Connection getConnection(){
         p=new Properties();
         try{
@@ -97,8 +105,8 @@ public class datos{
         }
     }
     
-    public void insertarDatosProveedor(int codigoProv,String nombreProv,String apellidopProv,String apellidomProv,String empresa){
-        String ins5_query="insert into proveedor value('"+codigoProv+"','"+nombreProv+"','"+apellidopProv+"','"+apellidomProv+"','"+empresa+"',null,now(),now());";
+    public void insertarDatosProveedor(int codigoProveedor,String nombreProveedor,String apellidoPaternoProvedor,String apellidoMaternoProveedor,String empresa){
+        String ins5_query="insert into proveedor value('"+codigoProveedor+"','"+nombreProveedor+"','"+apellidoPaternoProvedor+"','"+apellidoMaternoProveedor+"','"+empresa+"',null,now(),now());";
         try{
             ps=getConnection().prepareStatement(ins5_query);
             ps.execute();
@@ -114,7 +122,7 @@ public class datos{
         try{
             ps=getConnection().prepareStatement(up1_query);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null,"Se ha actualizado el registro","Rel 2",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Se han actualizado los datos","Rel 2",JOptionPane.INFORMATION_MESSAGE);
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 12",JOptionPane.WARNING_MESSAGE);
@@ -126,7 +134,7 @@ public class datos{
         try{
             ps=getConnection().prepareStatement(up2_query);
             ps.execute();
-            JOptionPane.showMessageDialog(null,"Se ha actualizado el registro","Rel 2",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Se han actualizado los datos","Rel 2",JOptionPane.INFORMATION_MESSAGE);
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 12",JOptionPane.WARNING_MESSAGE);
@@ -157,8 +165,8 @@ public class datos{
         }
     }
     
-    public void eliminarDatosProveedor(int codigoPro){
-        String del3_query="delete from proveedor where codigo_prov='"+codigoPro+"';";
+    public void eliminarDatosProveedor(int codigoProveedor){
+        String del3_query="delete from proveedor where codigo_prov='"+codigoProveedor+"';";
         try{
             ps=getConnection().prepareStatement(del3_query);
             ps.execute();

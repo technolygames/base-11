@@ -5,15 +5,27 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase encargada del flujo de datos.
+ * Se encarga de usar un hilo de ejecución para que exista un flujo de datos
+ */
 public class thread extends Thread{
     protected InputStream is;
     protected OutputStream os;
     
+    /**
+     * Recibe los datos para que haya un flujo de datos y se use el hilo.
+     * @param is: flujo de entrada (según sea el caso, se puede usar FileInputStream)
+     * @param os: flujo de salida (según sea el caso, se puede usar FileOutputStream)
+     */
     public thread(InputStream is,OutputStream os){
         this.os=os;
         this.is=is;
     }
-
+    
+    /**
+     * Método sobreescrito para utilizar el flujo de datos
+     */
     @Override
     public void run(){
         int leido;
