@@ -19,16 +19,13 @@ import javax.swing.JOptionPane;
 public class resourceDownload{
     protected String validacion;
     protected String url;
-    protected String direccion;
     
     /**
      * Recibe los datos para que se puedan descargar los datos necesarios.
-     * @param direccion: Dirección donde se encuentra el recurso
      * @param validar: Archivo que se validará y guardará
      * @param link: Página web del recurso a decargar
      */
-    public resourceDownload(String direccion,String validar,String link){
-        this.direccion=direccion;
+    public resourceDownload(String validar,String link){
         this.validacion=validar;
         this.url=link;
     }
@@ -40,13 +37,13 @@ public class resourceDownload{
     protected URLConnection uc;
     
     public void downloadLibs(){
-        if(!new File(direccion+validacion).exists()){
+        if(!new File("src/data/libs/"+validacion).exists()){
             try{
                 u=new URL(url);
                 uc=u.openConnection();
                 
                 is=uc.getInputStream();
-                fos=new FileOutputStream(direccion+validacion);
+                fos=new FileOutputStream("src/data/libs/"+validacion);
                 
                 new thread(is,fos).run();
                 
@@ -55,10 +52,13 @@ public class resourceDownload{
                 fos.close();
             }catch(MalformedURLException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1I",JOptionPane.WARNING_MESSAGE);
-            }catch(FileNotFoundException ñ){
-                JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();
+            }catch(FileNotFoundException x){
+                JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+                x.printStackTrace();
             }catch(IOException k){
                 JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+                k.printStackTrace();
             }
         }
     }

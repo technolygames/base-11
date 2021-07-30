@@ -3,6 +3,7 @@ package clases;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,12 +37,11 @@ public class thread extends Thread{
                 os.write(buffer,0,leido);
             }
             
-            os.close();
-            os.flush();
             is.close();
+            os.flush();
+            os.close();
         }catch(IOException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 26H",JOptionPane.WARNING_MESSAGE);
-            e.printStackTrace();
         }
     }
 }

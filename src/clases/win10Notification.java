@@ -6,6 +6,9 @@ import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 
@@ -31,11 +34,15 @@ public class win10Notification{
     }
     
     protected Properties p;
-    
+     /**
+      * Método encargado en mostrar la notificiación.
+      */
     public void trayNotify(){
         SystemTray st=SystemTray.getSystemTray();
         try{
             if(st.isSupported()){
+                p=new Properties();
+                p.load(new FileInputStream("src/data/config/config.properties"));
                 Image i=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
                 TrayIcon ti=new TrayIcon(i);
                 st.add(ti);
@@ -46,6 +53,10 @@ public class win10Notification{
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 24",JOptionPane.WARNING_MESSAGE);
         }catch(UnsupportedOperationException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 25",JOptionPane.WARNING_MESSAGE);
+        }catch(FileNotFoundException ñ){
+            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+        }catch(IOException k){
+            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
         }
     }
 }

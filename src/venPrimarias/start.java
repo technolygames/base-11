@@ -1,9 +1,12 @@
 package venPrimarias;
 
 import clases.datos;
+import clases.win10Notification;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -102,6 +105,7 @@ public final class start extends javax.swing.JFrame{
                 /*ingresarPrueba();*/
             }catch(NullPointerException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();
             }
         });
     }
@@ -110,10 +114,7 @@ public final class start extends javax.swing.JFrame{
         String usuario=txtUsuario.getText();
         String contra=String.valueOf(txtContraseña.getPassword());
         
-        String user="Prueba";
-        String pass="123";
-        
-        if(usuario.equals(user)&&contra.equals(pass)){
+        if(usuario.equals("Prueba")&&contra.equals("123")){
             new loadWindow(new javax.swing.JFrame(),true).setVisible(true);
             dispose();
         }else{
@@ -137,11 +138,16 @@ public final class start extends javax.swing.JFrame{
             if(rs.next()){
                 new loadWindow(new javax.swing.JFrame(),true).setVisible(true);
                 dispose();
+                new win10Notification("Inicio de sesión","Bienvenido, "+rs.getString("nombre_emp"),MessageType.INFO).trayNotify();
             }
             ps.close();
             rs.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 9",JOptionPane.WARNING_MESSAGE);
+            e.printStackTrace();
+        }catch(NullPointerException x){
+            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error Prueba",JOptionPane.WARNING_MESSAGE);
+            x.printStackTrace();
         }
     }
     

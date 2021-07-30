@@ -1,7 +1,6 @@
 package venPrimarias;
 
 import clases.datos;
-import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 import venSecundarias.calcWindow;
 
 import java.io.IOException;
@@ -12,8 +11,6 @@ import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -28,7 +25,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.JasperFillManager;
 
 public final class ventana extends javax.swing.JFrame{
