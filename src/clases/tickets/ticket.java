@@ -1,5 +1,7 @@
-package tickets;
+package clases.tickets;
 
+import clases.tickets.order2;
+import clases.tickets.order1;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ public class ticket{
         return (char)27+"m";
     }
     
-    public static void imprimirDocumento(String impresora,boolean abrir,boolean formatoCabecera,int formato){
+    public static void imprimirDocumento(String impresora,boolean abrir){
         try{
             FileWriter imp = new FileWriter(impresora);
             char[] cortarPapel=new char[]{0x1B,'m'};

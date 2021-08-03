@@ -34,6 +34,7 @@ public class win10Notification{
     }
     
     protected Properties p;
+    
      /**
       * Método encargado en mostrar la notificiación.
       */

@@ -1,6 +1,7 @@
 package venPrimarias;
 
 import clases.datos;
+import clases.logger;
 import clases.win10Notification;
 
 import java.awt.Image;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
+import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -139,6 +141,7 @@ public final class start extends javax.swing.JFrame{
                 new loadWindow(new javax.swing.JFrame(),true).setVisible(true);
                 dispose();
                 new win10Notification("Inicio de sesión","Bienvenido, "+rs.getString("nombre_emp"),MessageType.INFO).trayNotify();
+                new logger("start","Ha iniciado sesión sin errores. Usuario: "+rs.getString("nombre_emp"),Level.INFO).logSaver();
             }
             ps.close();
             rs.close();

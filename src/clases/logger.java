@@ -39,9 +39,9 @@ public class logger{
             logger.addHandler(fh);
             logger.log(nivel,mensaje);
         }catch(SecurityException e){
-            JOptionPane.showMessageDialog(null,""+e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage());
         }catch(IOException x){
-            JOptionPane.showMessageDialog(null,""+x.getMessage());
+            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage());
         }
     }
 }

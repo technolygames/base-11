@@ -1,19 +1,56 @@
-package tickets;
+package clases.tickets;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase encargada de imprimir el ticket de compra.
+ * Se encarga de imprimir el ticket con los objetos comprados, cantidad y total.
+ */
 public class datosTicket{
-    public void imTicket(int codigoProducto,String nombreProducto,int precio,int cantidad,int total){
+    int total;
+    String metodoPago;
+    String cambio;
+    
+    /**
+     * Método encargado de obtener los datos faltantes para imprimir el ticket
+     * @param total: Precio total de los productos a comprar.
+     * @param metodoPago: Tipo de pago con el que se realizará el pago de los productos.
+     * @param cambio: Cambio devuelto al cliente; en caso de pagar con tarjeta, será null.
+     */
+    public void datosCalc(int total,String metodoPago,String cambio){
+        this.total=total;
+        this.metodoPago=metodoPago;
+        this.cambio=cambio;
+    }
+    
+    /**
+     * Método encargado de imprimir el ticket.
+     * @param codigoProducto: Código del producto comprado.
+     * @param nombreProducto: Nombre del producto comprado.
+     * @param precio: Precio unitario del producto.
+     * @param cantidad: Cantidad total del producto.
+     */
+    public void imprimirTicket(int codigoProducto,String nombreProducto,int precio,int cantidad){
         try{
             Date date=new Date();
+            Properties p=new Properties();
+            ticket ticket=new ticket();
             
             SimpleDateFormat fecha=new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat hora=new SimpleDateFormat("hh:mm:ss aa");
             
-            ticket ticket=new ticket();
-            ticket.addCabecera("SANDALS RESTAURANT");
+            p.load(new FileInputStream("src/data/config/config.properties"));
+            
+            ticket.addCabecera(p.getProperty("nombre"));
             ticket.addCabecera(ticket.darEspacio());
             ticket.addCabecera("tlf: 222222--r.u.c: 22222222222");
             ticket.addCabecera(ticket.darEspacio());
@@ -33,13 +70,14 @@ public class datosTicket{
             ticket.addSubcabecera(ticket.darEspacio());
             /*for(int y=0;y<jTable1.getRowCount();y++){
                 //cantidad de decimales
-                NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
-                DecimalFormat form = (DecimalFormat)nf;
+                NumberFormat nf=NumberFormat.getNumberInstance(Locale.ENGLISH);
+                DecimalFormat form=(DecimalFormat) nf;
                 form.applyPattern("#,###.00");
                 //cantidad
                 String cantidad=jTable1.getValueAt(y,0).toString();
                 if(cantidad.length()<4){
-                    int cant=4-cantidad.length();String can="";
+                    int cant=4-cantidad.length();
+                    String can="";
                     for(int f=0;f<cant;f++){
                         can+=" ";
                     }
@@ -50,7 +88,8 @@ public class datosTicket{
                 if(item.length()>17){
                     item=item.substring(0,16)+".";
                 }else{
-                    int c=17-item.length();String comple="";
+                    int c=17-item.length();
+                    String comple="";
                     for(int y1=0;y1<c;y1++){
                         comple+=" ";
                     }
@@ -61,7 +100,8 @@ public class datosTicket{
                 double pre1=Double.parseDouble(precio);
                 precio=form.format(pre1);
                 if(precio.length()<8){
-                    int p=8-precio.length();String pre="";
+                    int p=8-precio.length();
+                    String pre="";
                     for(int y1=0;y1<p;y1++){
                         pre+=" ";
                     }
@@ -71,7 +111,8 @@ public class datosTicket{
                 String total=jTable1.getValueAt(y,3).toString();
                 total=form.format(Double.parseDouble(total));
                 if(total.length()<8){
-                    int t=8-total.length();String tota="";
+                    int t=8-total.length();
+                    String tota="";
                     for(int y1=0;y1<t;y1++){
                         tota+=" ";
                     }
@@ -80,23 +121,25 @@ public class datosTicket{
                 //agrego los items al detalle
                 ticket.addItem(String.valueOf(cantidad),item,String.valueOf(precio));
                 //ticket.AddItem("","","",ticket.DarEspacio());
-            }*/
-            /*ticket.addItem(ticket.dibujarLinea(40),"","","");*/
-            ticket.addTotal("",ticket.darEspacio());
+            }
+            ticket.addItem(ticket.dibujarLinea(40),"","","");*/
+            ticket.addTotal("Total: ",String.valueOf(total));
             /*ticket.addTotal("total",jTextField1.getText());*/
-            ticket.addTotal("",ticket.darEspacio());
+            ticket.addTotal("IGV:",ticket.darEspacio());
             /*ticket.addTotal("Igv",jTextField2.getText());*/
-            ticket.addTotal("",ticket.darEspacio());
-            /*ticket.addTotal("total venta",jTextField3.getText());*/
-            ticket.addTotal("",ticket.darEspacio());
+            ticket.addTotal("Paga con: ",metodoPago);
             /*ticket.addTotal("paga con",jTextField4.getText());*/
-            ticket.addTotal("",ticket.darEspacio());
+            ticket.addTotal("Cambio: ",String.valueOf(cambio));
             /*ticket.addTotal("vuelto",jTextField5.getText());*/
             ticket.addPieLinea(ticket.darEspacio());
             ticket.addPieLinea("Gracias por su Preferencia");
-            /*ticket.imprimirDocumento();*/
+            ticket.imprimirDocumento("",true);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error NFE_T1",JOptionPane.WARNING_MESSAGE);
+        }catch(FileNotFoundException x){
+            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage());
+        }catch(IOException ñ){
+            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage());
         }
     }
 }

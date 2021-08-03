@@ -8,8 +8,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.UnknownServiceException;
-import java.util.Properties;
 import javax.swing.JOptionPane;
 
 /**

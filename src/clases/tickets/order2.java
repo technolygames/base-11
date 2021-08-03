@@ -1,4 +1,4 @@
-package tickets;
+package clases.tickets;
 
 import java.util.Arrays;
 
