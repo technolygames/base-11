@@ -6,7 +6,6 @@ import clases.win10Notification;
 
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
 import java.sql.ResultSet;
 import java.sql.SQLException;

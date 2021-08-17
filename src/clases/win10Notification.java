@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  * Clase encargada de mostrar notificaciones en Windows 10.
- * Muestra notificaciones en Windows 10
+ * Muestra notificaciones en Windows 10.
  */
 public class win10Notification{
     protected String notificacion;
@@ -22,7 +22,7 @@ public class win10Notification{
     protected MessageType tipo;
     
     /**
-     * Recibe los datos para mostrar notificaciones en Windows 10
+     * Recibe los datos para mostrar notificaciones en Windows 10.
      * @param notification: Título de la notificacion
      * @param message: Mensaje que se mostrará en la notificació
      * @param mt: Tipo de mensaje (puede se ERROR, INFO, NONE y WARNING)
@@ -35,9 +35,9 @@ public class win10Notification{
     
     protected Properties p;
     
-     /**
-      * Método encargado en mostrar la notificiación.
-      */
+    /**
+     * Método encargado en mostrar la notificiación.
+     */
     public void trayNotify(){
         SystemTray st=SystemTray.getSystemTray();
         try{

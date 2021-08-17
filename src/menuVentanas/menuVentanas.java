@@ -6,8 +6,8 @@ import venPrimarias.ltshData;
 import venPrimarias.ventana2;
 import venPrimarias.ltshProduct;
 import venTerciarias.programmers;
-import venTerciarias.validacionVentana1;
-import venTerciarias.validacionVentana2;
+import venTerciarias.valVentanas.validacionVentana1;
+import venTerciarias.valVentanas.validacionVentana2;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -24,10 +24,10 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.imageio.ImageIO;
 
 import java.awt.event.ActionEvent;
-import venTerciarias.validacionVentana3;
-import venTerciarias.validacionVentana4;
-import venTerciarias.validacionVentana5;
-import venTerciarias.validacionVentana6;
+import venTerciarias.valVentanas.validacionVentana3;
+import venTerciarias.valVentanas.validacionVentana4;
+import venTerciarias.valVentanas.validacionVentana5;
+import venTerciarias.valVentanas.validacionVentana6;
 
 public final class menuVentanas extends javax.swing.JFrame{
     public menuVentanas(){

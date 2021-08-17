@@ -1,7 +1,7 @@
-package venTerciarias;
+package venTerciarias.valVentanas;
 
 import clases.datos;
-import venSecundarias.importWindow;
+import venSecundarias.exportWindow;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class validacionVentana8 extends javax.swing.JDialog{
-    public validacionVentana8(java.awt.Frame parent, boolean modal){
+public class validacionVentana7 extends javax.swing.JDialog{
+    public validacionVentana7(java.awt.Frame parent, boolean modal){
         super(parent, modal);
         initComponents();
         try{
@@ -80,7 +80,7 @@ public class validacionVentana8 extends javax.swing.JDialog{
                 ResultSet rs=ps.executeQuery();
                 if(rs.next()){
                     if(rs.getString("puesto").equals("Programador")||rs.getString("puesto").equals("Desarrollador")){
-                        new importWindow(new javax.swing.JFrame(),true).setVisible(true);
+                        new exportWindow(new javax.swing.JFrame(),true).setVisible(true);
                         dispose();
                     }else if(rs.getString("puesto").equals("Dueño")||rs.getString("puesto").equals("Empleado")){
                         JOptionPane.showMessageDialog(null,"Acceso restringido","Error 37",JOptionPane.WARNING_MESSAGE);
@@ -93,6 +93,7 @@ public class validacionVentana8 extends javax.swing.JDialog{
             }
         });
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -123,18 +124,18 @@ public class validacionVentana8 extends javax.swing.JDialog{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(valButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(backButton)))
+                        .addComponent(backButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -159,8 +160,7 @@ public class validacionVentana8 extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]){
-        new validacionVentana8(new javax.swing.JFrame(), true).setVisible(true);
-            
+        new validacionVentana7(new javax.swing.JFrame(), true).setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

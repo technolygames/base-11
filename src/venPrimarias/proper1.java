@@ -2,8 +2,8 @@ package venPrimarias;
 
 import clases.datos;
 import clases.thread;
-import venTerciarias.validacionVentana7;
-import venTerciarias.validacionVentana8;
+import venTerciarias.valVentanas.validacionVentana7;
+import venTerciarias.valVentanas.validacionVentana8;
 
 import java.awt.Image;
 import java.awt.Toolkit;

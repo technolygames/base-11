@@ -1,14 +1,15 @@
 package clases;
 
 import java.io.IOException;
-import java.util.logging.FileHandler;
+import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
-import javax.swing.JOptionPane;
 
 /**
- * Clase encargada de manejar los eventos del programa
+ * Clase encargada de manejar los eventos del programa.
+ * Guarda los eventos del programa mientras este se está ejecutando.
  */
 public class logger{
     protected String mensaje;
@@ -32,10 +33,10 @@ public class logger{
      */
     public void logSaver(){
         Logger logger=Logger.getLogger("ClassLog");
-        SimpleFormatter formatter=new SimpleFormatter();
+        SimpleFormatter sf=new SimpleFormatter();
         try{
             FileHandler fh=new FileHandler("src/data/logs/"+nombreClase+".log");
-            fh.setFormatter(formatter);
+            fh.setFormatter(sf);
             logger.addHandler(fh);
             logger.log(nivel,mensaje);
         }catch(SecurityException e){

@@ -3,11 +3,11 @@ package clases.tickets;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.text.DecimalFormat;//still in use, but commented
+import java.text.NumberFormat;//still in use, but commented
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
+import java.util.Locale;//still in use, but commented
 import java.util.Properties;
 import javax.swing.JOptionPane;
 
@@ -124,22 +124,18 @@ public class datosTicket{
             }
             ticket.addItem(ticket.dibujarLinea(40),"","","");*/
             ticket.addTotal("Total: ",String.valueOf(total));
-            /*ticket.addTotal("total",jTextField1.getText());*/
-            ticket.addTotal("IGV:",ticket.darEspacio());
-            /*ticket.addTotal("Igv",jTextField2.getText());*/
+            ticket.addTotal("IGV: ",ticket.darEspacio());
             ticket.addTotal("Paga con: ",metodoPago);
-            /*ticket.addTotal("paga con",jTextField4.getText());*/
             ticket.addTotal("Cambio: ",String.valueOf(cambio));
-            /*ticket.addTotal("vuelto",jTextField5.getText());*/
             ticket.addPieLinea(ticket.darEspacio());
-            ticket.addPieLinea("Gracias por su Preferencia");
+            ticket.addPieLinea("Gracias por su preferencia");
             ticket.imprimirDocumento("",true);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error NFE_T1",JOptionPane.WARNING_MESSAGE);
         }catch(FileNotFoundException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage());
+            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
         }catch(IOException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage());
+            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
         }
     }
 }

@@ -1,7 +1,7 @@
-package venTerciarias;
+package venTerciarias.valVentanas;
 
 import clases.datos;
-import venPrimarias.ltshWorkers;
+import venPrimarias.ltshPartners;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class validacionVentana3 extends javax.swing.JDialog{
-    public validacionVentana3(java.awt.Frame parent,boolean modal){
+public class validacionVentana4 extends javax.swing.JDialog{
+    public validacionVentana4(java.awt.Frame parent,boolean modal){
         super(parent,modal);
         initComponents();
         try{
@@ -80,7 +80,7 @@ public class validacionVentana3 extends javax.swing.JDialog{
                 ResultSet rs=ps.executeQuery();
                 if(rs.next()){
                     if(rs.getString("puesto").equals("Dueño")||rs.getString("puesto").equals("Programador")||rs.getString("puesto").equals("Desarrollador")){
-                        new ltshWorkers().setVisible(true);
+                        new ltshPartners().setVisible(true);
                         dispose();
                     }else if(rs.getString("puesto").equals("Empleado")){
                         JOptionPane.showMessageDialog(null,"Acceso restringido","Error 37",JOptionPane.WARNING_MESSAGE);
@@ -106,7 +106,6 @@ public class validacionVentana3 extends javax.swing.JDialog{
         valButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(getIconImage());
 
         jLabel1.setText("Usuario:");
 
@@ -129,8 +128,8 @@ public class validacionVentana3 extends javax.swing.JDialog{
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1))
+                            .addComponent(jTextField1)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(valButton)
@@ -146,7 +145,7 @@ public class validacionVentana3 extends javax.swing.JDialog{
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -160,7 +159,7 @@ public class validacionVentana3 extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]){
-        new validacionVentana3(new javax.swing.JFrame(),true).setVisible(true);
+        new validacionVentana4(new javax.swing.JFrame(),true).setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
