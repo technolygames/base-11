@@ -49,7 +49,7 @@ public final class ventana extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error IOE",JOptionPane.WARNING_MESSAGE);
         }
         
-        tabla();
+        table();
         botones();
         settings();
         
@@ -92,6 +92,7 @@ public final class ventana extends javax.swing.JFrame{
     
     protected final void settings(){
         p=new Properties();
+        translate();
         try{
             p.load(new FileInputStream("src/data/config/config.properties"));
             Image i=ImageIO.read(new FileInputStream(p.getProperty("imagenes")));
@@ -184,27 +185,39 @@ public final class ventana extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(null,"Error:\n"+d,"Error Prueba",JOptionPane.WARNING_MESSAGE);
             }
         });
-        
-        svdtButton.addActionListener((ae)->{
-            try{
-                for(int i=0;i<=(dtm.getRowCount()-1);i++){
-                    codigo_prod=Integer.parseInt(dtm.getValueAt(i,0).toString());
-                    nombre_prod=dtm.getValueAt(i,1).toString();
-                    marca_prod=dtm.getValueAt(i,2).toString();
-                    cantidad=Integer.parseInt(dtm.getValueAt(i,3).toString());
-                    precio=Integer.parseInt(dtm.getValueAt(i,4).toString());
-                    total=Integer.parseInt(dtm.getValueAt(i,5).toString());
-                }
-                new datos().insertarDatosProducto(codigo_prod,nombre_prod,marca_prod,cantidad,precio,total);
-            }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 18",JOptionPane.WARNING_MESSAGE);
-            }catch(NullPointerException x){
-                JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
-            }
-        });
     }
     
-    protected final void tabla(){
+    protected void payment(){
+        storeData();
+    }
+    
+    protected void storeData(){
+        try{
+            for(int i=0;i<=(dtm.getRowCount()-1);i++){
+                codigo_prod=Integer.parseInt(dtm.getValueAt(i,0).toString());
+                nombre_prod=dtm.getValueAt(i,1).toString();
+                marca_prod=dtm.getValueAt(i,2).toString();
+                cantidad=Integer.parseInt(dtm.getValueAt(i,3).toString());
+                precio=Integer.parseInt(dtm.getValueAt(i,4).toString());
+                total=Integer.parseInt(dtm.getValueAt(i,5).toString());
+            }
+            new datos().insertarDatosProducto(codigo_prod,nombre_prod,marca_prod,cantidad,precio,total);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 18",JOptionPane.WARNING_MESSAGE);
+        }catch(NullPointerException x){
+            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
+    protected void translate(){
+        try{
+            
+        }catch(Exception e){
+            
+        }
+    }
+    
+    protected final void table(){
         dtm=(DefaultTableModel)jTable1.getModel();
         dtm.setColumnIdentifiers(new Object[]{"Código del producto","Nombre del producto","Marca","Precio","Cantidad","Total"});
         
@@ -223,7 +236,6 @@ public final class ventana extends javax.swing.JFrame{
         txtMarca = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        svdtButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
@@ -269,8 +281,6 @@ public final class ventana extends javax.swing.JFrame{
         jLabel3.setText("Nombre del producto:");
 
         jLabel4.setText("Marca:");
-
-        svdtButton.setText("Guardar datos");
 
         jLabel5.setText("Precio:");
 
@@ -369,12 +379,10 @@ public final class ventana extends javax.swing.JFrame{
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jButton2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(svdtButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(genrepButton)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(calcButton)
-                                    .addGap(42, 42, 42)
+                                    .addGap(149, 149, 149)
                                     .addComponent(addButton)
                                     .addGap(27, 27, 27)
                                     .addComponent(cleanButton)))
@@ -417,7 +425,6 @@ public final class ventana extends javax.swing.JFrame{
                     .addComponent(calcButton)
                     .addComponent(genrepButton)
                     .addComponent(cleanButton)
-                    .addComponent(svdtButton)
                     .addComponent(addButton)
                     .addComponent(jButton2))
                 .addContainerGap())
@@ -490,7 +497,6 @@ public final class ventana extends javax.swing.JFrame{
     private javax.swing.JScrollPane jScrollPane1;
     protected javax.swing.JTable jTable1;
     protected javax.swing.JLabel picLabel;
-    protected javax.swing.JButton svdtButton;
     protected javax.swing.JTextField txtCant;
     protected javax.swing.JTextField txtCodigo;
     protected javax.swing.JTextField txtMarca;

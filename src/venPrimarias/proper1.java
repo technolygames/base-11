@@ -1,6 +1,7 @@
 package venPrimarias;
 
 import clases.datos;
+import clases.logger;
 import clases.thread;
 import venTerciarias.valVentanas.validacionVentana7;
 import venTerciarias.valVentanas.validacionVentana8;
@@ -28,6 +29,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public final class proper1 extends javax.swing.JFrame{
@@ -40,8 +42,10 @@ public final class proper1 extends javax.swing.JFrame{
             SwingUtilities.updateComponentTreeUI(this);
         }catch(FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 1IO: "+e.getMessage()+" en '"+proper1.class.getName()+"'", Level.WARNING);
         }catch(ClassNotFoundException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error CNFE: "+x.getMessage()+" en '"+proper1.class.getName()+"'", Level.WARNING);
         }catch(InstantiationException ñ){
             JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
         }catch(IllegalAccessException j){
@@ -77,6 +81,7 @@ public final class proper1 extends javax.swing.JFrame{
     protected InputStream is;
     protected OutputStream os;
     protected JFileChooser jfc;
+    protected logger l;
     
     protected String icono;
     protected String nombre;
@@ -94,14 +99,17 @@ public final class proper1 extends javax.swing.JFrame{
     @Override
     public Image getIconImage(){
         p=new Properties();
+        l=new logger();
         try{
             p.load(new FileInputStream("src/data/config/config.properties"));
             retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
             retValue.flush();
         }catch(FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+            l.logStaticSaver("Error 1IO: "+e.getMessage()+" en '"+getIconImage().getClass().getName()+"'", Level.WARNING);
         }catch(IOException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+            l.logStaticSaver("Error 2IO: "+x.getMessage()+" en '"+getIconImage().getClass().getName()+"'", Level.WARNING);
         }
         return retValue;
     }

@@ -12,33 +12,54 @@ import java.util.logging.SimpleFormatter;
  * Guarda los eventos del programa mientras este se está ejecutando.
  */
 public class logger{
-    protected String mensaje;
-    protected String nombreClase;
-    protected Level nivel;
+    protected static FileHandler fh;
+    protected FileHandler fh2;
     
-    /**
-     * Recibe los datos para que el manejador de eventos pueda guardar en un archivo los eventos ocurridos durante la ejecución del programa.
-     * @param className: nombre de la clase en la que sucede el evento
-     * @param message. Mensaje que recibe el manejador de eventos
-     * @param level: Nivel de severidad del evento
-     */
-    public logger(String className,String message,Level level){
-        this.mensaje=message;
-        this.nombreClase=className;
-        this.nivel=level;
+    static{
+        try{
+        fh=new FileHandler("src/data/logs/static/staticLog.log",0,1,true);
+        }catch(SecurityException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage());
+        }catch(IOException x){
+            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage());
+        }
     }
     
     /**
-     * Método encargado de guardar los datos de eventos ocurridos durante la ejecución del programa
+     * Método encargado de guardar los datos de eventos ocurridos durante la ejecución del programa en un mismo archivo.
+     * 
+     * @param message Mensaje que se almacenará en el archivo .log.
+     * @param level Nivel de prioridad del evento.
      */
-    public void logSaver(){
-        Logger logger=Logger.getLogger("ClassLog");
-        SimpleFormatter sf=new SimpleFormatter();
+    public void logStaticSaver(String message,Level level){
+        Logger logger=Logger.getLogger("staticLogger");
         try{
-            FileHandler fh=new FileHandler("src/data/logs/"+nombreClase+".log");
-            fh.setFormatter(sf);
+            fh.setFormatter(new SimpleFormatter());
             logger.addHandler(fh);
-            logger.log(nivel,mensaje);
+            logger.log(level,message);
+        }catch(SecurityException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage());
+        }
+    }
+    
+    /**
+     * Método que se encarga de guardar los datos de eventos ocurridos durante la ejecución del programa en varios archivos.
+     * 
+     * @param className Nombre de la clase en la que sucede el evento.
+     * @param level Nivel de prioridadd de la excepción.
+     * @param methodName Nombre del método en el que está ocurriendo el error.
+     * @param exception Excepción (o error) al que se le manejará y guardará en el archivo log.
+     */
+    public void exceptionLogger(String className,Level level,String methodName,Throwable exception){
+        Logger logger=Logger.getLogger("exceptionLogger");
+        try{
+            fh2=new FileHandler("src/data/logs/exceptions/"+className+".log");
+            fh2.setFormatter(new SimpleFormatter());
+            logger.addHandler(fh2);
+            logger.log(level,methodName,exception);
+            
+            fh2.flush();
+            fh2.close();
         }catch(SecurityException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage());
         }catch(IOException x){

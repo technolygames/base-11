@@ -3,6 +3,7 @@ package clases;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.Level;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -35,6 +36,7 @@ public class thread extends Thread{
             buffer=new byte[1024];
             while((leido=is.read(buffer))>0){
                 os.write(buffer,0,leido);
+                new logger().logStaticSaver("Se está usando el hilo en 'run()'",Level.WARNING);
             }
             
             is.close();
@@ -42,6 +44,7 @@ public class thread extends Thread{
             os.close();
         }catch(IOException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 26H",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 26H: "+e.getMessage()+" en 'run()'",Level.WARNING);
         }
     }
 }

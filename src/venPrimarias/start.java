@@ -30,20 +30,33 @@ public final class start extends javax.swing.JFrame{
         try{
             Properties style=new Properties();
             style.load(new FileInputStream("src/data/config/config.properties"));
+            new logger().logStaticSaver("Se cargó los datos de la apariencia de start",Level.INFO);
             UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
             SwingUtilities.updateComponentTreeUI(this);
         }catch(ClassNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error CNFE: "+e.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(CNFE)",Level.SEVERE,"start()",e.fillInStackTrace());
         }catch(InstantiationException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error IE: "+x.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(IE)",Level.SEVERE,"start()",x.fillInStackTrace());
         }catch(IllegalAccessException ñ){
             JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error IAE: "+ñ.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(IAE)",Level.SEVERE,"start()",ñ.fillInStackTrace());
         }catch(UnsupportedLookAndFeelException y){
             JOptionPane.showMessageDialog(null,"Error:\n"+y.getMessage(),"Error ULAFE",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error ULAFE: "+y.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(ULAFE-sc)",Level.SEVERE,"start()",y.fillInStackTrace());
         }catch(FileNotFoundException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error FNFE",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 1IO: "+k.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(1IO-sc)",Level.SEVERE,"start()",k.fillInStackTrace());
         }catch(IOException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error IOE",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 2IO: "+s.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(2IO-sc)",Level.SEVERE,"start()",s.fillInStackTrace());
         }
         
         botones();
@@ -67,12 +80,17 @@ public final class start extends javax.swing.JFrame{
         p=new Properties();
         try{
             p.load(new FileInputStream("src/data/config/config.properties"));
+            new logger().logStaticSaver("Se cargó el icono de start",Level.INFO);
             retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
             retValue.flush();
         }catch(FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 1IO: "+e.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(1IO-get)",Level.SEVERE,"getIconImage()",e.fillInStackTrace());
         }catch(IOException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 2IO: "+x.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(2IO-get)",Level.SEVERE,"getIconImage()",x.fillInStackTrace());
         }
         return retValue;
     }
@@ -81,16 +99,22 @@ public final class start extends javax.swing.JFrame{
         p=new Properties();
         try{
             p.load(new FileInputStream("src/data/config/config.properties"));
+            new logger().logStaticSaver("Se cargaron los datos de configuración de start",Level.INFO);
             Image i=ImageIO.read(new FileInputStream(p.getProperty("imagenes")));
             ImageIcon im=new ImageIcon(i);
             Icon l=new ImageIcon(im.getImage().getScaledInstance(picLabel.getWidth(),picLabel.getHeight(),Image.SCALE_DEFAULT));
             picLabel.setIcon(l);
             nameLabel.setText(p.getProperty("nombre"));
+            
             i.flush();
         }catch(FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 1IO: "+e.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(1IO-s)",Level.SEVERE,"settings()",e.fillInStackTrace());
         }catch(IOException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 2IO: "+x.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start(2IO-s)",Level.SEVERE,"settings()",x.fillInStackTrace());
         }
     }
     
@@ -106,7 +130,8 @@ public final class start extends javax.swing.JFrame{
                 /*ingresarPrueba();*/
             }catch(NullPointerException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
-                e.printStackTrace();
+                new logger().logStaticSaver("Error 0: "+e.getMessage(),Level.WARNING);
+                new logger().exceptionLogger("start",Level.SEVERE,"botones()",e.fillInStackTrace());
             }
         });
     }
@@ -115,11 +140,14 @@ public final class start extends javax.swing.JFrame{
         String usuario=txtUsuario.getText();
         String contra=String.valueOf(txtContraseña.getPassword());
         
-        if(usuario.equals("Prueba")&&contra.equals("123")){
+        if(usuario.equals("metatest")&&contra.equals("0123")){
             new loadWindow(new javax.swing.JFrame(),true).setVisible(true);
             dispose();
+            new win10Notification().trayNotify("Inicio de sesión","Se ha iniciado sesión como metausuario",MessageType.WARNING);
+            new logger().logStaticSaver("ATENCIÓN: Se ha iniciado como metausuario. Tiene privilegios elevados como los de un desarrollador",Level.SEVERE);
         }else{
-            JOptionPane.showMessageDialog(null,"Ingrese correctamente los datos","Error 9",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Se ingresaron datos erróneos","Error 9",JOptionPane.INFORMATION_MESSAGE);
+            new logger().logStaticSaver("Inicio de sesión como metausuario no realizado",Level.FINE);
         }
     }*/
     
@@ -137,19 +165,21 @@ public final class start extends javax.swing.JFrame{
             ps.executeUpdate(fecha);
             rs=ps.executeQuery();
             if(rs.next()){
-                new loadWindow(new javax.swing.JFrame(),true).setVisible(true);
+                new loadWindow().setVisible(true);
                 dispose();
-                new win10Notification("Inicio de sesión","Bienvenido, "+rs.getString("nombre_emp"),MessageType.INFO).trayNotify();
-                new logger("start","Ha iniciado sesión sin errores. Usuario: "+rs.getString("nombre_emp"),Level.INFO).logSaver();
+                new win10Notification().trayNotify("Inicio de sesión","Bienvenido, "+rs.getString("nombre_emp"),MessageType.INFO);
+                new logger().logStaticSaver("Ha iniciado sesión sin errores. Usuario: "+rs.getString("nombre_emp"),Level.INFO);
             }
             ps.close();
             rs.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 9",JOptionPane.WARNING_MESSAGE);
-            e.printStackTrace();
+            new logger().logStaticSaver("Error 9: "+e.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start",Level.SEVERE,"login()",e.fillInStackTrace());
         }catch(NullPointerException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error Prueba",JOptionPane.WARNING_MESSAGE);
-            x.printStackTrace();
+            new logger().logStaticSaver("Error Prueba: "+x.getMessage(),Level.WARNING);
+            new logger().exceptionLogger("start",Level.SEVERE,"login()",x.fillInStackTrace());
         }
     }
     
@@ -247,6 +277,7 @@ public final class start extends javax.swing.JFrame{
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
         if(Character.isDigit(evt.getKeyChar())){
             JOptionPane.showMessageDialog(null,"Solo letras","Let 2",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Let 2: Se introdujeron caracteres inválidos en el campo de usuario",Level.WARNING);
             evt.consume();
         }
     }//GEN-LAST:event_txtUsuarioKeyPressed

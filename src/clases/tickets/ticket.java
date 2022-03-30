@@ -1,15 +1,16 @@
 package clases.tickets;
 
-import clases.tickets.order2;
-import clases.tickets.order1;
+import clases.logger;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 public class ticket{
     static ArrayList<String> cabezaLineas=new ArrayList<String>();
-    static ArrayList<String> subCabezaLineas=new ArrayList<String>();
+    static ArrayList<String> subcabezaLineas=new ArrayList<String>();
     static ArrayList<String> items=new ArrayList<String>();
     static ArrayList<String> totales=new ArrayList<String>();
     static ArrayList<String> lineasPie=new ArrayList<String>();
@@ -19,7 +20,7 @@ public class ticket{
     }
     
     public static void addSubcabecera(String linea){
-        subCabezaLineas.add(linea);
+        subcabezaLineas.add(linea);
     }
     
     public static void addItem(String cantidad,String item,String precio){
@@ -50,6 +51,7 @@ public class ticket{
             fw.write(ESC_CUT_PAPER);
         }catch(IOException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error IOE_T2",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error IOE_T2: "+e.getMessage()+" en 'setFormato()'",Level.WARNING);
         }
     }
     
@@ -70,8 +72,8 @@ public class ticket{
             for(int cabecera=0; cabecera<cabezaLineas.size(); cabecera++){
                 imp.write(cabezaLineas.get(cabecera));
             }
-            for(int subcabecera=0;subcabecera<subCabezaLineas.size();subcabecera++){
-                imp.write(subCabezaLineas.get(subcabecera));
+            for(int subcabecera=0;subcabecera<subcabezaLineas.size();subcabecera++){
+                imp.write(subcabezaLineas.get(subcabecera));
             }
             for(int ITEM=0;ITEM<items.size();ITEM++){
                 imp.write(items.get(ITEM));
@@ -90,20 +92,22 @@ public class ticket{
             
             if(abrir){
                 imp.write(abrirGaveta);
+                new logger().logStaticSaver("Se abrió la gaveta",Level.INFO);
             }
             
+            cabezaLineas.clear();
+            subcabezaLineas.clear();
+            items.clear();
+            totales.clear();
+            lineasPie.clear();
+            imp.flush();
             imp.close();
-            
-            cabezaLineas.remove(cabezaLineas);
-            subCabezaLineas.remove(subCabezaLineas);
-            items.remove(items);
-            totales.remove(totales);
-            lineasPie.remove(lineasPie);
-        }catch(IOException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IOE_T1.1",JOptionPane.WARNING_MESSAGE);
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error IOE_T1.1",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error IOE_T1.1: "+e.getMessage()+" en 'imprimirDocumento()'",Level.WARNING);
             
             cabezaLineas.removeAll(cabezaLineas);
-            subCabezaLineas.removeAll(subCabezaLineas);
+            subcabezaLineas.removeAll(subcabezaLineas);
             items.removeAll(items);
             totales.removeAll(totales);
             lineasPie.removeAll(lineasPie);

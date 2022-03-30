@@ -1,16 +1,14 @@
 package venPrimarias;
 
 import clases.datos;
+import clases.logger;
 import venSecundarias.webcam;
 import menuVentanas.menuDatosVentana1;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.Properties;
@@ -23,6 +21,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.placeholder.PlaceHolder;
+import java.util.logging.Level;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -32,20 +31,27 @@ public final class formulario1 extends javax.swing.JFrame{
         try{
             Properties style=new Properties();
             style.load(new FileInputStream("src/data/config/config.properties"));
+            new logger().logStaticSaver("Se cargó los datos de la apariencia de formulario1",Level.INFO);
             UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
             SwingUtilities.updateComponentTreeUI(this);
         }catch(ClassNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error CNFE: "+e.getMessage()+" en formulario1",Level.WARNING);
         }catch(InstantiationException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error IE: "+x.getMessage()+" en formulario1",Level.WARNING);
         }catch(IllegalAccessException ñ){
             JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error IAE: "+ñ.getMessage()+" en formulario1",Level.WARNING);
         }catch(UnsupportedLookAndFeelException y){
             JOptionPane.showMessageDialog(null,"Error:\n"+y.getMessage(),"Error ULAFE",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error ULAFE: "+y.getMessage()+" en formulario1",Level.WARNING);
         }catch(FileNotFoundException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error FNFE",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 1IO: "+k.getMessage()+" en formulario1",Level.WARNING);
         }catch(IOException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error IOE",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+            new logger().logStaticSaver("Error 2IO: "+s.getMessage()+" en formulario1",Level.WARNING);
         }
         
         botones();
@@ -58,7 +64,7 @@ public final class formulario1 extends javax.swing.JFrame{
         picLabel.setVisible(true);
         insimgButton.setVisible(true);
         
-        new PlaceHolder(txtNombre,"Primer y/o segundo nombre");
+        new PlaceHolder(txtNombre,"Primer y/o segundo nombre").inicializar();
     }
     
     protected datos cn;
@@ -103,7 +109,7 @@ public final class formulario1 extends javax.swing.JFrame{
             txtEstudios.setText("");
             txtEdad.setText("");
             picLabel.setIcon(null);
-            new PlaceHolder(txtNombre,"Primer y/o segundo nombre");
+            new PlaceHolder(txtNombre,"Primer y/o segundo nombre").inicializar();
         });
         
         insimgButton.addActionListener((ae)->{

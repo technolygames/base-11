@@ -82,12 +82,10 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="svdtButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="genrepButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="calcButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
                                   <Component id="addButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="cleanButton" min="-2" max="-2" attributes="0"/>
@@ -142,7 +140,6 @@
                   <Component id="calcButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="genrepButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cleanButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="svdtButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -190,14 +187,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Marca:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="svdtButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Guardar datos"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>

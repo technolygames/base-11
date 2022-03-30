@@ -1,0 +1,32 @@
+sep 06, 2021 5:20:12 PM clases.logger logStaticSaver
+INFORMACIÓN: Se cargó los datos de la apariencia de start
+sep 06, 2021 5:20:12 PM clases.logger logStaticSaver
+INFORMACIÓN: Se cargaron los datos de configuración de start
+sep 06, 2021 5:20:12 PM clases.logger logStaticSaver
+INFORMACIÓN: Se cargaron los datos de configuración de start
+sep 06, 2021 5:20:29 PM clases.logger logStaticSaver
+INFORMACIÓN: Hay conexión a la base de datos
+sep 06, 2021 5:20:33 PM clases.logger logStaticSaver
+ADVERTENCIA: Ha iniciado sesión sin errores. Usuario: Prueba
+sep 06, 2021 5:20:33 PM clases.logger logStaticSaver
+ADVERTENCIA: Ha iniciado sesión sin errores. Usuario: Prueba
+sep 06, 2021 7:00:21 PM clases.logger logStaticSaver
+INFORMACIÓN: Se cargó el icono de start
+sep 06, 2021 7:00:22 PM clases.logger logStaticSaver
+INFORMACIÓN: Se cargó los datos de la apariencia de start
+sep 06, 2021 7:00:22 PM clases.logger logStaticSaver
+INFORMACIÓN: Se cargó los datos de la apariencia de start
+sep 06, 2021 7:00:22 PM clases.logger logStaticSaver
+INFORMACIÓN: Se cargaron los datos de configuración de start
+sep 06, 2021 7:00:22 PM clases.logger logStaticSaver
+INFORMACIÓN: Se cargaron los datos de configuración de start
+sep 06, 2021 7:00:22 PM clases.logger logStaticSaver
+INFORMACIÓN: Se cargaron los datos de configuración de start
+sep 06, 2021 7:01:01 PM clases.logger logStaticSaver
+ADVERTENCIA: Error 10: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server. java.net.ConnectException: Connection refused: connect
+sep 06, 2021 7:01:10 PM clases.logger logStaticSaver
+ADVERTENCIA: Error Prueba: null
+sep 06, 2021 7:01:10 PM clases.logger logStaticSaver
+ADVERTENCIA: Error Prueba: null

@@ -4,6 +4,7 @@ import clases.datos;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -161,6 +162,10 @@ public final class ventana2 extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
             }
         });
+    }
+    
+    protected void campos(){
+        
     }
     
     protected final void tabla(){
