@@ -1,7 +1,7 @@
 package menuVentanas;
 
 import venPrimarias.proper1;
-import venPrimarias.ventana;
+import venPrimarias.ventana1;
 import venPrimarias.ltshData;
 import venPrimarias.ventana2;
 import venPrimarias.ltshProduct;
@@ -97,7 +97,7 @@ public final class menuVentanas extends javax.swing.JFrame{
     
     protected final void botones(){
         productButton.addActionListener((ae)->{
-            new ventana().setVisible(true);
+            new ventana1().setVisible(true);
         });
         
         storeButton.addActionListener((ae)->{

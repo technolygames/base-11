@@ -2,7 +2,7 @@ package venSecundarias;
 
 import java.awt.Image;
 import java.awt.Toolkit;
-import venPrimarias.ventana;
+import venPrimarias.ventana1;
 
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -37,15 +37,15 @@ public final class calcWindow extends javax.swing.JDialog{
             JOptionPane.showMessageDialog(null,"Error:\n"+d.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
         }
         
-        win=new ventana();
-        String res=Integer.toString(ventana.resultado);
+        win=new ventana1();
+        String res=Integer.toString(ventana1.resultado);
         txtTotal.setText(res);
         
         setLocationRelativeTo(null);
         setTitle("Calculadora");
     }
     
-    protected ventana win;
+    protected ventana1 win;
     
     protected Image retValue;
     protected Properties p;

@@ -135,16 +135,16 @@ public class datosTicket{
             ticket.addPieLinea(ticket.darEspacio());
             ticket.addPieLinea("Gracias por su preferencia");
             ticket.imprimirDocumento("",true);
-            new logger().logStaticSaver("Se imprimió correctamente el ticket",Level.INFO);
+            new logger().staticLogger("Se imprimió correctamente el ticket",Level.INFO);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error NFE_T1",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error NFE_T1: "+e.getMessage()+" en 'imprimirTicket()'",Level.WARNING);
+            new logger().staticLogger("Error NFE_T1: "+e.getMessage()+" en 'imprimirTicket()'",Level.WARNING);
         }catch(FileNotFoundException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error 1IO: "+x.getMessage()+" en 'imprimirTicket()'",Level.WARNING);
+            new logger().staticLogger("Error 1IO: "+x.getMessage()+" en 'imprimirTicket()'",Level.WARNING);
         }catch(IOException ñ){
             JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error 2IO: "+ñ.getMessage()+" en 'imprimirTicket()'",Level.WARNING);
+            new logger().staticLogger("Error 2IO: "+ñ.getMessage()+" en 'imprimirTicket()'",Level.WARNING);
         }
     }
 }

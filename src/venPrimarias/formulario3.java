@@ -1,63 +1,25 @@
 package venPrimarias;
 
 import clases.datos;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Properties;
-import javax.swing.UIManager;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UnsupportedLookAndFeelException;
+import clases.laf;
+import clases.Icono;
 import menuVentanas.menuDatosVentana3;
 
 public class formulario3 extends javax.swing.JFrame{
     public formulario3(){
         initComponents();
-        try{
-            Properties style=new Properties();
-            style.load(new FileInputStream("src/data/config/config.properties"));
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
-            SwingUtilities.updateComponentTreeUI(this);
-        }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(InstantiationException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-        }catch(IllegalAccessException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-        }catch(UnsupportedLookAndFeelException y){
-            JOptionPane.showMessageDialog(null,"Error:\n"+y.getMessage(),"Error ULAFE",JOptionPane.WARNING_MESSAGE);
-        }catch(FileNotFoundException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error FNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error IOE",JOptionPane.WARNING_MESSAGE);
-        }
+        new laf().LookAndFeel(formulario3.this,formulario3.class.getName(),"formulario3");
         
         botones();
+        settings();
         
         setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Formulario 1");
     }
     
-    protected Image retValue;
-    protected Properties p;
-    
-    @Override
-    public Image getIconImage(){
-        p=new Properties();
-        try{
-            p.load(new FileInputStream("src/data/config/config.properties"));
-            retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-            retValue.flush();
-        }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
-        return retValue;
+    protected void settings(){
+        
     }
     
     protected final void botones(){
@@ -79,10 +41,6 @@ public class formulario3 extends javax.swing.JFrame{
         });
         
         jMenuItem2.addActionListener((ae)->{
-            
-        });
-        
-        jMenuItem3.addActionListener((ae)->{
             
         });
         
@@ -120,10 +78,9 @@ public class formulario3 extends javax.swing.JFrame{
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(getIconImage());
+        setIconImage(new Icono().getIconImage());
 
         backButton.setText("Regresar");
 
@@ -156,9 +113,6 @@ public class formulario3 extends javax.swing.JFrame{
 
         jMenuItem2.setText("Insertar imagen");
         jMenu2.add(jMenuItem2);
-
-        jMenuItem3.setText("Webcam");
-        jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
 
@@ -255,7 +209,6 @@ public class formulario3 extends javax.swing.JFrame{
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

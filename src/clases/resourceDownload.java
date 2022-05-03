@@ -41,20 +41,19 @@ public class resourceDownload{
                 fos=new FileOutputStream("src/data/libs/"+validar);
                 
                 new thread(is,fos).run();
-                new logger().logStaticSaver("Se descargó y guardó correctamente el complemento en 'downloadLibs()'",Level.INFO);
                 
                 is.close();
                 fos.flush();
                 fos.close();
             }catch(MalformedURLException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1I",JOptionPane.WARNING_MESSAGE);
-                new logger().logStaticSaver("Error 1I: "+e.getMessage()+" en 'downloadLibs()'",Level.WARNING);
+                new logger().staticLogger("Error 1I: "+e.getMessage()+" en 'downloadLibs()'",Level.WARNING);
             }catch(FileNotFoundException x){
                 JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-                new logger().logStaticSaver("Error 1IO: "+x.getMessage()+" en 'downloadLibs()'",Level.WARNING);
+                new logger().staticLogger("Error 1IO: "+x.getMessage()+" en 'downloadLibs()'",Level.WARNING);
             }catch(IOException k){
                 JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-                new logger().logStaticSaver("Error 2IO: "+k.getMessage()+" en 'downloadLibs()'",Level.WARNING);
+                new logger().staticLogger("Error 2IO: "+k.getMessage()+" en 'downloadLibs()'",Level.WARNING);
             }
         }
     }

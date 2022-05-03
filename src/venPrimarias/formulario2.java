@@ -1,63 +1,25 @@
 package venPrimarias;
 
 import clases.datos;
+import clases.laf;
+import clases.Icono;
 import menuVentanas.menuDatosVentana2;
-
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Properties;
-import javax.swing.UIManager;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class formulario2 extends javax.swing.JFrame{
     public formulario2(){
         initComponents();
-        try{
-            Properties style=new Properties();
-            style.load(new FileInputStream("src/data/config/config.properties"));
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
-            SwingUtilities.updateComponentTreeUI(this);
-        }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(InstantiationException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-        }catch(IllegalAccessException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-        }catch(UnsupportedLookAndFeelException y){
-            JOptionPane.showMessageDialog(null,"Error:\n"+y.getMessage(),"Error ULAFE",JOptionPane.WARNING_MESSAGE);
-        }catch(FileNotFoundException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error FNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error IOE",JOptionPane.WARNING_MESSAGE);
-        }
+        new laf().LookAndFeel(formulario2.this,formulario2.class.getName(),"formulario2");
          
         botones();
+        settings();
         
         setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Formulario 2");
     }
     
-    protected Image retValue;
-    protected Properties p;
-    
-    public Image getImageIcon(){
-        p=new Properties();
-        try{
-            p.load(new FileInputStream("src/data/config/config.properties"));
-            retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-            retValue.flush();
-        }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
-        return retValue;
+    protected void settings(){
+        
     }
     
     protected final void botones(){
@@ -89,10 +51,6 @@ public class formulario2 extends javax.swing.JFrame{
         });
     }
     
-    protected final void propiedadesVentana(){
-        
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -111,7 +69,6 @@ public class formulario2 extends javax.swing.JFrame{
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jComboBox1 = new javax.swing.JComboBox<>();
-        insert2Button = new javax.swing.JButton();
         insertButton = new javax.swing.JButton();
         cleanButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -122,7 +79,7 @@ public class formulario2 extends javax.swing.JFrame{
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(getImageIcon());
+        setIconImage(new Icono().getIconImage());
 
         backButton.setText("Regresar");
 
@@ -143,8 +100,6 @@ public class formulario2 extends javax.swing.JFrame{
         jScrollPane1.setViewportView(jTextArea1);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        insert2Button.setText("Webcam");
 
         insertButton.setText("Insertar imagen");
 
@@ -180,8 +135,7 @@ public class formulario2 extends javax.swing.JFrame{
                                 .addGap(32, 32, 32)
                                 .addComponent(backButton))
                             .addComponent(insertButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cleanButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(insert2Button, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(cleanButton, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -234,9 +188,7 @@ public class formulario2 extends javax.swing.JFrame{
                                 .addComponent(insertButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cleanButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(insert2Button)
-                                .addGap(28, 28, 28))
+                                .addGap(28, 87, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
@@ -263,7 +215,6 @@ public class formulario2 extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JButton cleanButton;
-    private javax.swing.JButton insert2Button;
     private javax.swing.JButton insertButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;

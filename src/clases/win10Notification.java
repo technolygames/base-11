@@ -42,16 +42,16 @@ public class win10Notification{
             }
         }catch(AWTException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 24",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error 24: "+e.getMessage()+" en 'trayNotify()'",Level.WARNING);
+            new logger().staticLogger("Error 24: "+e.getMessage()+" en 'trayNotify()'",Level.WARNING);
         }catch(UnsupportedOperationException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 25",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error 25: "+x.getMessage()+" en 'trayNotify()'",Level.WARNING);
+            new logger().staticLogger("Error 25: "+x.getMessage()+" en 'trayNotify()'",Level.WARNING);
         }catch(FileNotFoundException ñ){
             JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error 1IO: "+ñ.getMessage()+" en 'trayNotify()'",Level.WARNING);
+            new logger().staticLogger("Error 1IO: "+ñ.getMessage()+" en 'trayNotify()'",Level.WARNING);
         }catch(IOException k){
             JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error 2IO: "+k.getMessage()+" en 'trayNotify()'",Level.WARNING);
+            new logger().staticLogger("Error 2IO: "+k.getMessage()+" en 'trayNotify()'",Level.WARNING);
         }
     }
 }

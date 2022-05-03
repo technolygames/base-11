@@ -1,61 +1,29 @@
 package venPrimarias;
 
 import clases.datos;
-import clases.logger;
-import venSecundarias.webcam;
+import clases.laf;
+import clases.Icono;
 import menuVentanas.menuDatosVentana1;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.Properties;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.UIManager;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
-import javax.swing.SwingUtilities;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import com.placeholder.PlaceHolder;
-import java.util.logging.Level;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public final class formulario1 extends javax.swing.JFrame{
     public formulario1(){
         initComponents();
-        try{
-            Properties style=new Properties();
-            style.load(new FileInputStream("src/data/config/config.properties"));
-            new logger().logStaticSaver("Se cargó los datos de la apariencia de formulario1",Level.INFO);
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
-            SwingUtilities.updateComponentTreeUI(this);
-        }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error CNFE: "+e.getMessage()+" en formulario1",Level.WARNING);
-        }catch(InstantiationException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error IE: "+x.getMessage()+" en formulario1",Level.WARNING);
-        }catch(IllegalAccessException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error IAE: "+ñ.getMessage()+" en formulario1",Level.WARNING);
-        }catch(UnsupportedLookAndFeelException y){
-            JOptionPane.showMessageDialog(null,"Error:\n"+y.getMessage(),"Error ULAFE",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error ULAFE: "+y.getMessage()+" en formulario1",Level.WARNING);
-        }catch(FileNotFoundException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error 1IO: "+k.getMessage()+" en formulario1",Level.WARNING);
-        }catch(IOException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error 2IO: "+s.getMessage()+" en formulario1",Level.WARNING);
-        }
+        new laf().LookAndFeel(formulario1.this,formulario1.class.getName(),"formulario1");
         
         botones();
-        propiedadesVentana();
+        settings();
         
         setResizable(false);
         setLocationRelativeTo(null);
@@ -70,7 +38,6 @@ public final class formulario1 extends javax.swing.JFrame{
     protected datos cn;
     
     protected File f;
-    protected Image retValue;
     protected Properties p;
     protected JFileChooser jfc;
     
@@ -78,19 +45,8 @@ public final class formulario1 extends javax.swing.JFrame{
     
     protected int ftr;
     
-    @Override
-    public Image getIconImage(){
-        p=new Properties();
-        try{
-            p.load(new FileInputStream("src/data/config/config.properties"));
-            retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-            retValue.flush();
-        }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
-        return retValue;
+    protected void settings(){
+        
     }
     
     protected final void botones(){
@@ -137,6 +93,10 @@ public final class formulario1 extends javax.swing.JFrame{
             }
         });
         
+        jMenuItem1.addActionListener((ae)->{
+            new menuDatosVentana1(new javax.swing.JFrame(),true).setVisible(true);
+        });
+        
         svdtButton.addActionListener((ae)->{
             try{
                 String password=String.valueOf(txtContraseña.getPassword());
@@ -159,23 +119,12 @@ public final class formulario1 extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
             }
         });
-        
-        takePhotoButton.addActionListener((ae)->{
-            new webcam(new javax.swing.JFrame(),true).setVisible(true);
-        });
-    }
-    
-    protected final void propiedadesVentana(){
-        jMenuItem1.addActionListener((ae)->{
-            new menuDatosVentana1(new javax.swing.JFrame(),true).setVisible(true);
-        });
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelWebCam1 = new JPanelWebCam.JPanelWebCam();
         backButton = new javax.swing.JButton();
         svdtButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -202,25 +151,13 @@ public final class formulario1 extends javax.swing.JFrame{
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        takePhotoButton = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        javax.swing.GroupLayout jPanelWebCam1Layout = new javax.swing.GroupLayout(jPanelWebCam1);
-        jPanelWebCam1.setLayout(jPanelWebCam1Layout);
-        jPanelWebCam1Layout.setHorizontalGroup(
-            jPanelWebCam1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanelWebCam1Layout.setVerticalGroup(
-            jPanelWebCam1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(getIconImage());
+        setIconImage(new Icono().getIconImage());
 
         backButton.setText("Regresar");
 
@@ -300,8 +237,6 @@ public final class formulario1 extends javax.swing.JFrame{
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        takePhotoButton.setText("Tomar foto");
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empleado", "Programador", "Desarrollador", "Dueño" }));
 
         jMenu1.setText("Datos");
@@ -358,8 +293,7 @@ public final class formulario1 extends javax.swing.JFrame{
                                 .addGap(11, 11, 11)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(insimgButton)
-                                    .addComponent(cleanButton)
-                                    .addComponent(takePhotoButton)))
+                                    .addComponent(cleanButton)))
                             .addComponent(picLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(svdtButton)
@@ -418,10 +352,7 @@ public final class formulario1 extends javax.swing.JFrame{
                         .addComponent(insimgButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cleanButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(takePhotoButton)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(svdtButton)
                     .addComponent(backButton))
@@ -503,12 +434,10 @@ public final class formulario1 extends javax.swing.JFrame{
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private JPanelWebCam.JPanelWebCam jPanelWebCam1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     public static javax.swing.JLabel picLabel;
     private javax.swing.JButton svdtButton;
-    private javax.swing.JButton takePhotoButton;
     private javax.swing.JTextField txtAM;
     private javax.swing.JTextField txtAP;
     private javax.swing.JTextField txtCodigo;

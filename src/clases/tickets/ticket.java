@@ -51,7 +51,7 @@ public class ticket{
             fw.write(ESC_CUT_PAPER);
         }catch(IOException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error IOE_T2",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error IOE_T2: "+e.getMessage()+" en 'setFormato()'",Level.WARNING);
+            new logger().staticLogger("Error IOE_T2: "+e.getMessage()+" en 'setFormato()'",Level.WARNING);
         }
     }
     
@@ -92,7 +92,7 @@ public class ticket{
             
             if(abrir){
                 imp.write(abrirGaveta);
-                new logger().logStaticSaver("Se abrió la gaveta",Level.INFO);
+                new logger().staticLogger("Se abrió la gaveta",Level.INFO);
             }
             
             cabezaLineas.clear();
@@ -104,7 +104,7 @@ public class ticket{
             imp.close();
         }catch(IOException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error IOE_T1.1",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error IOE_T1.1: "+e.getMessage()+" en 'imprimirDocumento()'",Level.WARNING);
+            new logger().staticLogger("Error IOE_T1.1: "+e.getMessage()+" en 'imprimirDocumento()'",Level.WARNING);
             
             cabezaLineas.removeAll(cabezaLineas);
             subcabezaLineas.removeAll(subcabezaLineas);

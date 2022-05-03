@@ -1,20 +1,13 @@
 package venPrimarias;
 
 import clases.datos;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import clases.Icono;
+import clases.laf;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
-import javax.swing.UIManager;
 import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
-import javax.swing.SwingUtilities;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -23,24 +16,7 @@ import net.proteanit.sql.DbUtils;
 public class ltshProviders extends javax.swing.JFrame{
     public ltshProviders(){
         initComponents();
-        try{
-            Properties style=new Properties();
-            style.load(new FileInputStream("src/data/config/config.properties"));
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
-            SwingUtilities.updateComponentTreeUI(this);
-        }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(InstantiationException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-        }catch(IllegalAccessException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-        }catch(UnsupportedLookAndFeelException j){
-            JOptionPane.showMessageDialog(null,"Error:\n"+j.getMessage(),"Error ULAFE",JOptionPane.WARNING_MESSAGE);
-        }catch(FileNotFoundException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
+        new laf().LookAndFeel(ltshProviders.this,ltshProviders.class.getName(),"ltshProviders");
         
         datosMostrar();
         botones();
@@ -49,24 +25,6 @@ public class ltshProviders extends javax.swing.JFrame{
         setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Productos vendidos");
-    }
-    
-    protected Image retValue;
-    protected Properties p;
-    
-    @Override
-    public Image getIconImage(){
-        p=new Properties();
-        try{
-            p.load(new FileInputStream("src/data/config/config.properties"));
-            retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-            retValue.flush();
-        }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
-        return retValue;
     }
     
     protected final void botones(){
@@ -187,7 +145,7 @@ public class ltshProviders extends javax.swing.JFrame{
         refreshButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(getIconImage());
+        setIconImage(new Icono().getIconImage());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel1.setText("Proveedores");
@@ -205,7 +163,6 @@ public class ltshProviders extends javax.swing.JFrame{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setCellSelectionEnabled(false);
         jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 

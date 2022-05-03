@@ -1,13 +1,13 @@
 package venPrimarias;
 
 import clases.datos;
-import clases.logger;
+import clases.Icono;
+import clases.laf;
 import clases.thread;
 import venTerciarias.valVentanas.validacionVentana7;
 import venTerciarias.valVentanas.validacionVentana8;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileWriter;
@@ -29,45 +29,20 @@ import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.ActionEvent;
-import java.util.logging.Level;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public final class proper1 extends javax.swing.JFrame{
     public proper1(){
         initComponents();
-        try{
-            Properties style=new Properties();
-            style.load(new FileInputStream("src/data/config/config.properties"));
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
-            SwingUtilities.updateComponentTreeUI(this);
-        }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error 1IO: "+e.getMessage()+" en '"+proper1.class.getName()+"'", Level.WARNING);
-        }catch(ClassNotFoundException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
-            new logger().logStaticSaver("Error CNFE: "+x.getMessage()+" en '"+proper1.class.getName()+"'", Level.WARNING);
-        }catch(InstantiationException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-        }catch(IllegalAccessException j){
-            JOptionPane.showMessageDialog(null,"Error:\n"+j.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-        }catch(UnsupportedLookAndFeelException t){
-            JOptionPane.showMessageDialog(null,"Error:\n"+t.getMessage(),"Error 28",JOptionPane.WARNING_MESSAGE);
-        }catch(NullPointerException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException c){
-            JOptionPane.showMessageDialog(null,"Error:\n"+c.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
+        new laf().LookAndFeel(proper1.this,proper1.class.getName(),"proper1");
         
         configIn();
         botones();
         combo1();
-        combo2();
         
         setResizable(true);
         setLocationRelativeTo(null);
         setTitle("Configuración");
-        
-        jComboBox1.setEnabled(false);
         
         expButton.setEnabled(false);
         impButton.setEnabled(false);
@@ -76,43 +51,18 @@ public final class proper1 extends javax.swing.JFrame{
     protected datos d;
     
     protected File f;
-    protected Image retValue;
     protected Properties p;
     protected InputStream is;
     protected OutputStream os;
     protected JFileChooser jfc;
-    protected logger l;
     
     protected String icono;
     protected String nombre;
     protected String diseños;
-    protected String lenguaje;
     protected String direccion;
     protected String direccion2;
     protected String nombreArchivo1;
     protected String nombreArchivo2;
-    
-    protected int leido;
-    
-    protected byte[] buffer;
-    
-    @Override
-    public Image getIconImage(){
-        p=new Properties();
-        l=new logger();
-        try{
-            p.load(new FileInputStream("src/data/config/config.properties"));
-            retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-            retValue.flush();
-        }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            l.logStaticSaver("Error 1IO: "+e.getMessage()+" en '"+getIconImage().getClass().getName()+"'", Level.WARNING);
-        }catch(IOException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            l.logStaticSaver("Error 2IO: "+x.getMessage()+" en '"+getIconImage().getClass().getName()+"'", Level.WARNING);
-        }
-        return retValue;
-    }
     
     protected final void configIn(){
         p=new Properties();
@@ -122,7 +72,6 @@ public final class proper1 extends javax.swing.JFrame{
             direccion=p.getProperty("imagenes");
             icono=p.getProperty("icono");
             diseños=p.getProperty("look_and_feel");
-            lenguaje=p.getProperty("lenguaje");
             nombre=p.getProperty("nombre");
             
             if(!new File(direccion).exists()){
@@ -135,7 +84,6 @@ public final class proper1 extends javax.swing.JFrame{
             jLabel3.setIcon(l);
             jTextField1.setText(nombre);
             jComboBox2.getModel().setSelectedItem(diseños);
-            jComboBox1.getModel().setSelectedItem(lenguaje);
             
             i.flush();
         }catch(NumberFormatException e){
@@ -239,10 +187,6 @@ public final class proper1 extends javax.swing.JFrame{
             }
         });
         
-        jComboBox1.addActionListener((ActionEvent ae)->{
-            lenguaje=jComboBox1.getSelectedItem().toString();
-        });
-        
         jComboBox2.addActionListener((ae)->{
             try{
                 diseños=jComboBox2.getSelectedItem().toString();
@@ -279,29 +223,6 @@ public final class proper1 extends javax.swing.JFrame{
         }
     }
     
-    protected final void combo2(){
-        int combo=jComboBox1.getSelectedIndex();
-        p=new Properties();
-        if(combo==0){
-            try{
-                p.load(new FileInputStream("src/data/lang/español.properties"));
-            }catch(FileNotFoundException e){
-                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            }catch(IOException x){
-                JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            }
-        }
-        if(combo==1){
-            try{
-                p.load(new FileInputStream("src/data/lang/english.properties"));
-            }catch(FileNotFoundException e){
-                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            }catch(IOException x){
-                JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            }
-        }
-    }
-    
     protected final void configOut(){
         p=new Properties();
         f=new File("src/data/config/config.properties");
@@ -313,10 +234,9 @@ public final class proper1 extends javax.swing.JFrame{
                 is=new FileInputStream(direccion);
                 os=new FileOutputStream(dato+nombreArchivo1);
                 
-                new thread(is,os).start();
+                new thread(is,os).run();
                 
                 p.setProperty("imagen_respaldo",dato+nombreArchivo1);
-                p.setProperty("lenguaje",String.valueOf(lenguaje.getBytes("utf-8")));
                 p.setProperty("look_and_feel",diseños);
                 p.setProperty("icono",icono);
                 p.setProperty("nombre",jTextField1.getText());
@@ -324,7 +244,7 @@ public final class proper1 extends javax.swing.JFrame{
                 is=new FileInputStream(icono);
                 os=new FileOutputStream("src/data/media/copy/icon/"+nombreArchivo2);
                 
-                new thread(is,os).start();
+                new thread(is,os).run();
                 
                 p.store(new BufferedWriter(new FileWriter("src/data/config/config.properties")),"config1");
                 
@@ -347,8 +267,6 @@ public final class proper1 extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         imgButton = new javax.swing.JButton();
         schButton = new javax.swing.JButton();
@@ -365,11 +283,7 @@ public final class proper1 extends javax.swing.JFrame{
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(getIconImage());
-
-        jLabel1.setText("Idioma:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés" }));
+        setIconImage(new Icono().getIconImage());
 
         jLabel2.setText("Imagen:");
 
@@ -420,10 +334,6 @@ public final class proper1 extends javax.swing.JFrame{
                                         .addComponent(jTextField1))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel5)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(impButton)
@@ -448,11 +358,8 @@ public final class proper1 extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -468,13 +375,12 @@ public final class proper1 extends javax.swing.JFrame{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(imgButton)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(schButton)
                     .addComponent(backButton))
@@ -494,9 +400,7 @@ public final class proper1 extends javax.swing.JFrame{
     protected javax.swing.JButton iconButton;
     protected javax.swing.JButton imgButton;
     protected javax.swing.JButton impButton;
-    protected javax.swing.JComboBox<String> jComboBox1;
     protected javax.swing.JComboBox<String> jComboBox2;
-    protected javax.swing.JLabel jLabel1;
     protected javax.swing.JLabel jLabel2;
     protected javax.swing.JLabel jLabel3;
     protected javax.swing.JLabel jLabel4;
