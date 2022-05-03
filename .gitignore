@@ -1,1 +1,3 @@
 build/
+src/data/logs/static/
+src/data/logs/exceptions/
