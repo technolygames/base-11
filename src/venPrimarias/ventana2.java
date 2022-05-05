@@ -120,6 +120,7 @@ public final class ventana2 extends javax.swing.JFrame{
                     
                     new datos().insertarDatosAlmacen(cod_alm,cod_prod,cod_prov,nom_prod,nom_prov,marca,cantidad,stock);
                 }
+                JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 18",JOptionPane.WARNING_MESSAGE);
             }catch(NullPointerException x){

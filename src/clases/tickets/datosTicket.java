@@ -1,50 +1,43 @@
 package clases.tickets;
-
+//clases
 import clases.logger;
-
+//java
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.text.NumberFormat;//still in use, but commented
-import java.text.DecimalFormat;//still in use, but commented
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;//still in use, but commented
+import java.util.Locale;
 import java.util.Properties;
+import javax.swing.JTable;
 import javax.swing.JOptionPane;
-
+//extension larga
 import java.util.logging.Level;
 
 /**
  * Clase encargada de imprimir el ticket de compra.
  * Se encarga de imprimir el ticket con los objetos comprados, cantidad y total.
+ * 
+ * @author unknown
  */
 public class datosTicket{
-    int total;
-    String metodoPago;
-    String cambio;
-    
-    /**
-     * Método encargado de obtener los datos faltantes para imprimir el ticket
-     * @param total: Precio total de los productos a comprar.
-     * @param metodoPago: Tipo de pago con el que se realizará el pago de los productos.
-     * @param cambio: Cambio devuelto al cliente; en caso de pagar con tarjeta, será null.
-     */
-    public void datosCalc(int total,String metodoPago,String cambio){
-        this.total=total;
-        this.metodoPago=metodoPago;
-        this.cambio=cambio;
-    }
+    //String total;
+    String precio;
+    String cantidad;
+    String items;
     
     /**
      * Método encargado de imprimir el ticket.
      * 
-     * @param codigoProducto: Código del producto comprado.
-     * @param nombreProducto: Nombre del producto comprado.
-     * @param precio: Precio unitario del producto.
-     * @param cantidad: Cantidad total del producto.
+     * @param tabla Tabla que obtendrá los datos para el ticket.
+     * @param empleado Empleado que atendió en la venta.
+     * @param total0 Precio total de los productos.
+     * @param pago Método de pago utilizado al comprar.
+     * @param cambio Cambio devuelto al comprador.
      */
-    public void imprimirTicket(int codigoProducto,String nombreProducto,int precio,int cantidad){
+    public void imprimirTicket(JTable tabla,String empleado,int total0,String pago,int cambio){
         try{
             Date date=new Date();
             Properties p=new Properties();
@@ -53,7 +46,7 @@ public class datosTicket{
             SimpleDateFormat fecha=new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat hora=new SimpleDateFormat("hh:mm:ss aa");
             
-            p.load(new FileInputStream("src/data/config/config.properties"));
+            p.load(new FileInputStream(System.getProperty("user.dir")+"/src/data/config/config.properties"));
             
             ticket.addCabecera(p.getProperty("nombre"));
             ticket.addCabecera(ticket.darEspacio());
@@ -61,90 +54,96 @@ public class datosTicket{
             ticket.addCabecera(ticket.darEspacio());
             ticket.addSubcabecera(ticket.dibujarLinea(40));
             ticket.addSubcabecera(ticket.darEspacio());
-            ticket.addSubcabecera("Ticket Factura No:'003-000011'");
+            ticket.addSubcabecera("Ticket no.: '"+(Math.random()*10000)+"'");
             ticket.addSubcabecera(ticket.darEspacio());
             ticket.addSubcabecera("-"+fecha.format(date)+"-"+hora.format(date));
             ticket.addSubcabecera(ticket.darEspacio());
-            /*ticket.addSubcabecera("Mesa"+jTextField7.getText()+"Mozo"+jTextField8.getText()+"Pers"+jTextField9.getText());*/
+            ticket.addSubcabecera("Quien atendió"+empleado);
             ticket.addSubcabecera(ticket.darEspacio());
             ticket.addSubcabecera(ticket.dibujarLinea(40));
             ticket.addSubcabecera(ticket.darEspacio());
-            ticket.addSubcabecera("cant----producto----p.u----total");
+            ticket.addSubcabecera("producto----cant----p.u");
             ticket.addSubcabecera(ticket.darEspacio());
             ticket.addSubcabecera(ticket.dibujarLinea(40));
             ticket.addSubcabecera(ticket.darEspacio());
-            /*for(int y=0;y<jTable1.getRowCount();y++){
+            for(int i=0;i<tabla.getRowCount();i++){
                 //cantidad de decimales
                 NumberFormat nf=NumberFormat.getNumberInstance(Locale.ENGLISH);
-                DecimalFormat form=(DecimalFormat) nf;
+                DecimalFormat form=(DecimalFormat)nf;
                 form.applyPattern("#,###.00");
-                //cantidad
-                String cantidad=jTable1.getValueAt(y,0).toString();
-                if(cantidad.length()<4){
-                    int cant=4-cantidad.length();
-                    String can="";
-                    for(int f=0;f<cant;f++){
-                        can+=" ";
-                    }
-                    cantidad+=can;
-                }
                 //items
-                String item=jTable1.getValueAt(y,1).toString();
-                if(item.length()>17){
-                    item=item.substring(0,16)+".";
+                String item2=tabla.getValueAt(i,1).toString();
+                String item3="";
+                int item4=0;
+                if(item2.length()>17){
+                    item2=item2.substring(0,16)+".";
                 }else{
-                    int c=17-item.length();
-                    String comple="";
-                    for(int y1=0;y1<c;y1++){
-                        comple+=" ";
+                    item4=17-item2.length();
+                    for(int y1=0;y1<item4;y1++){
+                        item3+=" ";
                     }
-                    item+=comple;
+                    items+=item3;
+                }
+                //cantidad
+                String cantidad2=tabla.getValueAt(i,3).toString();
+                String cantidad3="";
+                int cantidad4=0;
+                if(cantidad2.length()<17){
+                    cantidad4=4-cantidad2.length();
+                    for(int f=0;f<cantidad4;f++){
+                        cantidad3+=" ";
+                    }
+                    cantidad+=cantidad3;
                 }
                 //precio
-                String precio=jTable1.getValueAt(y,2).toString();
-                double pre1=Double.parseDouble(precio);
-                precio=form.format(pre1);
-                if(precio.length()<8){
-                    int p=8-precio.length();
-                    String pre="";
-                    for(int y1=0;y1<p;y1++){
-                        pre+=" ";
+                String precio2=tabla.getValueAt(i,4).toString();
+                String precio3="";
+                double precio4=Double.parseDouble(precio2);
+                int precio5=0;
+                precio2=form.format(precio4);
+                if(precio2.length()<17){
+                    precio5=8-precio2.length();
+                    for(int y1=0;y1<precio5;y1++){
+                        precio3+=" ";
                     }
-                    precio=pre+precio;
+                    precio=precio3+precio2;
                 }
                 //total
-                String total=jTable1.getValueAt(y,3).toString();
-                total=form.format(Double.parseDouble(total));
-                if(total.length()<8){
-                    int t=8-total.length();
-                    String tota="";
-                    for(int y1=0;y1<t;y1++){
-                        tota+=" ";
+                /*String total2=tabla.getValueAt(i,3).toString();
+                String total3="";
+                int total4=0;
+                total2=form.format(Double.parseDouble(total2));
+                if(total2.length()<8){
+                    total4=8-total2.length();
+                    for(int y1=0;y1<total4;y1++){
+                        total3+=" ";
                     }
-                    total=tota+total;
-                }
+                    total=total3+total2;
+                }*/
                 //agrego los items al detalle
-                ticket.addItem(String.valueOf(cantidad),item,String.valueOf(precio));
-                //ticket.AddItem("","","",ticket.DarEspacio());
+                ticket.addItem(items,cantidad,precio);
             }
-            ticket.addItem(ticket.dibujarLinea(40),"","","");*/
-            ticket.addTotal("Total: ",String.valueOf(total));
-            ticket.addTotal("IGV: ",ticket.darEspacio());
-            ticket.addTotal("Paga con: ",metodoPago);
+            ticket.addTotal("Subtotal: ",String.valueOf(total0));
+            ticket.addTotal("IVA: ","%");
+            ticket.addTotal("Total: ",String.valueOf(total0));
+            ticket.addTotal("Paga con: ",pago);
             ticket.addTotal("Cambio: ",String.valueOf(cambio));
             ticket.addPieLinea(ticket.darEspacio());
-            ticket.addPieLinea("Gracias por su preferencia");
-            ticket.imprimirDocumento("",true);
-            new logger().staticLogger("Se imprimió correctamente el ticket",Level.INFO);
+            ticket.addPieLinea("Gracias por su preferencia.");
+            
+            ticket.imprimirDocumento(System.getProperty("user.dir")+"/src/data/generic/tickets/ticket-("+new SimpleDateFormat("dd-MM-yyyy hh.mm.ss aa").format(new Date())+").txt",true);
         }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error NFE_T1",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error NFE_T1: "+e.getMessage()+" en 'imprimirTicket()'",Level.WARNING);
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 18",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 18: "+e.getMessage()+"\nOcurrió en la clase '"+datosTicket.class.getName()+"', en el método 'imprimirTicket()'",Level.WARNING);
+            new logger().exceptionLogger(datosTicket.class.getName(),Level.WARNING,"imprimirTicket-18",e.fillInStackTrace());
         }catch(FileNotFoundException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 1IO: "+x.getMessage()+" en 'imprimirTicket()'",Level.WARNING);
-        }catch(IOException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 2IO: "+ñ.getMessage()+" en 'imprimirTicket()'",Level.WARNING);
+            new logger().staticLogger("Error 1IO: "+x.getMessage()+"\nOcurrió en la clase '"+datosTicket.class.getName()+"', en el método 'imprimirTicket()'",Level.WARNING);
+            new logger().exceptionLogger(datosTicket.class.getName(),Level.WARNING,"imprimirTicket-1IO",x.fillInStackTrace());
+        }catch(IOException n){
+            JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 2IO: "+n.getMessage()+"\nOcurrió en la clase '"+datosTicket.class.getName()+"', en el método 'imprimirTicket()'",Level.WARNING);
+            new logger().exceptionLogger(datosTicket.class.getName(),Level.WARNING,"imprimirTicket-2IO",n.fillInStackTrace());
         }
     }
 }

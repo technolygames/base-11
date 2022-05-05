@@ -1,64 +1,60 @@
-Error Prueba: error aún no encontrado (si sale en algún contexto, contactar a programador)
-Error 0: error desconocido o no mapeado
+Hay errores que están impares o que deberían seguir una secuencia, pero muchos fueron creados al azar. Además de que sería difícil de reasignarlos
+
+Error Prueba: error aún no encontrado
+Error <número>: error sin asignar
+Error <random+E>: error que no le fue asignado a un número específico de error, pero que se conoce su funcionalidad. Favor de reportarlo
+
+Error 0: error desconocido y no mapeado
 
 Notice 1: es una advertencia sobre el uso de ciertos elementos que están en prueba o una advertencia sobre el uso de componentes de la aplicación
 
-Rel 1: se guardó correctamente
-Rel 2: se actualizó correctamente
-Rel 3: se eliminó correctamente
+Rel 1: se guardaron correctamente los datos a la base de datos 
+Rel 2: se actualizaron correctamente los datos en la base de datos 
+Rel 3: se eliminaron correctamente los datos de la base de datos 
+Rel 4: se han guardado los cambios
+Rel 5: se ha validado el acceso a ventana de administración
 
-Let 4: no se aceptan los valores que tratan de escribir (letras)
-Let 5: no se aceptan los valores que tratan de escribir (números)
-Let 6: (dudo que aparezca) no se aceptan los valores que tratan de ingresar o escribir (fecha) - eliminado
+Let 6: no se aceptan los valores que tratan de escribir (letras)
+Let 7: no se aceptan los valores que tratan de escribir (números)
 
-Error 7: no se pudo importar la base de datos
-Error 8: no se pudo exportar la base de datos
-Error 9: no se inició sesión; los datos solicitdos no son los correctos o no existen
-Error 10: no se inicializó y/o encendió el puerto de la base de datos
-Error 11: no se ingresaron correctamente los datos solicitados
-Error 12: no se pudo actualizar los datos; los datos solicitados no son los correctos
-Error 13: no se pudo eliminar los datos; los datos a borrar no son los correctos o no existen
-Error 14: no se pudo buscar; no se ingresaron correctamente los datos y/o a opción seleccionada no es la correcta
-Error 15: no se pudo cargar la imagen
-Error 16: no se pudo mostrar los datos en la tabla
-Error 17: no se pudo generar el reporte o factura
-Error 18: posible ingreso erróneo o nulo de datos
-Error 19: no se encontró un archivo del programa (si persiste aún solucionado, contactar al programador)
-Error 20H: posible ingreso erróneo o nulo de datos y no encontró un archivo del programa (este error es híbrido)
-Error 21: (dudo que aparezca) no está encendido el puerto o el gestor no está inicializado. Solo aparecerá cuando los valores a ingresa coincidan, pero no se validan
-Error 22: (dudo que aparezca) no se encendió la webcam
-Error 23: no se guardó la imagen
-Error 24: no se puede abrir la imagen
-Error 25: error en las notificaciones; el sistema operativo en el que se está o estuvo ejecutando no soporta las notificaciones. Leer manual y especificaciones
-Error 26H: no se pudo cargar las configuraciones; archivo corrupto (dañado) o dirección errónea
-Error 27: no se pudo exportar las configuraciones; posible archivo inexistente (como Dios) o archivo corrupto (dañado)
-Error 28: no se pudo cargar el estilo de las ventanas (Look And Feel)
-Error 29: no se pudo usar el archivo; fue modificado. Favor de regresar los valores asignados o descargar nuevamente el archivo
-Error 30: no se pudo imprimir o no imprimió correctamente el ticket
-Error 31: no se pudo cargar la página web
-Error 32: el valor del color no puede ser leído (booleano)
-Error 33: las traducciones no se cargaron en el programa
-Error 34: (dudo que aparezca) valores no tolerados por el programa (es más para alguien que quiera modificar el programa)
-Error 35: la ubicación de guardado no es correcta (este es más por problemas en el código. En caso de que aparezca al momento de guardar un archivo que no sea de configuración, contactar al programador)
-Error 36NM: las traducciones no pudieron ser guardadas en el archivo de configuración (NM: No Mapeado - aún sin descubrir qué lo provoca)
-Error 37: el programa no encontró el driver de conexión a la base de datos
-Error 37: error de validación; solo roles específicos son aceptados1
+Error 9: no se inició sesión; los datos solicitdos no son los correctos o no existen-
+Error 10: no se inicializó y/o encendió el puerto de la base de datos--
+Error 11: no se ingresaron correctamente los datos solicitados-
+Error 12: no se pudo actualizar los datos; los datos solicitados no son los correctos-
+Error 13: no se pudo eliminar los datos; los datos a borrar no son los correctos o no existen-
+Error 14: no se pudo buscar; no se ingresaron correctamente los datos y/o a opción seleccionada no es la correcta------
+Error 15: campos que se agregaron al archivo json que no se usan---
+Error 16: no se pudo mostrar los datos en la tabla-----
+Error 17: no se pudo generar el reporte o factura-
+Error 18: posible ingreso erróneo o nulo de datos-----------
+Error 24: no se puede abrir la imagen------
+Error 25: error en las notificaciones; el sistema operativo en el que se está o estuvo ejecutando no soporta las notificaciones. Leer manual y especificaciones-
+Error 28: no se pudo cargar el estilo de las ventanas (Look And Feel)--
+Error 32: error al ingresar cierto tipo de dato (números)-
+Error 34: valores no tolerados por el programa.IllegalArgumentException-
+Error 37: el programa no encontró el driver de conexión a la base de datos-
+Error 38: error de validación; solo roles específicos son aceptados-
+Error 39: no se puede descargar las librerías (.jar)-
+Error 40: la ventana no puede ser iniciada correctamente-----
 
 -Exclusivo para desarrollador
-Rel 1E: se creó o importó correctamente
+Rel 1E: se creó correctamente la base de datos
+Rel 2E: se importó correctamente la base de datos
+Rel 3E: se exportó correctamente la base de datos
 
-Error 1E: no pudo iniciar la clase JRStyledTextParser
-Error 2E: no se pudo crear la base de datos
-Error 3E: las consultas hacen demasiadas conexiones
+Error 4E: no pudo iniciar la clase JRStyledTextParser
+Error 5E: no se pudo crear la base de datos
+Error 6E: las consultas hacen demasiadas conexiones
+Error 7E: no se pudo importar la base de datos
+Error 8E: no se pudo exportar la base de datos
 
 -Errores especiales
 _T1: error al imprimir ticket
-_T1.1: error al imprimir (es del método de la clase)
 _T2: error al dar formato al ticket
 _H1: error al momento de ejecutar el hilo
 
 -Errores de Entrada/Salida
-Error 1IO: error al encontrar el/los archivos
+Error 1IO: error al encontrar el/los archivo(s)
 Error 2IO: error de flujo de datos
 
 -Errores de conexión a internet

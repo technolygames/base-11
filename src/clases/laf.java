@@ -13,7 +13,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import java.util.logging.Level;
 
 /**
- *
+ * Clase para cargar el diseño a utilizar en las clases.
+ * 
  * @author erick
  */
 public class laf{

@@ -1,16 +1,20 @@
 package clases;
-
+//clases
+import venPrimarias.start;
+//java
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.Properties;
-import java.util.logging.Level;
 import javax.swing.JOptionPane;
-
+//extension larga
+import java.util.logging.Level;
 /**
  * Clase intermedia entre el gestor de base de datos y el programa.
  * Se encarga de registrar, actualizar y eliminar los datos que el usuario desee.
@@ -18,6 +22,7 @@ import javax.swing.JOptionPane;
 public class datos{
     protected Connection cn;
     protected PreparedStatement ps;
+    protected Statement s;
     
     protected Properties p;
     
@@ -49,20 +54,20 @@ public class datos{
             cn=DriverManager.getConnection("jdbc:mysql://"+ip+":"+puerto+"/"+bd+"",usuario,contraseña);
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 10",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 10: "+e.getMessage()+"\nen 'getConnection()'",Level.WARNING);
-            new logger().exceptionLogger(datos.class.getName(),Level.SEVERE,"getConnection",e.fillInStackTrace());
+            new logger().staticLogger("Error 10: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"getConnection-10",e.fillInStackTrace());
         }catch(ClassNotFoundException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 37",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 37: "+x.getMessage()+" en 'getConnection()'",Level.WARNING);
-            new logger().exceptionLogger(datos.class.getName(),Level.SEVERE,"getConnection",x.fillInStackTrace());
+            new logger().staticLogger("Error 37: "+x.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"getConnection-37",x.fillInStackTrace());
         }catch(FileNotFoundException ñ){
             JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 1IO: "+ñ.getMessage()+" en 'getConnection()'",Level.WARNING);
-            new logger().exceptionLogger(datos.class.getName(),Level.SEVERE,"getConnection",ñ.fillInStackTrace());
+            new logger().staticLogger("Error 1IO: "+ñ.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"getConnection-1IO",ñ.fillInStackTrace());
         }catch(IOException k){
             JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 2IO: "+k.getMessage()+" en 'getConnection()'",Level.WARNING);
-            new logger().exceptionLogger(datos.class.getName(),Level.SEVERE,"getConnection",k.fillInStackTrace());
+            new logger().staticLogger("Error 2IO: "+k.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"getConnection-2IO",k.fillInStackTrace());
         }
         return cn;
     }
@@ -77,16 +82,16 @@ public class datos{
      * @param total Precio total al que se vendieron los prodcutos.
      */
     public void insertarDatosProducto(int codigoProducto,String nombreProducto,String marcaProducto,int cantidad,int precio,int total){
-        String ins1_query="insert into productos values('"+codigoProducto+"','"+nombreProducto+"','"+marcaProducto+"','"+cantidad+"','"+precio+"','"+total+"',now());";
         try{
-            ps=getConnection().prepareStatement(ins1_query);
-            ps.execute();
-            JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
-            ps.close();
+            s=getConnection().createStatement();
+            s.addBatch("insert into productos values('"+codigoProducto+"','"+nombreProducto+"','"+marcaProducto+"','"+cantidad+"','"+precio+"','"+total+"',now())");
+            s.executeBatch();
+            
+            s.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 11: "+e.getMessage()+" en 'insertarDatosProducto()'",Level.WARNING);
-            new logger().exceptionLogger("datos",Level.SEVERE,"insertarDatosProducto()",e.fillInStackTrace());
+            new logger().staticLogger("Error 11: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosProducto()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"insertarDatosProducto-11",e.fillInStackTrace());
         }
     }
     
@@ -103,16 +108,16 @@ public class datos{
      * @param stock Disponibilidad del producto.
      */
     public void insertarDatosAlmacen(int codigoAlmacen,int codigoProducto,int codigoProveedor,String nombreProducto,String nombreProveedor,String marcaProducto,int cantidad,String stock){
-        String ins2_query="insert into almacen values('"+codigoAlmacen+"','"+codigoProducto+"','"+codigoProveedor+"','"+nombreProducto+"','"+nombreProveedor+"','"+marcaProducto+"','"+cantidad+"','"+stock+"',now());";
         try{
-            ps=getConnection().prepareStatement(ins2_query);
-            ps.execute();
-            JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
-            ps.close();
+            s=getConnection().createStatement();
+            s.addBatch("insert into almacen values('"+codigoAlmacen+"','"+codigoProducto+"','"+codigoProveedor+"','"+nombreProducto+"','"+nombreProveedor+"','"+marcaProducto+"','"+cantidad+"','"+stock+"',now())");
+            s.executeBatch();
+            
+            s.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 11: "+e.getMessage()+" en 'insertarDatosAlmacen()'",Level.WARNING);
-            new logger().exceptionLogger("datos",Level.SEVERE,"insertarDatosAlmacen()",e.fillInStackTrace());
+            new logger().staticLogger("Error 11: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosAlmacen()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"insertarDatosAlmacen-11",e.fillInStackTrace());
         }
     }
     
@@ -131,16 +136,17 @@ public class datos{
      * @param datosExtra Datos extras que el CV del empleado se quieran agregar.
      */
     public void insertarDatosEmpleado(String password,int codigoEmpleado,String nombreEmpleado,String apellidoPaternoEmpleado,String apellidoMaternoEmpleado,String puesto,String experiencia,String gradoEstudios,int edad,String datosExtra){
-        String ins3_query="insert into empleados values('"+password+"','"+codigoEmpleado+"','"+nombreEmpleado+"','"+apellidoPaternoEmpleado+"','"+apellidoMaternoEmpleado+"','"+puesto+"','"+experiencia+"','"+gradoEstudios+"','"+edad+"','"+datosExtra+"',null,now(),now());";
         try{
-            ps=getConnection().prepareStatement(ins3_query);
+            ps=getConnection().prepareStatement("insert into empleados values('"+password+"','"+codigoEmpleado+"','"+nombreEmpleado+"','"+apellidoPaternoEmpleado+"','"+apellidoMaternoEmpleado+"','"+puesto+"','"+experiencia+"','"+gradoEstudios+"','"+edad+"','"+datosExtra+"',null,now(),now());");
             ps.execute();
+            
             JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 11: "+e.getMessage()+" en 'insertarDatosEmpleado()'",Level.WARNING);
-            new logger().exceptionLogger("datos",Level.SEVERE,"insertarDatosEmpleado()",e.fillInStackTrace());
+            new logger().staticLogger("Error 11: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosEmpleado()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"insertarDatosEmpleado-11",e.fillInStackTrace());
         }
     }
     
@@ -155,16 +161,17 @@ public class datos{
      * @param datosExtra Datos extra que se quieran agregar como descripción del socio.
      */
     public void insertarDatosSocio(int codigoSocio,String nombreSocio,String apellidopSocio,String apellidomSocio,String tipoSocio,String datosExtra){
-        String ins4_query="insert into socios values('"+codigoSocio+"','"+nombreSocio+"','"+apellidopSocio+"','"+apellidomSocio+"','"+tipoSocio+"','"+datosExtra+"',null,now(),now());";
         try{
-            ps=getConnection().prepareStatement(ins4_query);
+            ps=getConnection().prepareStatement("insert into socios values('"+codigoSocio+"','"+nombreSocio+"','"+apellidopSocio+"','"+apellidomSocio+"','"+tipoSocio+"','"+datosExtra+"',null,now(),now());");
             ps.execute();
+            
             JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 11: "+e.getMessage()+" en 'insertarDatosSocio()'",Level.WARNING);
-            new logger().exceptionLogger("datos",Level.SEVERE,"insertarDatosSocio()",e.fillInStackTrace());
+            new logger().staticLogger("Error 11: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosSocio()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"insertarDatosSocio-11",e.fillInStackTrace());
         }
     }
     
@@ -178,40 +185,47 @@ public class datos{
      * @param empresa Empresa procedencia del proveedor.
      */
     public void insertarDatosProveedor(int codigoProveedor,String nombreProveedor,String apellidoPaternoProvedor,String apellidoMaternoProveedor,String empresa){
-        String ins5_query="insert into proveedor value('"+codigoProveedor+"','"+nombreProveedor+"','"+apellidoPaternoProvedor+"','"+apellidoMaternoProveedor+"','"+empresa+"',null,now(),now());";
         try{
-            ps=getConnection().prepareStatement(ins5_query);
+            ps=getConnection().prepareStatement("insert into proveedor value('"+codigoProveedor+"','"+nombreProveedor+"','"+apellidoPaternoProvedor+"','"+apellidoMaternoProveedor+"','"+empresa+"',null,now(),now());");
             ps.execute();
+            
             JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 11: "+e.getMessage()+" en 'insertarDatosProveedor()'",Level.WARNING);
-            new logger().exceptionLogger("datos",Level.SEVERE,"insertarDatosProveedor()",e.fillInStackTrace());
+            new logger().staticLogger("Error 11: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosProveedor()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"insertarDatosProveedor-11",e.fillInStackTrace());
         }
     }
     
-    public void actualizarDatosEmpleado(String password,int codigoEmpleado,String nombreEmpleado,String apellidoPaternoEmpleado,String apellidoMaternoEmpleado,String puesto,String experiencia,String gradoEstudios,int edad){
-        String up1_query="update empleados set password='"+password+"',nombre_emp='"+nombreEmpleado+"',apellidop_emp='"+apellidoPaternoEmpleado+"',apellidom_emp='"+apellidoMaternoEmpleado+"',puesto='"+puesto+"',experiencia='"+experiencia+"',grado_estudios='"+gradoEstudios+"',edad='"+edad+"' where codigo_emp='"+codigoEmpleado+"';";
+    public void actualizarDatosEmpleado(String query){
         try{
-            ps=getConnection().prepareStatement(up1_query);
+            ps=getConnection().prepareStatement("update empleados "+query);
             ps.executeUpdate();
+            
             JOptionPane.showMessageDialog(null,"Se han actualizado los datos","Rel 2",JOptionPane.INFORMATION_MESSAGE);
+            
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 12",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 12: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'actualizarDatosEmpleado()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.SEVERE,"actualizarDatosEmpleado-12",e.fillInStackTrace());
         }
     }
     
-    public void actualizarDatosSocio(){
-        String up2_query="";
+    public void actualizarDatosSocio(String query){
         try{
-            ps=getConnection().prepareStatement(up2_query);
+            ps=getConnection().prepareStatement("update socios "+query);
             ps.execute();
+            
             JOptionPane.showMessageDialog(null,"Se han actualizado los datos","Rel 2",JOptionPane.INFORMATION_MESSAGE);
+            
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 12",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 12: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'actualizarDatosSocio()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"actualizarDatosSocio-12",e.fillInStackTrace());
         }
     }
     
@@ -222,16 +236,17 @@ public class datos{
      * @param codigoEmpleado Código del empleado al que se eliminarán los datos.
      */
     public void eliminarDatosEmpleado(int codigoEmpleado){
-        String del1_query="delete from empleados where codigo_emp='"+codigoEmpleado+"';";
         try{
-            ps=getConnection().prepareStatement(del1_query);
+            ps=getConnection().prepareStatement("delete from empleados where codigo_emp='"+codigoEmpleado+"';");
             ps.execute();
+            
             JOptionPane.showMessageDialog(null,"Se han eliminado los datos","Rel 3",JOptionPane.INFORMATION_MESSAGE);
+            
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 13",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 13: "+e.getMessage()+" en 'eliminarDatosEmpleado()'",Level.WARNING);
-            new logger().exceptionLogger("datos",Level.SEVERE,"eliminarDatosEmpleado()",e.fillInStackTrace());
+            new logger().staticLogger("Error 13: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'eliminarDatosEmpleado()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.SEVERE,"eliminarDatosEmpleado-13",e.fillInStackTrace());
         }
     }
     
@@ -242,16 +257,17 @@ public class datos{
      * @param codigoSocio Código del socio al que se eliminarán los datos.
      */
     public void eliminarDatosSocio(int codigoSocio){
-        String del2_query="delete from socios where codigo_part='"+codigoSocio+"';";
         try{
-            ps=getConnection().prepareStatement(del2_query);
+            ps=getConnection().prepareStatement("delete from socios where codigo_part='"+codigoSocio+"';");
             ps.execute();
+            
             JOptionPane.showMessageDialog(null,"Se han eliminado los datos","Rel 3",JOptionPane.INFORMATION_MESSAGE);
+            
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 13",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 13: "+e.getMessage()+" en 'eliminarDatosSocio()'",Level.WARNING);
-            new logger().exceptionLogger("datos",Level.SEVERE,"eliminarDatosSocio()",e.fillInStackTrace());
+            new logger().staticLogger("Error 13: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'eliminarDatosSocio()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"eliminarDatosSocio-13",e.fillInStackTrace());
         }
     }
     
@@ -262,16 +278,17 @@ public class datos{
      * @param codigoProveedor Código del proveedor al que se eliminarán los datos.
      */
     public void eliminarDatosProveedor(int codigoProveedor){
-        String del3_query="delete from proveedor where codigo_prov='"+codigoProveedor+"';";
         try{
-            ps=getConnection().prepareStatement(del3_query);
+            ps=getConnection().prepareStatement("delete from proveedor where codigo_prov='"+codigoProveedor+"';");
             ps.execute();
+            
             JOptionPane.showMessageDialog(null,"Se han eliminado los datos","Rel 3",JOptionPane.INFORMATION_MESSAGE);
+            
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 13",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 13: "+e.getMessage()+" en 'eliminarDatosProveedor()'",Level.WARNING);
-            new logger().exceptionLogger("datos",Level.SEVERE,"eliminarDatosProveedor()",e.fillInStackTrace());
+            new logger().staticLogger("Error 13: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'eliminarDatosProveedor()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"eliminarDatosProveedor-13",e.fillInStackTrace());
         }
     }
 }

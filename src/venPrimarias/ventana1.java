@@ -3,6 +3,7 @@ package venPrimarias;
 import clases.datos;
 import clases.Icono;
 import clases.laf;
+import clases.logger;
 import venSecundarias.calcWindow;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.awt.Image;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -30,7 +32,6 @@ public final class ventana1 extends javax.swing.JFrame{
         initComponents();
         new laf().LookAndFeel(ventana1.this,ventana1.class.getName(),"ventana1");
         
-        table();
         botones();
         settings();
         
@@ -57,7 +58,7 @@ public final class ventana1 extends javax.swing.JFrame{
     
     protected final void settings(){
         p=new Properties();
-        translate();
+        dtm=(DefaultTableModel)jTable1.getModel();
         try{
             p.load(new FileInputStream("src/data/config/config.properties"));
             Image i=ImageIO.read(new FileInputStream(p.getProperty("imagenes")));
@@ -71,11 +72,15 @@ public final class ventana1 extends javax.swing.JFrame{
         }catch(IOException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
         }
+        dtm.setColumnIdentifiers(new Object[]{"Código del producto","Nombre del producto","Marca","Precio","Cantidad","Total"});
+        
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.setEnabled(false);
     }
     
     protected final void botones(){
         dtm=(DefaultTableModel)jTable1.getModel();
-        addButton.addActionListener((ae)->{
+        addButton.addActionListener((a)->{
             dtm.addRow(new Object[]{
                 txtCodigo.getText(),
                 txtProd.getText(),
@@ -93,29 +98,31 @@ public final class ventana1 extends javax.swing.JFrame{
             txtTotal.setText("");
         });
         
-        backButton.addActionListener((ae)->{
+        backButton.addActionListener((a)->{
             setVisible(false);
             dispose();
         });
         
-        calcButton.addActionListener((ae)->{
+        calcButton.addActionListener((a)->{
             try{
-                int n1=Integer.parseInt(txtCant.getText());
-                int n2=Integer.parseInt(txtPrecio.getText());
-                resultado=n2*n1;
-                String res=Integer.toString(resultado);
-                
-                txtTotal.setText(res);
+                int res=0;
+                for(int i=0;i<dtm.getRowCount();i++){
+                    int n1=Integer.parseInt(dtm.getValueAt(i,6).toString());
+                    res+=n1;
+                    
+                    resultado=res;
+                }
                 
                 calcWindow clw=new calcWindow(new javax.swing.JFrame(),true);
                 clw.setVisible(true);
-                calcWindow.txtTotal.setText(res);
             }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 18",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 32",JOptionPane.WARNING_MESSAGE);
+                new logger().staticLogger("Error 32: "+e.getMessage()+".\nOcurrió en la clase '"+ventana1.class.getName()+"', en el método 'botones(calcButton)'",Level.WARNING);
+                new logger().exceptionLogger(ventana1.class.getName(),Level.WARNING,"botones.calc-32",e.fillInStackTrace());
             }
         });
         
-        cleanButton.addActionListener((ae)->{
+        cleanButton.addActionListener((a)->{
             dtm.setRowCount(0);
             
             txtCodigo.setText("");
@@ -126,7 +133,7 @@ public final class ventana1 extends javax.swing.JFrame{
             txtTotal.setText("");
         });
         
-        genrepButton.addActionListener((ae)->{
+        genrepButton.addActionListener((a)->{
             try{
                 d=new datos();
                 String save="src/data/database/Jasper/reportes.jasper";
@@ -140,55 +147,39 @@ public final class ventana1 extends javax.swing.JFrame{
                 cn.close();
             }catch(JRException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 17",JOptionPane.WARNING_MESSAGE);
-                e.printStackTrace();
             }catch(ExceptionInInitializerError x){
                 JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
             }catch(NoClassDefFoundError ñ){
                 JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
-                ñ.printStackTrace();
             }catch(SQLException k){
                 JOptionPane.showMessageDialog(null,"Error:\n"+d,"Error Prueba",JOptionPane.WARNING_MESSAGE);
             }
         });
-    }
-    
-    protected void payment(){
-        storeData();
-    }
-    
-    protected void storeData(){
-        try{
-            for(int i=0;i<dtm.getRowCount();i++){
-                codigo_prod=Integer.parseInt(dtm.getValueAt(i,0).toString());
-                nombre_prod=dtm.getValueAt(i,1).toString();
-                marca_prod=dtm.getValueAt(i,2).toString();
-                cantidad=Integer.parseInt(dtm.getValueAt(i,3).toString());
-                precio=Integer.parseInt(dtm.getValueAt(i,4).toString());
-                total=Integer.parseInt(dtm.getValueAt(i,5).toString());
-                
-                new datos().insertarDatosProducto(codigo_prod,nombre_prod,marca_prod,cantidad,precio,total);
-            }
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 18",JOptionPane.WARNING_MESSAGE);
-        }catch(NullPointerException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
-        }
-    }
-    
-    protected void translate(){
-        try{
-            
-        }catch(Exception e){
-            
-        }
-    }
-    
-    protected final void table(){
-        dtm=(DefaultTableModel)jTable1.getModel();
-        dtm.setColumnIdentifiers(new Object[]{"Código del producto","Nombre del producto","Marca","Precio","Cantidad","Total"});
         
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jTable1.setEnabled(false);
+        mkPaidButton.addActionListener((a)->{
+            try{
+                for(int i=0;i<dtm.getRowCount();i++){
+                    codigo_prod=Integer.parseInt(dtm.getValueAt(i,0).toString());
+                    nombre_prod=dtm.getValueAt(i,1).toString();
+                    marca_prod=dtm.getValueAt(i,2).toString();
+                    cantidad=Integer.parseInt(dtm.getValueAt(i,3).toString());
+                    precio=Integer.parseInt(dtm.getValueAt(i,4).toString());
+                    total=Integer.parseInt(dtm.getValueAt(i,5).toString());
+                    
+                    new datos().insertarDatosProducto(codigo_prod,nombre_prod,marca_prod,cantidad,precio,total);
+                }
+                
+                JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 32",JOptionPane.WARNING_MESSAGE);
+                new logger().staticLogger("Error 32: "+e.getMessage()+".\nOcurrió en la clase '"+ventana1.class.getName()+"', en el método 'botones(mkPaidButton)'",Level.WARNING);
+                new logger().exceptionLogger(ventana1.class.getName(),Level.WARNING,"botones.mkPaid-32",e.fillInStackTrace());
+            }catch(NullPointerException x){
+                JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
+                new logger().staticLogger("Error 0: "+x.getMessage()+".\nOcurrió en la clase '"+ventana1.class.getName()+"', en el método 'botones(mkPaidButton)'",Level.WARNING);
+                new logger().exceptionLogger(ventana1.class.getName(),Level.WARNING,"botones.mkPaid-0",x.fillInStackTrace());
+            }
+        });
     }
     
     @SuppressWarnings("unchecked")
@@ -216,7 +207,7 @@ public final class ventana1 extends javax.swing.JFrame{
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        mkPaidButton = new javax.swing.JButton();
         picLabel = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
@@ -298,7 +289,7 @@ public final class ventana1 extends javax.swing.JFrame{
 
         addButton.setText("Añadir campos");
 
-        jButton2.setText("Realizar pago");
+        mkPaidButton.setText("Realizar pago");
 
         picLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -313,7 +304,7 @@ public final class ventana1 extends javax.swing.JFrame{
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(mkPaidButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(genrepButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -389,7 +380,7 @@ public final class ventana1 extends javax.swing.JFrame{
                     .addComponent(genrepButton)
                     .addComponent(cleanButton)
                     .addComponent(addButton)
-                    .addComponent(jButton2))
+                    .addComponent(mkPaidButton))
                 .addContainerGap())
         );
 
@@ -449,7 +440,6 @@ public final class ventana1 extends javax.swing.JFrame{
     protected javax.swing.JButton cleanButton;
     protected javax.swing.JButton genrepButton;
     private javax.swing.JButton jButton1;
-    protected javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -459,6 +449,7 @@ public final class ventana1 extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     protected javax.swing.JTable jTable1;
+    protected javax.swing.JButton mkPaidButton;
     protected javax.swing.JLabel picLabel;
     protected javax.swing.JTextField txtCant;
     protected javax.swing.JTextField txtCodigo;

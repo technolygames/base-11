@@ -1,7 +1,5 @@
 package clases.tickets;
 
-import java.util.Arrays;
-
 public class order2{
     char[] temp=new char[]{' '};
     
@@ -10,17 +8,17 @@ public class order2{
     }
     
     public String getItemCantidad(String orderItem){
-        String[] delimitado=orderItem.split(""+Arrays.toString(temp));
+        String[] delimitado=orderItem.split(""+temp);
         return delimitado[0];
     }
     
     public String getItemNombre(String orderItem){
-        String[] delimitado=orderItem.split(""+Arrays.toString(temp));
+        String[] delimitado=orderItem.split(""+temp);
         return delimitado[1];
     }
     
     public String getItemPrecio(String orderItem){
-        String[] delimitado=orderItem.split(""+Arrays.toString(temp));
+        String[] delimitado=orderItem.split(""+temp);
         return delimitado[2];
     }
     

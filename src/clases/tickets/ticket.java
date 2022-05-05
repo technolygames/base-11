@@ -1,13 +1,26 @@
 package clases.tickets;
-
+//clases
 import clases.logger;
-
+//java
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
+import javax.print.Doc;
+import javax.print.SimpleDoc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintService;
+import javax.print.PrintException;
+import javax.print.PrintServiceLookup;
 import javax.swing.JOptionPane;
+//extension larga
+import java.util.logging.Level;
 
+/**
+ * Clase encargada de imprimir y dar forma al ticket.
+ * 
+ * @author unknown
+ */
 public class ticket{
     static ArrayList<String> cabezaLineas=new ArrayList<String>();
     static ArrayList<String> subcabezaLineas=new ArrayList<String>();
@@ -40,7 +53,7 @@ public class ticket{
     public static String dibujarLinea(int valor){
         String raya="";
         for(int x=0;x<valor;x++){
-            raya+="=";
+            raya+="-";
         }
         return raya;
     }
@@ -51,7 +64,8 @@ public class ticket{
             fw.write(ESC_CUT_PAPER);
         }catch(IOException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error IOE_T2",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error IOE_T2: "+e.getMessage()+" en 'setFormato()'",Level.WARNING);
+            new logger().staticLogger("Error IOE_T2: "+e.getMessage()+"\nOcurrió en la clase '"+ticket.class.getName()+"', en el método 'setFormato()'",Level.WARNING);
+            new logger().exceptionLogger(ticket.class.getName(),Level.WARNING,"setFormato",e.fillInStackTrace());
         }
     }
     
@@ -59,40 +73,54 @@ public class ticket{
         return "\n";
     }
     
-    public String cortarHoja(){
-        return (char)27+"m";
-    }
-    
-    public static void imprimirDocumento(String impresora,boolean abrir){
+    /**
+     * Imprime el ticket por medio de la ticketera.
+     * 
+     * @param impresora Ticketera a la que se imprimirá¡ el documento.
+     * @param gaveta Abrirá la gaveta.
+     */
+    public static void imprimirDocumento(String impresora,boolean gaveta){
+        String cadena="";
         try{
-            FileWriter imp = new FileWriter(impresora);
+            FileWriter imp=new FileWriter(impresora);
+            char[] caracter=new char[]{0x1B,'R',18};
             char[] cortarPapel=new char[]{0x1B,'m'};
-            char abrirGaveta[]={(char)27,(char)112,(char)0,(char)10,(char)100};
             
+            imp.write(caracter);
             for(int cabecera=0; cabecera<cabezaLineas.size(); cabecera++){
-                imp.write(cabezaLineas.get(cabecera));
+                cadena+=cabezaLineas.get(cabecera);
+                imp.write(cadena);
+                setFormato(imp,27);
             }
             for(int subcabecera=0;subcabecera<subcabezaLineas.size();subcabecera++){
-                imp.write(subcabezaLineas.get(subcabecera));
+                cadena+=subcabezaLineas.get(subcabecera);
+                imp.write(cadena);
             }
             for(int ITEM=0;ITEM<items.size();ITEM++){
-                imp.write(items.get(ITEM));
+                cadena+=items.get(ITEM);
+                imp.write(cadena);
             }
             for(int total=0;total<totales.size();total++){
-                imp.write(totales.get(total));
+                cadena+=totales.get(total);
+                imp.write(cadena);
             }
             for(int pie=0;pie<lineasPie.size();pie++){
-                imp.write(lineasPie.get(pie));
+                cadena+=lineasPie.get(pie);
+                imp.write(cadena);
             }
-            for(int u=0;u<=10;u++){
-                imp.write("\n");
-            }
-            
             imp.write(cortarPapel);
             
-            if(abrir){
-                imp.write(abrirGaveta);
-                new logger().staticLogger("Se abrió la gaveta",Level.INFO);
+            DocFlavor flavor=DocFlavor.INPUT_STREAM.AUTOSENSE;
+            PrintService service=PrintServiceLookup.lookupDefaultPrintService();
+            DocPrintJob pj=service.createPrintJob();
+            byte[] bytes=cadena.getBytes();
+            Doc doc=new SimpleDoc(imp,flavor,null);
+            
+            pj.print(doc,null);
+            
+            if(gaveta){
+                char abrir[]={(char)27,(char)112,(char)0,(char)10,(char)100};
+                imp.write(abrir);
             }
             
             cabezaLineas.clear();
@@ -100,12 +128,22 @@ public class ticket{
             items.clear();
             totales.clear();
             lineasPie.clear();
+            
             imp.flush();
             imp.close();
+        }catch(PrintException x){
+            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error PE_T1",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error PE_T1: "+x.getMessage()+"\nOcurrió en la clase '"+ticket.class.getName()+"', en el método 'imprimirDocumento()'",Level.WARNING);
+            new logger().exceptionLogger(ticket.class.getName(),Level.WARNING,"imprimirDocumento-PE_T1",x.fillInStackTrace());
         }catch(IOException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error IOE_T1.1",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error IOE_T1.1: "+e.getMessage()+" en 'imprimirDocumento()'",Level.WARNING);
-            
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO_H1",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 1IO_H1: "+e.getMessage()+"\nOcurrió en la clase '"+ticket.class.getName()+"', en el método 'imprimirDocumento()'",Level.WARNING);
+            new logger().exceptionLogger(ticket.class.getName(),Level.WARNING,"imprimirDocumento-1IO_H1",e.fillInStackTrace());
+        }catch(IllegalStateException n){
+            JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error 15",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 15: "+n.getMessage()+".\nOcurrió en la clase '"+ticket.class.getName()+"', en el método 'imprimirDocumento()'",Level.WARNING);
+            new logger().exceptionLogger(ticket.class.getName(),Level.WARNING,"imprimirDocumento-15",n.fillInStackTrace());
+        }finally{
             cabezaLineas.removeAll(cabezaLineas);
             subcabezaLineas.removeAll(subcabezaLineas);
             items.removeAll(items);
