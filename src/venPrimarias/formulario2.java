@@ -3,7 +3,7 @@ package venPrimarias;
 import clases.datos;
 import clases.laf;
 import clases.Icono;
-import menuVentanas.menuDatosVentana2;
+import menus.menuDatosVentana2;
 
 public class formulario2 extends javax.swing.JFrame{
     public formulario2(){
@@ -85,7 +85,7 @@ public class formulario2 extends javax.swing.JFrame{
 
         jLabel1.setText("Código del socio:");
 
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("Nombre(s):");
 
         jLabel3.setText("Apellido paterno:");
 

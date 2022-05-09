@@ -1,11 +1,11 @@
-package menuVentanas;
+package menus;
 
 import venPrimarias.proper1;
 import venPrimarias.ventana1;
 import venPrimarias.ltshData;
 import venPrimarias.ventana2;
 import venPrimarias.ltshProduct;
-import venTerciarias.programmers;
+import venTerciarias.about;
 import venTerciarias.valVentanas.validacionVentana1;
 import venTerciarias.valVentanas.validacionVentana2;
 
@@ -152,7 +152,7 @@ public final class menuVentanas extends javax.swing.JFrame{
         });
         
         jMenuItem3.addActionListener((ActionEvent ae)->{
-            programmers ours=new programmers(new javax.swing.JFrame(),true);
+            about ours=new about(new javax.swing.JFrame(),true);
             ours.setVisible(true);
         });
     }

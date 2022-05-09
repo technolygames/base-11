@@ -1,4 +1,4 @@
-package menuVentanas;
+package paneles;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -10,11 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import venSecundarias.delDatosVentana1;
-import venSecundarias.modDatosVentana1;
 
-public class menuDatosVentana1 extends javax.swing.JDialog{
-    public menuDatosVentana1(java.awt.Frame parent,boolean modal){
+public class modDatosVentana1 extends javax.swing.JDialog{
+    public modDatosVentana1(java.awt.Frame parent,boolean modal){
         super(parent,modal);
         initComponents();
         try{
@@ -39,7 +37,7 @@ public class menuDatosVentana1 extends javax.swing.JDialog{
         botones();
         
         setLocationRelativeTo(null);
-        setTitle("Menú de Datos");
+        setTitle("Actualizar Datos");
     }
     
     protected Image retValue;
@@ -64,30 +62,16 @@ public class menuDatosVentana1 extends javax.swing.JDialog{
             setVisible(false);
             dispose();
         });
-        
-        delDataButton.addActionListener((ae)->{
-            new delDatosVentana1(new javax.swing.JFrame(),true).setVisible(true);
-        });
-        
-        modDataButton.addActionListener((ae)->{
-            new modDatosVentana1(new javax.swing.JFrame(),true).setVisible(true);
-        });
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        modDataButton = new javax.swing.JButton();
-        delDataButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(getIconImage());
-
-        modDataButton.setText("Modificar Datos");
-
-        delDataButton.setText("Eliminar Datos");
 
         backButton.setText("Regresar");
 
@@ -95,25 +79,15 @@ public class menuDatosVentana1 extends javax.swing.JDialog{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(modDataButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(delDataButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(83, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(313, Short.MAX_VALUE)
                 .addComponent(backButton)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(modDataButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(delDataButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(266, Short.MAX_VALUE)
                 .addComponent(backButton)
                 .addContainerGap())
         );
@@ -122,12 +96,10 @@ public class menuDatosVentana1 extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]){
-        new menuDatosVentana1(new javax.swing.JFrame(),true).setVisible(true);
+        new modDatosVentana1(new javax.swing.JFrame(),true).setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JButton delDataButton;
-    private javax.swing.JButton modDataButton;
     // End of variables declaration//GEN-END:variables
 }

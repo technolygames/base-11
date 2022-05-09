@@ -1,4 +1,4 @@
-package venSecundarias;
+package menus;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -10,10 +10,12 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import paneles.delDatosVentana3;
+import paneles.modDatosVentana3;
 
-public class modDatosVentana2 extends javax.swing.JDialog{
-    public modDatosVentana2(java.awt.Frame parent,boolean modal){
-        super(parent,modal);
+public class menuDatosVentana3 extends javax.swing.JDialog{
+    public menuDatosVentana3(java.awt.Frame parent,boolean modal){
+        super(parent, modal);
         initComponents();
         try{
             Properties style=new Properties();
@@ -26,18 +28,18 @@ public class modDatosVentana2 extends javax.swing.JDialog{
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
         }catch(IllegalAccessException ñ){
             JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-        }catch(UnsupportedLookAndFeelException y){
-            JOptionPane.showMessageDialog(null,"Error:\n"+y.getMessage(),"Error ULAFE",JOptionPane.WARNING_MESSAGE);
-        }catch(FileNotFoundException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error FNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error IOE",JOptionPane.WARNING_MESSAGE);
+        }catch(UnsupportedLookAndFeelException k){
+            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 28",JOptionPane.WARNING_MESSAGE);
+        }catch(FileNotFoundException s){
+            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+        }catch(IOException v){
+            JOptionPane.showMessageDialog(null,"Error:\n"+v.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
         }
         
         botones();
         
         setLocationRelativeTo(null);
-        setTitle("Actualizar Datos");
+        setTitle("Menú de Datos");
     }
     
     protected Image retValue;
@@ -62,6 +64,14 @@ public class modDatosVentana2 extends javax.swing.JDialog{
             setVisible(false);
             dispose();
         });
+        
+        delButton.addActionListener((ae)->{
+            new delDatosVentana3(new javax.swing.JFrame(),true).setVisible(true);
+        });
+        
+        modButton.addActionListener((ae)->{
+            new modDatosVentana3(new javax.swing.JFrame(),true).setVisible(true);
+        });
     }
     
     @SuppressWarnings("unchecked")
@@ -69,25 +79,43 @@ public class modDatosVentana2 extends javax.swing.JDialog{
     private void initComponents() {
 
         backButton = new javax.swing.JButton();
+        modButton = new javax.swing.JButton();
+        delButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(getIconImage());
 
         backButton.setText("Regresar");
 
+        modButton.setText("Modificar Datos");
+
+        delButton.setText("Eliminar Datos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(313, Short.MAX_VALUE)
-                .addComponent(backButton)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(backButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(modButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(delButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 73, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(266, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(modButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(delButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(backButton)
                 .addContainerGap())
         );
@@ -96,10 +124,12 @@ public class modDatosVentana2 extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]){
-        new modDatosVentana2(new javax.swing.JFrame(),true).setVisible(true);
+        new menuDatosVentana3(new javax.swing.JFrame(),true).setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JButton delButton;
+    private javax.swing.JButton modButton;
     // End of variables declaration//GEN-END:variables
 }

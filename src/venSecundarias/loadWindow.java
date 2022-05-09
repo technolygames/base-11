@@ -1,69 +1,33 @@
 package venSecundarias;
-
+//clases
+import clases.logger;
+import clases.Icono;
+import clases.laf;
 import clases.resourceDownload;
-import menuVentanas.menuVentanas;
-
+import menus.menuVentanas;
+//java
 import java.awt.Cursor;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Properties;
 import javax.swing.Timer;
-import javax.swing.UIManager;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UnsupportedLookAndFeelException;
-
+//extension larga
+import java.util.logging.Level;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public final class loadWindow extends javax.swing.JFrame{
     public loadWindow(){
         initComponents();
-        try{
-            Properties style=new Properties();
-            style.load(new FileInputStream("src/data/config/config.properties"));
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
-            SwingUtilities.updateComponentTreeUI(this);
-        }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(InstantiationException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-        }catch(IllegalAccessException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-        }catch(UnsupportedLookAndFeelException m){
-            JOptionPane.showMessageDialog(null,"Error:\n"+m.getMessage(),"Error 28",JOptionPane.WARNING_MESSAGE);
-        }catch(NullPointerException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
-        }catch(FileNotFoundException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error FNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException d){
-            JOptionPane.showMessageDialog(null,"Error:\n"+d.getMessage(),"Error IOE",JOptionPane.WARNING_MESSAGE);
-        }
+        new laf().LookAndFeel(loadWindow.this,loadWindow.class.getName(),"loadWindow");
         
         load();
         
         setLocationRelativeTo(null);
+        setResizable(false);
     }
     
     protected Timer t;
     
-    protected File f;
     protected Properties p;
-    protected InputStream is;
-    protected FileOutputStream fos;
-    
-    protected URL u;
-    protected URLConnection uc;
-    
-    protected int ent;
-    
-    protected byte[] bites;
     
     protected final void load(){
         ActionListener al=(ActionEvent ae)->{
@@ -133,64 +97,41 @@ public final class loadWindow extends javax.swing.JFrame{
                         break;
                     case 60:
                         jLabel2.setText(null);
-                        jLabel2.setText("jasperreports-6.0.0.jar");
-                        new resourceDownload().downloadLibs("jasperreports-6.0.0.jar","https://download1509.mediafire.com/708u9pgxswug/yue06ldio0qz21q/jasperreports-6.0.0.jar");
-                        break;
-                    case 65:
-                        jLabel2.setText(null);
                         jLabel2.setText("jasperreports-javaflow-4.7.1.jar");
                         new resourceDownload().downloadLibs("jasperreports-javaflow-4.7.1.jar","https://download851.mediafire.com/twxlygkuhzag/n98i3o1cgzz9a1o/jasperreports-javaflow-4.7.1.jar");
                         break;
-                    case 70:
-                        jLabel2.setText(null);
-                        jLabel2.setText("JPanelWebCam.jar");
-                        new resourceDownload().downloadLibs("JPanelWebCam.jar","https://download1334.mediafire.com/dkyh1n1rtmgg/0o7jbfrehjphqvz/JPanelWebCam.jar");
-                        break;
-                    case 75:
+                    case 65:
                         jLabel2.setText(null);
                         jLabel2.setText("mysql-connector-java-8.0.17.jar");
                         new resourceDownload().downloadLibs("mysql-connector-java-8.0.17.jar","https://download1481.mediafire.com/h3u03fcda5ig/vlith3vil9706rs/mysql-connector-java-8.0.17.jar");
                         break;
-                    case 80:
+                    case 70:
                         jLabel2.setText(null);
                         jLabel2.setText("oclc-dbutils-1.0.20080317.jar");
                         new resourceDownload().downloadLibs("oclc-dbutils-1.0.20080317.jar","https://download1585.mediafire.com/ed75mq82mc5g/s9462u1mtqvnv2n/oclc-dbutils-1.0.20080317.jar");
                         break;
-                    case 85:
+                    case 75:
                         jLabel2.setText(null);
                         jLabel2.setText("ojdbc6_g.jar");
                         new resourceDownload().downloadLibs("ojdbc6_g.jar","https://download844.mediafire.com/t6d607ppm88g/ai1wzj7z8azvyl5/ojdbc6_g.jar");
                         break;
-                    case 90:
+                    case 80:
                         jLabel2.setText(null);
                         jLabel2.setText("poi-3.5-FINAL.jar");
                         new resourceDownload().downloadLibs("poi-3.5-FINAL.jar","https://download1505.mediafire.com/9rco39egrdng/cpc8b9obnl4ob0o/poi-3.5-FINAL.jar");
                         break;
-                    case 95:
+                    case 85:
                         jLabel2.setText(null);
                         jLabel2.setText("rs2xml.jar");
                         new resourceDownload().downloadLibs("rs2xml.jar","https://download850.mediafire.com/f9hgcuvbvy4g/dvc94za7iesvz0f/rs2xml.jar");
                         break;
-                    case 100:
-                        jLabel2.setText(null);
-                        jLabel2.setText("slf4j-api-1.7.2.jar");
-                        new resourceDownload().downloadLibs("slf4j-api-1.7.2.jar","https://download1583.mediafire.com/rha2eun6yy4g/3ggur09zdev86b1/slf4j-api-1.7.2.jar");
-                        break;
-                    case 105:
-                        jLabel2.setText(null);
-                        jLabel2.setText("slf4j-simple-1.6.1.jar");
-                        new resourceDownload().downloadLibs("slf4j-simple-1.6.1.jar","https://download1581.mediafire.com/h5pkq5l7ydrg/4hce15bg4tp4ak6/slf4j-simple-1.6.1.jar");
-                        break;
-                    case 110:
-                        jLabel2.setText(null);
-                        jLabel2.setText("webcam-capture-0.3.10.jar");
-                        new resourceDownload().downloadLibs("webcam-capture-0.3.10.jar","https://download1073.mediafire.com/1geeo2nqwwog/z00fyqio5fr1qrm/webcam-capture-0.3.10.jar");
-                        break;
-                    case 115:
+                    case 90:
                         jLabel2.setText(null);
                         jLabel2.setText("PlaceHolder.jar");
                         new resourceDownload().downloadLibs("PlaceHolder.jar","https://download941.mediafire.com/fhzz83vhg0pg/mykmzydwe3am1x4/PlaceHolder.jar");
                         break;
+                    default:
+                        new logger().staticLogger("Error 39: no se puede descargar las librerías",Level.WARNING);
                 }
             }else{
                 t.stop();
@@ -213,6 +154,7 @@ public final class loadWindow extends javax.swing.JFrame{
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(new Icono().getIconImage());
         setUndecorated(true);
 
         jProgressBar1.setMaximum(115);

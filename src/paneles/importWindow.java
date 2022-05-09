@@ -1,25 +1,31 @@
-package venSecundarias;
+package paneles;
 
 import clases.thread;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
-
+import java.io.BufferedWriter;
 import java.io.File;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
-import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class exportWindow extends javax.swing.JDialog{
-    public exportWindow(java.awt.Frame parent,boolean modal){
+public class importWindow extends javax.swing.JDialog{
+    public importWindow(java.awt.Frame parent,boolean modal){
         super(parent,modal);
         initComponents();
         try{
@@ -44,20 +50,16 @@ public class exportWindow extends javax.swing.JDialog{
         botones();
         
         setLocationRelativeTo(null);
-        setTitle("Exportar");
+        setTitle("Importar");
     }
     
-    protected File f;
     protected InputStream is;
     protected OutputStream os;
-    protected JFileChooser j;
     
     protected Image retValue;
     protected Properties p;
     
-    protected byte[] buffer;
-    
-    protected int leido;
+    protected String direccion;
     
     public Image getIconImage(){
         p=new Properties();
@@ -79,32 +81,52 @@ public class exportWindow extends javax.swing.JDialog{
             dispose();
         });
         
-        exportButton.addActionListener((ae)->{
-            copia();
+        fileButton.addActionListener((ae)->{
+            try{
+                p=new Properties();
+                p.load(new FileInputStream("src/data/config/filechooserd.properties"));
+                JFileChooser chooser=new JFileChooser(p.getProperty("lastdirectory_database_import"));
+                
+                chooser.setFileFilter(new FileNameExtensionFilter("Archivo SQL","sql"));
+                
+                int i=chooser.showOpenDialog(null);
+                if(JFileChooser.APPROVE_OPTION==i){
+                    File f=chooser.getSelectedFile().getAbsoluteFile();
+                    direccion=f.getAbsolutePath();
+                    
+                    p.setProperty("lastdirectory_database_import",f.getParent());
+                    p.store(new BufferedWriter(new FileWriter("src/data/config/filechooserd.properties")),"JFileChooserDirection");
+                }
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(this,"Error:\n"+e.getMessage(),"Error 8",JOptionPane.WARNING_MESSAGE);
+            }
+        });
+        
+        importButton.addActionListener((ae)->{
+            restaurar();
         });
     }
     
-    protected void copia(){
+    protected void restaurar(){
         String nombreUsuario=jTextField1.getText();
         String passUsuario=jPasswordField1.getPassword().toString();
         String based=jTextField3.getText();
-        String nombrebdExportada=based+".sql";
         
         try{
-            Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump -u "+nombreUsuario+" -p "+passUsuario+" "+based);
+            Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysql -u "+nombreUsuario+" -p "+passUsuario+" "+based);
             
-            is=pr.getInputStream();
-            os=new FileOutputStream("src/data/database/MySQL/"+nombrebdExportada);
+            os=pr.getOutputStream();
+            is=new FileInputStream(direccion);
             
             new thread(is,os).start();
             
-            JOptionPane.showMessageDialog(null,"Se ha exportado la base de datos correctamente","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Se ha importado la base de datos correctamente","Rel 1",JOptionPane.INFORMATION_MESSAGE);
             
             os.close();
             os.flush();
             is.close();
         }catch(IOException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 8",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 7",JOptionPane.WARNING_MESSAGE);
         }catch(NullPointerException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
         }
@@ -117,10 +139,12 @@ public class exportWindow extends javax.swing.JDialog{
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        exportButton = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
+        importButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        fileButton = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -130,11 +154,15 @@ public class exportWindow extends javax.swing.JDialog{
 
         jLabel2.setText("Contraseña:");
 
-        jLabel3.setText("Base de datos:");
+        jLabel3.setText("Base de datos a usar:");
 
-        exportButton.setText("Exportar");
+        importButton.setText("Importar");
 
         backButton.setText("Regresar");
+
+        jLabel4.setText("Base de datos a importar:");
+
+        fileButton.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,23 +170,28 @@ public class exportWindow extends javax.swing.JDialog{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(exportButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
-                        .addComponent(backButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(100, 100, 100)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2))
+                                .addGap(16, 16, 16)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                    .addComponent(jPasswordField1)
+                                    .addComponent(fileButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 80, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                                .addComponent(jPasswordField1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(importButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(backButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -167,18 +200,22 @@ public class exportWindow extends javax.swing.JDialog{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
+                    .addComponent(jTextField1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(fileButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(exportButton)
+                    .addComponent(importButton)
                     .addComponent(backButton))
                 .addContainerGap())
         );
@@ -187,15 +224,17 @@ public class exportWindow extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String[] args){
-        new exportWindow(new javax.swing.JFrame(),true).setVisible(true);
+        new importWindow(new javax.swing.JFrame(),true).setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JButton exportButton;
+    private javax.swing.JButton fileButton;
+    private javax.swing.JButton importButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;

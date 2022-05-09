@@ -1,7 +1,7 @@
 package venTerciarias.valVentanas;
 
 import clases.datos;
-import venSecundarias.importWindow;
+import paneles.importWindow;
 
 import java.awt.Image;
 import java.awt.Toolkit;

@@ -1,5 +1,6 @@
-package menuVentanas;
+package paneles;
 
+import clases.datos;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileInputStream;
@@ -10,11 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import venSecundarias.delDatosVentana2;
-import venSecundarias.modDatosVentana2;
 
-public class menuDatosVentana2 extends javax.swing.JDialog{
-    public menuDatosVentana2(java.awt.Frame parent,boolean modal){
+public class delDatosVentana1 extends javax.swing.JDialog{
+    public delDatosVentana1(java.awt.Frame parent,boolean modal){
         super(parent,modal);
         initComponents();
         try{
@@ -39,7 +38,7 @@ public class menuDatosVentana2 extends javax.swing.JDialog{
         botones();
         
         setLocationRelativeTo(null);
-        setTitle("Menú de Datos");
+        setTitle("Eliminar Datos");
     }
     
     protected Image retValue;
@@ -50,7 +49,7 @@ public class menuDatosVentana2 extends javax.swing.JDialog{
         try{
             p.load(new FileInputStream("src/data/config/config.properties"));
             retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-            retValue.flush();;
+            retValue.flush();
         }catch(FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
         }catch(IOException x){
@@ -65,12 +64,10 @@ public class menuDatosVentana2 extends javax.swing.JDialog{
             dispose();
         });
         
-        delDataButton.addActionListener((ae)->{
-            new delDatosVentana2(new javax.swing.JFrame(),true).setVisible(true);
-        });
-        
-        modDataButton.addActionListener((ae)->{
-            new modDatosVentana2(new javax.swing.JFrame(),true).setVisible(true);
+        deleteButton.addActionListener((ae)->{
+            int codigo=Integer.parseInt(jTextField1.getText());
+            
+            new datos().eliminarDatosEmpleado(codigo);
         });
     }
     
@@ -79,17 +76,18 @@ public class menuDatosVentana2 extends javax.swing.JDialog{
     private void initComponents() {
 
         backButton = new javax.swing.JButton();
-        modDataButton = new javax.swing.JButton();
-        delDataButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        deleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(getIconImage());
 
         backButton.setText("Regresar");
 
-        modDataButton.setText("Modificar Datos");
+        jLabel1.setText("Código del empleado:");
 
-        delDataButton.setText("Eliminar Datos");
+        deleteButton.setText("Eliminar datos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,12 +97,13 @@ public class menuDatosVentana2 extends javax.swing.JDialog{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 103, Short.MAX_VALUE)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(modDataButton)
-                            .addComponent(delDataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -112,11 +111,13 @@ public class menuDatosVentana2 extends javax.swing.JDialog{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(modDataButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(delDataButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(backButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backButton)
+                    .addComponent(deleteButton))
                 .addContainerGap())
         );
 
@@ -124,12 +125,13 @@ public class menuDatosVentana2 extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]){
-        new menuDatosVentana2(new javax.swing.JFrame(),true).setVisible(true);
+        new delDatosVentana1(new javax.swing.JFrame(),true).setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JButton delDataButton;
-    private javax.swing.JButton modDataButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

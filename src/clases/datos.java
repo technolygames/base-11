@@ -75,16 +75,17 @@ public class datos{
      * Guarda los datos de la ventana de productos en la base de datos.
      * 
      * @param codigoProducto Código de identificación del producto.
+     * @param codigoEmpleado Código de identificación del empleado que atendió la venta.
      * @param nombreProducto Nombre del producto.
-     * @param marcaProducto Marca del producto.
+     * @param marca Marca del producto.
      * @param cantidad Cantidad comprada de los productos.
      * @param precio Precio de cada uno de los productos.
      * @param total Precio total al que se vendieron los prodcutos.
      */
-    public void insertarDatosProducto(int codigoProducto,String nombreProducto,String marcaProducto,int cantidad,int precio,int total){
+    public void insertarDatosProducto(int codigoProducto,int codigoEmpleado,String nombreProducto,String marca,int cantidad,int precio,int total){
         try{
             s=getConnection().createStatement();
-            s.addBatch("insert into productos values('"+codigoProducto+"','"+nombreProducto+"','"+marcaProducto+"','"+cantidad+"','"+precio+"','"+total+"',now())");
+            s.addBatch("insert into productos values('"+codigoProducto+"','"+codigoEmpleado+"','"+nombreProducto+"','"+marca+"','"+cantidad+"','"+precio+"','"+total+"',now())");
             s.executeBatch();
             
             s.close();
@@ -98,19 +99,19 @@ public class datos{
     /**
      * Guarda los datos de la ventana de almacén en la base de datos.
      * 
-     * @param codigoAlmacen Código de identificación del almacén.
-     * @param codigoProducto Código de identificación del producto que se almacenará.
+     * @param codigoProducto Código de identificación del almacén.
+     * @param codigoLote Código de identificación del lote de productos que se almacenará.
      * @param codigoProveedor Código de identificación del proveedor de los productos.
      * @param nombreProducto Nombre del producto a almacenar.
-     * @param nombreProveedor Nombre del proveedor (persona, no empresa).
-     * @param marcaProducto Marca del producto que será almacenado.
+     * @param marca Marca del producto que será almacenado.
      * @param cantidad Cantidad que es entraga y almacenada.
+     * @param precioUnitario Precio de cada producto del lote.
      * @param stock Disponibilidad del producto.
      */
-    public void insertarDatosAlmacen(int codigoAlmacen,int codigoProducto,int codigoProveedor,String nombreProducto,String nombreProveedor,String marcaProducto,int cantidad,String stock){
+    public void insertarDatosAlmacen(int codigoProducto,int codigoLote,int codigoProveedor,String nombreProducto,String marca,int cantidad,int precioUnitario,String stock){
         try{
             s=getConnection().createStatement();
-            s.addBatch("insert into almacen values('"+codigoAlmacen+"','"+codigoProducto+"','"+codigoProveedor+"','"+nombreProducto+"','"+nombreProveedor+"','"+marcaProducto+"','"+cantidad+"','"+stock+"',now())");
+            s.addBatch("insert into almacen values('"+codigoProducto+"','"+codigoLote+"','"+codigoProveedor+"','"+nombreProducto+"','"+marca+"','"+cantidad+"','"+precioUnitario+"','"+stock+"',now())");
             s.executeBatch();
             
             s.close();
@@ -129,18 +130,41 @@ public class datos{
      * @param nombreEmpleado Nombre(s) del empleado.
      * @param apellidoPaternoEmpleado Apellido paterno del empleado.
      * @param apellidoMaternoEmpleado Apellido materno del empleado.
+     * @param curp Clave única de registro de población del empleado.
+     * @param domicilio Domicilio del empleado.
      * @param puesto Puesto del empleado.
      * @param experiencia Experiencia (en años) del empleado; en caso de no tener, escribir "Nulo".
      * @param gradoEstudios Grado actual de estudios del empleado.
+     * @param contacto Número telefónico del empleado.
+     * @param fechaNacimiento Fecha de nacimiento del empleado.
      * @param edad Edad actual del empleado; en caso de cumplir años, este deberá de ser actualizado.
+     * @param estado Estado actual en el negocio.
      * @param datosExtra Datos extras que el CV del empleado se quieran agregar.
+     * @param foto Foto del empleado.
      */
-    public void insertarDatosEmpleado(String password,int codigoEmpleado,String nombreEmpleado,String apellidoPaternoEmpleado,String apellidoMaternoEmpleado,String puesto,String experiencia,String gradoEstudios,int edad,String datosExtra){
+    public void insertarDatosEmpleado(String password,int codigoEmpleado,String nombreEmpleado,String apellidoPaternoEmpleado,String apellidoMaternoEmpleado,String curp,String domicilio,String puesto,int experiencia,String gradoEstudios,int contacto,String fechaNacimiento,int edad,String estado,String datosExtra,InputStream foto){
         try{
-            ps=getConnection().prepareStatement("insert into empleados values('"+password+"','"+codigoEmpleado+"','"+nombreEmpleado+"','"+apellidoPaternoEmpleado+"','"+apellidoMaternoEmpleado+"','"+puesto+"','"+experiencia+"','"+gradoEstudios+"','"+edad+"','"+datosExtra+"',null,now(),now());");
+            ps=getConnection().prepareStatement("insert into empleados(password,codigo_emp,nombre_emp,apellidop_emp,apellidom_emp,curp,domicilio,puesto,experiencia,grado_estudios,contacto,fecha_nacimiento,edad,estado,datos_extra,foto,fecha_registro,fecha_sesion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),now());");
+            ps.setString(1,password);
+            ps.setInt(2,codigoEmpleado);
+            ps.setString(3,nombreEmpleado);
+            ps.setString(4,apellidoPaternoEmpleado);
+            ps.setString(5,apellidoMaternoEmpleado);
+            ps.setString(6,curp);
+            ps.setString(7,domicilio);
+            ps.setString(8,puesto);
+            ps.setInt(9,experiencia);
+            ps.setString(10,gradoEstudios);
+            ps.setInt(11,contacto);
+            ps.setString(12,fechaNacimiento);
+            ps.setInt(13,edad);
+            ps.setString(14,estado);
+            ps.setString(15,datosExtra);
+            ps.setBlob(16,foto);
             ps.execute();
             
             JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            new logger().staticLogger("Rel 1: se guardaron correctamente los datos a la base de datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosEmpleado()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
             
             ps.close();
         }catch(SQLException e){

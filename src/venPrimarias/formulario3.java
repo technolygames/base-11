@@ -3,7 +3,7 @@ package venPrimarias;
 import clases.datos;
 import clases.laf;
 import clases.Icono;
-import menuVentanas.menuDatosVentana3;
+import menus.menuDatosVentana3;
 
 public class formulario3 extends javax.swing.JFrame{
     public formulario3(){

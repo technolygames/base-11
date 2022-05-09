@@ -1,4 +1,4 @@
-package venSecundarias;
+package paneles;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -11,8 +11,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class modDatosVentana1 extends javax.swing.JDialog{
-    public modDatosVentana1(java.awt.Frame parent,boolean modal){
+public class modDatosVentana2 extends javax.swing.JDialog{
+    public modDatosVentana2(java.awt.Frame parent,boolean modal){
         super(parent,modal);
         initComponents();
         try{
@@ -96,7 +96,7 @@ public class modDatosVentana1 extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]){
-        new modDatosVentana1(new javax.swing.JFrame(),true).setVisible(true);
+        new modDatosVentana2(new javax.swing.JFrame(),true).setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

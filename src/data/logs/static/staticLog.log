@@ -6140,3 +6140,8 @@ may 03, 2022 3:00:08 PM clases.logger staticLogger
 ADVERTENCIA: Error 26H: Stream Closed en 'run()'
 may 03, 2022 3:00:08 PM clases.logger staticLogger
 ADVERTENCIA: Error 26H: Stream Closed en 'run()'
+may 09, 2022 4:43:53 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server..
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'

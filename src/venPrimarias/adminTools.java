@@ -1,62 +1,64 @@
-package venSecundarias;
+package venPrimarias;
 
-import clases.Icono;
 import clases.laf;
+import clases.Icono;
 
-public class paymentWindow extends javax.swing.JDialog{
-    public paymentWindow(){
+public class adminTools extends javax.swing.JFrame{
+    public adminTools(){
         initComponents();
-        new laf().LookAndFeel(paymentWindow.this,paymentWindow.class.getName(),"paymentWindow");
+        new laf().LookAndFeel(adminTools.this,adminTools.class.getName(),"adminTools");
         
         botones();
+        settings();
         
         setLocationRelativeTo(null);
-        setTitle("Pago");
+        setTitle("Herramientas de administrador");
         setResizable(false);
     }
     
+    protected void settings(){
+        
+    }
+    
     protected final void botones(){
-        backButton.addActionListener((a)->{
-            setVisible(false);
-            dispose();
-        });
+        
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backButton = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(new Icono().getIconImage());
 
-        backButton.setText("Regresar");
+        jMenu1.setText("Base de datos");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(313, Short.MAX_VALUE)
-                .addComponent(backButton)
-                .addContainerGap())
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(266, Short.MAX_VALUE)
-                .addComponent(backButton)
-                .addContainerGap())
+            .addGap(0, 279, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String args[]){
-        new paymentWindow().setVisible(true);
+        new adminTools().setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

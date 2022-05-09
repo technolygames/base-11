@@ -15,8 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public final class programmers extends javax.swing.JDialog{
-    public programmers(java.awt.Frame parent, boolean modal){
+public final class about extends javax.swing.JDialog{
+    public about(java.awt.Frame parent, boolean modal){
         super(parent, modal);
         initComponents();
         try{
@@ -258,7 +258,7 @@ public final class programmers extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String[] args){
-        new programmers(new javax.swing.JFrame(),true).setVisible(true);
+        new about(new javax.swing.JFrame(),true).setVisible(true);
     }
     
     private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
