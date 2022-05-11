@@ -1,34 +1,34 @@
 package venPrimarias;
-
+//clases
 import clases.datos;
-import clases.laf;
 import clases.Icono;
+import clases.laf;
 import clases.logger;
 import menus.menuDatosVentana1;
-
-import java.io.File;
+//librerías
+import com.placeholder.PlaceHolder;
+//java
 import java.awt.Image;
+import java.awt.HeadlessException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.time.Period;
+import java.time.LocalDate;
 import java.util.Properties;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
-
-import com.placeholder.PlaceHolder;
-import java.awt.HeadlessException;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.time.LocalDate;
-import java.time.Period;
+//extension larga
+import java.util.logging.Level;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.logging.Level;
-
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public final class formulario1 extends javax.swing.JFrame{
     public formulario1(){

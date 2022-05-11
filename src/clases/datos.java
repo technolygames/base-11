@@ -71,6 +71,29 @@ public class datos{
         }
         return cn;
     }
+    
+    /**
+     * Crea la base de datos que se usará para importar la base de datos.
+     * Advertencia: no usar en otras clases.
+     * 
+     * @param nombre Nombre de la base de datos.
+     */
+    public void crearBD(String nombre){
+        try{
+            ps=getConnection().prepareStatement("create database "+nombre+";");
+            ps.execute();
+            
+            JOptionPane.showMessageDialog(null,"Se creó la base de datos, pero falta importar la base","Rel 1E",JOptionPane.INFORMATION_MESSAGE);
+            new logger().staticLogger("Rel 1E: se creó correctamente la base de datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'crearBD()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
+            
+            ps.close();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 5E",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 5E: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'crearBD()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"crearBD-5E",e.fillInStackTrace());
+        }
+    }
+    
     /**
      * Guarda los datos de la ventana de productos en la base de datos.
      * 
@@ -179,17 +202,30 @@ public class datos{
      * 
      * @param codigoSocio Código de identificación del socio.
      * @param nombreSocio Nombre(s) del socio.
-     * @param apellidopSocio Apellido paterno del socio.
-     * @param apellidomSocio Apellido materno del socio.
+     * @param apellidoPaternoSocio Apellido paterno del socio.
+     * @param apellidoMaternoSocio Apellido materno del socio.
      * @param tipoSocio Tipo de afiliación.
+     * @param correo Correo de contacto del empleado.
+     * @param rfc RFC para tramitar factura.
      * @param datosExtra Datos extra que se quieran agregar como descripción del socio.
+     * @param foto Foto del socio para identificarlo.
      */
-    public void insertarDatosSocio(int codigoSocio,String nombreSocio,String apellidopSocio,String apellidomSocio,String tipoSocio,String datosExtra){
+    public void insertarDatosSocio(int codigoSocio,String nombreSocio,String apellidoPaternoSocio,String apellidoMaternoSocio,String tipoSocio,String correo,String rfc,String datosExtra,InputStream foto){
         try{
-            ps=getConnection().prepareStatement("insert into socios values('"+codigoSocio+"','"+nombreSocio+"','"+apellidopSocio+"','"+apellidomSocio+"','"+tipoSocio+"','"+datosExtra+"',null,now(),now());");
+            ps=getConnection().prepareStatement("insert into socios(codigo_part,nombre_part,apellidop_part,apellidom_part,tipo_socio,correo,rfc,datos_extra,foto,fecha_ingreso,fecha_ucompra) values(?,?,?,?,?,?,?,?,?,now(),now());");
+            ps.setInt(1,codigoSocio);
+            ps.setString(2,nombreSocio);
+            ps.setString(3,apellidoPaternoSocio);
+            ps.setString(4,apellidoMaternoSocio);
+            ps.setString(5,tipoSocio);
+            ps.setString(6,correo);
+            ps.setString(7,rfc);
+            ps.setString(8,datosExtra);
+            ps.setBinaryStream(9,foto);
             ps.execute();
             
             JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            new logger().staticLogger("Rel 1: se guardaron correctamente los datos a la base de datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosSocio()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
             
             ps.close();
         }catch(SQLException e){
@@ -204,16 +240,26 @@ public class datos{
      * 
      * @param codigoProveedor Código de identificación del proveedor.
      * @param nombreProveedor Nombre(s) del proveedor.
-     * @param apellidoPaternoProvedor Apellido paterno del proveedor.
+     * @param apellidoPaternoProveedor Apellido paterno del proveedor.
      * @param apellidoMaternoProveedor Apellido materno del proveedor.
      * @param empresa Empresa procedencia del proveedor.
+     * @param contacto Número de contacto del proveedor.
+     * @param foto Foto del proveedor para identificarlo.
      */
-    public void insertarDatosProveedor(int codigoProveedor,String nombreProveedor,String apellidoPaternoProvedor,String apellidoMaternoProveedor,String empresa){
+    public void insertarDatosProveedor(int codigoProveedor,String nombreProveedor,String apellidoPaternoProveedor,String apellidoMaternoProveedor,String empresa,int contacto,InputStream foto){
         try{
-            ps=getConnection().prepareStatement("insert into proveedor value('"+codigoProveedor+"','"+nombreProveedor+"','"+apellidoPaternoProvedor+"','"+apellidoMaternoProveedor+"','"+empresa+"',null,now(),now());");
+            ps=getConnection().prepareStatement("insert into proveedor(codigo_prov,nombre_prov,apellidop_prov,apellidom_prov,empresa,contacto,foto,fecha_ingreso,fecha_uentrega) value(?,?,?,?,?,?,?,now(),now());");
+            ps.setInt(1,codigoProveedor);
+            ps.setString(2,nombreProveedor);
+            ps.setString(3,apellidoPaternoProveedor);
+            ps.setString(4,apellidoMaternoProveedor);
+            ps.setString(5,empresa);
+            ps.setInt(6,contacto);
+            ps.setBinaryStream(7,foto);
             ps.execute();
             
             JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
+            new logger().staticLogger("Rel 1: se guardaron correctamente los datos a la base de datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosProveedor()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
             
             ps.close();
         }catch(SQLException e){
@@ -223,12 +269,21 @@ public class datos{
         }
     }
     
-    public void actualizarDatosEmpleado(String query){
+    /**
+     * Actualiza datos de la tabla de empleados.
+     * Esta es específica para empleados. No usar como universal.
+     * 
+     * Para que se pueda usar esta clase, se debe usar la sintaxis que está en la documentación del programa.
+     * 
+     * @param consulta datos que serán modificados.
+     */
+    public void actualizarDatosEmpleado(String consulta){
         try{
-            ps=getConnection().prepareStatement("update empleados "+query);
+            ps=getConnection().prepareStatement("update empleados "+consulta);
             ps.executeUpdate();
             
             JOptionPane.showMessageDialog(null,"Se han actualizado los datos","Rel 2",JOptionPane.INFORMATION_MESSAGE);
+            new logger().staticLogger("Rel 2: se actualizaron correctamente los datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'actualizarDatosEmpleado()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
             
             ps.close();
         }catch(SQLException e){
@@ -238,13 +293,22 @@ public class datos{
         }
     }
     
-    public void actualizarDatosSocio(String query){
+    /**
+     * Actualiza datos de la tabla de socios.
+     * Esta es específica para socios. No usar como universal.
+     * 
+     * Para que se pueda usar esta clase, se debe usar la sintaxis que está en la documentación del programa.
+     * 
+     * @param consulta datos que serán modificados.
+     */
+    public void actualizarDatosSocio(String consulta){
         try{
-            ps=getConnection().prepareStatement("update socios "+query);
+            ps=getConnection().prepareStatement("update socios "+consulta);
             ps.execute();
             
             JOptionPane.showMessageDialog(null,"Se han actualizado los datos","Rel 2",JOptionPane.INFORMATION_MESSAGE);
-            
+            new logger().staticLogger("Rel 2: se actualizaron correctamente los datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'actualizarDatosSocio()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
+        
             ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 12",JOptionPane.WARNING_MESSAGE);
@@ -254,7 +318,31 @@ public class datos{
     }
     
     /**
-     * Elimina los datos especificados en la tabla 'Empleados'.
+     * Actualiza datos de la tabla de proveedores.
+     * Esta es específica para socios. No usar como universal.
+     * 
+     * Para que se pueda usar esta clase, se debe usar la sintaxis que está en la documentación del programa.
+     * 
+     * @param consulta datos que serán modificados.
+     */
+    public void actualizarDatosProveedor(String consulta){
+        try{
+            ps=getConnection().prepareStatement("update proveedor "+consulta);
+            ps.execute();
+            
+            JOptionPane.showMessageDialog(null,"Se han actualizado los datos","Rel 2",JOptionPane.INFORMATION_MESSAGE);
+            new logger().staticLogger("Rel 2: se actualizaron correctamente los datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'actualizarDatosProveedor()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
+            
+            ps.close();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 12",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 12: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'actualizarDatosProveedor()'",Level.WARNING);
+            new logger().exceptionLogger(datos.class.getName(),Level.WARNING,"actualizarDatosProveedor-12",e.fillInStackTrace());
+        }
+    }
+    
+    /**
+     * Elimina datos específicos de la tabla empleados.
      * Si se eliminan los datos, no se podrán recuperar. Usar solamente en caso de despido del negocio.
      * 
      * @param codigoEmpleado Código del empleado al que se eliminarán los datos.
@@ -265,6 +353,7 @@ public class datos{
             ps.execute();
             
             JOptionPane.showMessageDialog(null,"Se han eliminado los datos","Rel 3",JOptionPane.INFORMATION_MESSAGE);
+            new logger().staticLogger("Rel 3: se eliminaron correctamente los datos de la base de datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'eliminarDatosEmpleado()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
             
             ps.close();
         }catch(SQLException e){
@@ -275,7 +364,7 @@ public class datos{
     }
     
     /**
-     * Elimina los datos especificados en la tabla 'Socios'.
+     * Elimina datos específicos de la tabla socios.
      * Si se eliminan los datos, no se podrán recuperar. Usar solamente en caso de desafiliación.
      * 
      * @param codigoSocio Código del socio al que se eliminarán los datos.
@@ -286,6 +375,7 @@ public class datos{
             ps.execute();
             
             JOptionPane.showMessageDialog(null,"Se han eliminado los datos","Rel 3",JOptionPane.INFORMATION_MESSAGE);
+            new logger().staticLogger("Rel 3: se eliminaron correctamente los datos de la base de datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'eliminarDatosSocio()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
             
             ps.close();
         }catch(SQLException e){
@@ -296,7 +386,7 @@ public class datos{
     }
     
     /**
-     * Elimina los datos especificados en la tabla 'Proveedor.
+     * Elimina datos específicos de la tabla proveedor.
      * Si se eliminan los datos, no se podrán recuperar. Usar solamente en caso de despido de la empresa de origen.
      * 
      * @param codigoProveedor Código del proveedor al que se eliminarán los datos.
@@ -307,6 +397,7 @@ public class datos{
             ps.execute();
             
             JOptionPane.showMessageDialog(null,"Se han eliminado los datos","Rel 3",JOptionPane.INFORMATION_MESSAGE);
+            new logger().staticLogger("Rel 3: se eliminaron correctamente los datos de la base de datos.\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'eliminarDatosProveedor()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
             
             ps.close();
         }catch(SQLException e){

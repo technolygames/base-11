@@ -1,96 +1,35 @@
 package venTerciarias;
-
+//clases
 import clases.datos;
-
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Properties;
-import javax.swing.UIManager;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UnsupportedLookAndFeelException;
+import clases.Icono;
+import clases.laf;
+import paneles.databaseImport;
 
 public class databaseWindow extends javax.swing.JDialog{
     public databaseWindow(java.awt.Frame parent,boolean modal){
         super(parent,modal);
         initComponents();
-        try{
-            Properties style=new Properties();
-            style.load(new FileInputStream("src/data/config/config.properties"));
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
-            SwingUtilities.updateComponentTreeUI(this);
-        }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(InstantiationException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-        }catch(IllegalAccessException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-        }catch(UnsupportedLookAndFeelException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 28",JOptionPane.WARNING_MESSAGE);
-        }catch(FileNotFoundException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException v){
-            JOptionPane.showMessageDialog(null,"Error:\n"+v.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
+        new laf().LookAndFeel(databaseWindow.this,databaseWindow.class.getName(),"databaseWindow");
         
         botones();
         
         setLocationRelativeTo(null);
         setTitle("Crear base de datos");
+        setResizable(false);
     }
-    
-    protected datos d;
-    
-    protected Image retValue;
-    protected Properties p;
-    
-    protected PreparedStatement ps;
-    protected ResultSet rs;
     
     public static String nombredb;
     
-    public Image getIconImage(){
-        p=new Properties();
-        try{
-            p.load(new FileInputStream("src/data/config/config.properties"));
-            retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-            retValue.flush();
-        }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
-        return retValue;
-    }
-    
     protected final void botones(){
         createButton.addActionListener((ae)->{
-            crearBase();
+            new datos().crearBD(jTextField1.getText());
+            databaseImport.jTextField3.setText(jTextField1.getText());
         });
         
         backButton.addActionListener((ae)->{
             setVisible(false);
             dispose();
         });
-    }
-    
-    protected final void crearBase(){
-        d=new datos();
-        nombredb=jTextField1.getText();
-        try{
-            ps=d.getConnection().prepareStatement("create database "+nombredb+";");
-            ps.execute();
-            JOptionPane.showMessageDialog(null,"Se creó la base de datos, pero falta importar la base","Rel 1",JOptionPane.INFORMATION_MESSAGE);
-            ps.close();
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ex.getMessage(),"Error 1E",JOptionPane.WARNING_MESSAGE);
-        }
     }
     
     @SuppressWarnings("unchecked")
@@ -103,7 +42,7 @@ public class databaseWindow extends javax.swing.JDialog{
         backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(getIconImage());
+        setIconImage(new Icono().getIconImage());
 
         jLabel1.setText("Nombre de la base de datos:");
 

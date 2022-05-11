@@ -1,71 +1,37 @@
 package venTerciarias.valVentanas;
-
+//clases
 import clases.datos;
-import paneles.exportWindow;
-
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import clases.Icono;
+import clases.laf;
+import clases.logger;
+import venPrimarias.adminTools;
+import venPrimarias.start;
+//java
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import java.util.Properties;
-import javax.swing.UIManager;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UnsupportedLookAndFeelException;
+//extension larga
+import java.util.logging.Level;
 
 public class validacionVentana7 extends javax.swing.JDialog{
-    public validacionVentana7(java.awt.Frame parent, boolean modal){
+    public validacionVentana7(java.awt.Frame parent,boolean modal){
         super(parent, modal);
         initComponents();
-        try{
-            Properties style=new Properties();
-            style.load(new FileInputStream("src/data/config/config.properties"));
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
-            SwingUtilities.updateComponentTreeUI(this);
-        }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(InstantiationException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-        }catch(IllegalAccessException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-        }catch(UnsupportedLookAndFeelException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 28",JOptionPane.WARNING_MESSAGE);
-        }catch(FileNotFoundException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException v){
-            JOptionPane.showMessageDialog(null,"Error:\n"+v.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
+        new laf().LookAndFeel(validacionVentana7.this,validacionVentana7.class.getName(),"validacionVentana7");
         
         botones();
         
         setLocationRelativeTo(null);
         setTitle("Validación");
-    }
-    
-    protected Image retValue;
-    protected Properties p;
-    
-    public Image getIconImage(){
-        p=new Properties();
-        try{
-            p.load(new FileInputStream("src/data/config/config.properties"));
-            retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-            retValue.flush();
-        }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
-        return retValue;
+        setResizable(false);
+        
+        jTextField1.setText(start.nameUser);
     }
     
     protected final void botones(){
         backButton.addActionListener((ae)->{
-            setVisible(false);
+            setVisible(true);
             dispose();
         });
         
@@ -76,20 +42,33 @@ public class validacionVentana7 extends javax.swing.JDialog{
             String consulta="select * from empleados where password='"+contra+"' and nombre_emp='"+usuario+"';";
             
             try{
-                PreparedStatement ps=new datos().getConnection().prepareStatement(consulta);
-                ResultSet rs=ps.executeQuery();
-                if(rs.next()){
-                    if(rs.getString("puesto").equals("Programador")||rs.getString("puesto").equals("Desarrollador")){
-                        new exportWindow(new javax.swing.JFrame(),true).setVisible(true);
-                        dispose();
-                    }else if(rs.getString("puesto").equals("Dueño")||rs.getString("puesto").equals("Empleado")){
-                        JOptionPane.showMessageDialog(null,"Acceso restringido","Error 37",JOptionPane.WARNING_MESSAGE);
+                if(!jTextField1.getText().equals("")||!jPasswordField1.getPassword().equals("")){
+                    PreparedStatement ps=new datos().getConnection().prepareStatement(consulta);
+                    ResultSet rs=ps.executeQuery();
+                    if(rs.next()){
+                        if(rs.getString("puesto").equals("Dueño")||rs.getString("puesto").equals("Programador")||rs.getString("puesto").equals("Desarrollador")){
+                            new adminTools().setVisible(true);
+                            new logger().staticLogger("Rel 5: validación correcta a 'adminTools'.\nOcurrió en la clase '"+validacionVentana7.class.getName()+"', en el método 'botones(valButton)'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
+                            dispose();
+                        }else{
+                            JOptionPane.showMessageDialog(null,"Acceso restringido","Error 38",JOptionPane.WARNING_MESSAGE);
+                            new logger().staticLogger("Error 38: usuario sin privilegios.\nOcurrió en la clase '"+validacionVentana7.class.getName()+"', en el método 'botones(valButton)'",Level.WARNING);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Error: no existen los datos","Error 14",JOptionPane.WARNING_MESSAGE);
+                        new logger().staticLogger("Error 14: no existen o no se ingresaron los datos a buscar y cambiar.\nOcurrió en '"+validacionVentana7.class.getName()+"', en el método 'botones(valButton)'",Level.WARNING);
                     }
+                    
+                    ps.close();
+                    rs.close();
+                }else{
+                    JOptionPane.showMessageDialog(null,"Error:\n Escribe tu usuario y/o contraseña","Error 18",JOptionPane.WARNING_MESSAGE);
+                    new logger().staticLogger("Error 18: no se escribió usuario y/o contraseña.\nOcurrió en la clase '"+validacionVentana7.class.getName()+"', en el método 'botones(valButton)'",Level.WARNING);
                 }
-                ps.close();
-                rs.close();
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 9",JOptionPane.WARNING_MESSAGE);
+                new logger().staticLogger("Error 9: "+e.getMessage()+".\nOcurrió en la clase '"+validacionVentana7.class.getName()+"', en el método 'botones(valButton)'",Level.WARNING);
+                new logger().exceptionLogger(validacionVentana7.class.getName(),Level.WARNING,"botones.val-9",e.fillInStackTrace());
             }
         });
     }
@@ -106,7 +85,7 @@ public class validacionVentana7 extends javax.swing.JDialog{
         backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(getIconImage());
+        setIconImage(new Icono().getIconImage());
 
         jLabel1.setText("Usuario:");
 
@@ -125,16 +104,16 @@ public class validacionVentana7 extends javax.swing.JDialog{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(valButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(jTextField1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
