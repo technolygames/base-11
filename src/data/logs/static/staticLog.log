@@ -6210,3 +6210,19 @@ may 12, 2022 7:51:26 PM clases.logger staticLogger
 INFORMACIÓN: Se guardó correctamente la imagen del empleado.
 Ocurrió en la clase 'venTerciarias.dataWindow4', en el método 'botones(storeImgButton)'.
 Usuario que hizo la acción: 99876
+may 13, 2022 3:33:21 PM clases.logger staticLogger
+INFORMACIÓN: Sesión finalizada.
+Ocurrió en la clase 'menus.menuVentanas', en el método 'menu(jMenuItem2)'.
+Usuario que terminó sesión: null
+may 13, 2022 3:33:30 PM clases.logger staticLogger
+INFORMACIÓN: Inicio de sesión correcto.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'.
+Usuario logeado: 99876
+may 13, 2022 3:35:11 PM clases.logger staticLogger
+INFORMACIÓN: Sesión finalizada.
+Ocurrió en la clase 'menus.menuVentanas', en el método 'menu(jMenuItem2)'.
+Usuario que terminó sesión: null
+may 13, 2022 3:35:18 PM clases.logger staticLogger
+INFORMACIÓN: Inicio de sesión correcto.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'.
+Usuario logeado: 99876
