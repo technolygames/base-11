@@ -23,7 +23,7 @@ Error 11: no se ingresaron correctamente los datos solicitados-
 Error 12: no se pudo actualizar los datos; los datos solicitados no son los correctos-
 Error 13: no se pudo eliminar los datos; los datos a borrar no son los correctos o no existen-
 Error 14: no se pudo buscar; no se ingresaron correctamente los datos y/o a opción seleccionada no es la correcta------
-Error 15: campos que se agregaron al archivo json que no se usan---
+Error 15: campos incompatibles---
 Error 16: no se pudo mostrar los datos en la tabla-----
 Error 17: no se pudo generar el reporte o factura-
 Error 18: posible ingreso erróneo o nulo de datos-----------

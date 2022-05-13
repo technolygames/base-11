@@ -6145,3 +6145,68 @@ ADVERTENCIA: Error 10: Communications link failure
 
 The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server..
 Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+may 12, 2022 5:01:59 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server..
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+may 12, 2022 5:02:26 PM clases.logger staticLogger
+ADVERTENCIA: Error 14: no existen o no se ingresaron los datos a buscar y cambiar.
+Ocurrió en 'venTerciarias.valVentanas.validacionVentana7', en el método 'botones(valButton)'
+may 12, 2022 5:02:31 PM clases.logger staticLogger
+INFORMACIÓN: Rel 5: validación correcta a 'adminTools'.
+Ocurrió en la clase 'venTerciarias.valVentanas.validacionVentana7', en el método 'botones(valButton)'.
+Usuario que hizo la acción: 0
+may 12, 2022 5:02:31 PM clases.logger staticLogger
+INFORMACIÓN: Rel 5: validación correcta a 'adminTools'.
+Ocurrió en la clase 'venTerciarias.valVentanas.validacionVentana7', en el método 'botones(valButton)'.
+Usuario que hizo la acción: 0
+may 12, 2022 5:52:02 PM clases.logger staticLogger
+INFORMACIÓN: Sesión finalizada.
+Ocurrió en la clase 'menus.menuVentanas', en el método 'menu(jMenuItem2)'.
+Usuario que terminó sesión: null
+may 12, 2022 5:53:28 PM clases.logger staticLogger
+INFORMACIÓN: Sesión finalizada.
+Ocurrió en la clase 'menus.menuVentanas', en el método 'menu(jMenuItem2)'.
+Usuario que terminó sesión: null
+may 12, 2022 7:42:56 PM clases.logger staticLogger
+INFORMACIÓN: Sesión finalizada.
+Ocurrió en la clase 'menus.menuVentanas', en el método 'menu(jMenuItem2)'.
+Usuario que terminó sesión: null
+may 12, 2022 7:43:08 PM clases.logger staticLogger
+INFORMACIÓN: Inicio de sesión correcto.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'.
+Usuario logeado: 99876
+may 12, 2022 7:43:08 PM clases.logger staticLogger
+INFORMACIÓN: Inicio de sesión correcto.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'.
+Usuario logeado: 99876
+may 12, 2022 7:47:52 PM clases.logger staticLogger
+INFORMACIÓN: Sesión finalizada.
+Ocurrió en la clase 'menus.menuVentanas', en el método 'menu(jMenuItem2)'.
+Usuario que terminó sesión: null
+may 12, 2022 7:48:03 PM clases.logger staticLogger
+INFORMACIÓN: Inicio de sesión correcto.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'.
+Usuario logeado: 99876
+may 12, 2022 7:48:20 PM clases.logger staticLogger
+ADVERTENCIA: Error 1IO: C:\Users\erick\Desktop\Base-jdk8\base1\src\data\media\dataImage\empleados\perfil\59315.jpg (El sistema no puede encontrar la ruta especificada).
+Ocurrió en la clase 'venTerciarias.dataWindow4', en el método 'botones(storeImgButton)'
+may 12, 2022 7:50:45 PM clases.logger staticLogger
+ADVERTENCIA: Error 1IO: C:\Users\erick\Desktop\Base-jdk8\base1\src\data\media\dataImage\empleados\perfil\34890.jpg (El sistema no puede encontrar la ruta especificada).
+Ocurrió en la clase 'venTerciarias.dataWindow4', en el método 'botones(storeImgButton)'
+may 12, 2022 7:50:45 PM clases.logger staticLogger
+ADVERTENCIA: Error 1IO: C:\Users\erick\Desktop\Base-jdk8\base1\src\data\media\dataImage\empleados\perfil\34890.jpg (El sistema no puede encontrar la ruta especificada).
+Ocurrió en la clase 'venTerciarias.dataWindow4', en el método 'botones(storeImgButton)'
+may 12, 2022 7:51:26 PM clases.logger staticLogger
+INFORMACIÓN: Se guardó correctamente la imagen del empleado.
+Ocurrió en la clase 'venTerciarias.dataWindow4', en el método 'botones(storeImgButton)'.
+Usuario que hizo la acción: 99876
+may 12, 2022 7:51:26 PM clases.logger staticLogger
+INFORMACIÓN: Se guardó correctamente la imagen del empleado.
+Ocurrió en la clase 'venTerciarias.dataWindow4', en el método 'botones(storeImgButton)'.
+Usuario que hizo la acción: 99876
+may 12, 2022 7:51:26 PM clases.logger staticLogger
+INFORMACIÓN: Se guardó correctamente la imagen del empleado.
+Ocurrió en la clase 'venTerciarias.dataWindow4', en el método 'botones(storeImgButton)'.
+Usuario que hizo la acción: 99876

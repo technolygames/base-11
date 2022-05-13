@@ -19,8 +19,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class dataWindow extends javax.swing.JDialog{
-    public dataWindow(java.awt.Frame parent,boolean modal){
+public class dataWindow1 extends javax.swing.JDialog{
+    public dataWindow1(java.awt.Frame parent,boolean modal){
         super(parent,modal);
         initComponents();
         try{
@@ -320,7 +320,7 @@ public class dataWindow extends javax.swing.JDialog{
     }// </editor-fold>//GEN-END:initComponents
     
     public static void main(String[] args){
-        new dataWindow(new javax.swing.JFrame(),true).setVisible(true);
+        new dataWindow1(new javax.swing.JFrame(),true).setVisible(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

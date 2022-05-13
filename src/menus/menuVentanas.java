@@ -1,98 +1,76 @@
 package menus;
-
+//clases
+import clases.Icono;
+import clases.laf;
+import clases.logger;
+import clases.win10Notification;
 import venPrimarias.proper1;
 import venPrimarias.ventana1;
-import venPrimarias.ltshStorage;
 import venPrimarias.ventana2;
+import venPrimarias.ltshStorage;
 import venPrimarias.ltshProduct;
+import venPrimarias.start;
 import venTerciarias.about;
+import venTerciarias.dataWindow4;
 import venTerciarias.valVentanas.validacionVentana1;
 import venTerciarias.valVentanas.validacionVentana2;
-
+import venTerciarias.valVentanas.validacionVentana3;
+import venTerciarias.valVentanas.validacionVentana4;
+import venTerciarias.valVentanas.validacionVentana5;
+import venTerciarias.valVentanas.validacionVentana6;
+//java
 import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
 import javax.swing.Icon;
-import javax.swing.UIManager;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.imageio.ImageIO;
-
+//extension larga
 import java.awt.event.ActionEvent;
-import venTerciarias.valVentanas.validacionVentana3;
-import venTerciarias.valVentanas.validacionVentana4;
-import venTerciarias.valVentanas.validacionVentana5;
-import venTerciarias.valVentanas.validacionVentana6;
+import java.util.logging.Level;
 
 public final class menuVentanas extends javax.swing.JFrame{
     public menuVentanas(){
         initComponents();
-        try{
-            Properties style=new Properties();
-            style.load(new FileInputStream("src/data/config/config.properties"));
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
-            SwingUtilities.updateComponentTreeUI(this);
-        }catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(InstantiationException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-        }catch(IllegalAccessException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
-        }catch(UnsupportedLookAndFeelException y){
-            JOptionPane.showMessageDialog(null,"Error:\n"+y.getMessage(),"Error ULAFE",JOptionPane.WARNING_MESSAGE);
-        }catch(FileNotFoundException k){
-            JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error FNFE",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error IOE",JOptionPane.WARNING_MESSAGE);
-        }
+        new laf().LookAndFeel(menuVentanas.this,menuVentanas.class.getName(),"menuVentanas");
         
         menu();
         botones();
         settings();
         
-        setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Ventana principal");
+        setResizable(false);
     }
     
-    protected Image retValue;
     protected Properties p;
-    
-    @Override
-    public Image getIconImage(){
-        p=new Properties();
-        try{
-            p.load(new FileInputStream("src/data/config/config.properties"));
-            retValue=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-            retValue.flush();
-        }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-        }catch(IOException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-        }
-        return retValue;
-    }
     
     protected void settings(){
         p=new Properties();
         try{
-            p.load(new FileInputStream("src/data/config/config.properties"));
+            p.load(new FileInputStream(System.getProperty("user.dir")+"/src/data/config/config.properties"));
             Image i=ImageIO.read(new FileInputStream(p.getProperty("imagenes")));
             ImageIcon im=new ImageIcon(i);
             Icon l=new ImageIcon(im.getImage().getScaledInstance(picLabel.getWidth(),picLabel.getHeight(),Image.SCALE_DEFAULT));
+            picLabel.setIcon(l);
             
             i.flush();
-            picLabel.setIcon(l);
         }catch(FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 1IO: "+e.getMessage()+".\nOcurrió en la clase '"+menuVentanas.class.getName()+"', en el método 'settings()'",Level.WARNING);
+            new logger().exceptionLogger(menuVentanas.class.getName(),Level.WARNING,"settings-1IO",e.fillInStackTrace());
         }catch(IOException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 2IO: "+x.getMessage()+".\nOcurrió en la clase '"+menuVentanas.class.getName()+"', en el método 'settings()'",Level.WARNING);
+            new logger().exceptionLogger(menuVentanas.class.getName(),Level.WARNING,"settings-2IO",x.fillInStackTrace());
         }
+        
+        String nombre=start.nameUser;
+        jMenuItem2.setText(nombre);
     }
     
     protected final void botones(){
@@ -143,17 +121,29 @@ public final class menuVentanas extends javax.swing.JFrame{
     }
     
     protected final void menu(){
-        jMenuItem2.addActionListener((ActionEvent ae)->{
+        properButton.addActionListener((ActionEvent ae)->{
             try{
                 new proper1().setVisible(true);
             }catch(IllegalArgumentException e){
-                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 24",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 15",JOptionPane.WARNING_MESSAGE);
+                new logger().staticLogger("Error 15: "+e.getMessage()+".\nOcurrió en la clase '"+menuVentanas.class.getName()+"', en el método 'menu(properButton)'",Level.WARNING);
+                new logger().exceptionLogger(menuVentanas.class.getName(),Level.WARNING,"menu.proper-15",e.fillInStackTrace());
             }
         });
         
-        jMenuItem3.addActionListener((ActionEvent ae)->{
-            about ours=new about(new javax.swing.JFrame(),true);
-            ours.setVisible(true);
+        aboutButton.addActionListener((ActionEvent ae)->{
+            new about(new javax.swing.JFrame(),true).setVisible(true);
+        });
+        
+        jMenuItem2.addActionListener((a)->{
+            new dataWindow4(new javax.swing.JFrame(),true).setVisible(true);
+        });
+        
+        jMenuItem3.addActionListener((a)->{
+            new start().setVisible(true);
+            new win10Notification().trayNotify("Has cerrado sesión","Hasta luego, "+jMenuItem2.getText(),TrayIcon.MessageType.INFO);
+            new logger().staticLogger("Sesión finalizada.\nOcurrió en la clase '"+menuVentanas.class.getName()+"', en el método 'menu(jMenuItem2)'.\nUsuario que terminó sesión: "+jMenuItem2.getText(),Level.INFO);
+            dispose();
         });
     }
     
@@ -176,13 +166,16 @@ public final class menuVentanas extends javax.swing.JFrame{
         ltprvButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
+        properButton = new javax.swing.JMenuItem();
+        aboutButton = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setIconImage(getIconImage());
+        setIconImage(new Icono().getIconImage());
 
         ltwkButton.setText("Lista de empleados");
 
@@ -210,13 +203,23 @@ public final class menuVentanas extends javax.swing.JFrame{
 
         jMenu3.setText("Opciones");
 
-        jMenuItem2.setText("Ajustes");
-        jMenu3.add(jMenuItem2);
+        properButton.setText("Ajustes");
+        jMenu3.add(properButton);
 
-        jMenuItem3.setText("Acerca");
-        jMenu3.add(jMenuItem3);
+        aboutButton.setText("Acerca");
+        jMenu3.add(aboutButton);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu1.setText("Usuario");
+
+        jMenuItem2.setText("jMenuItem2");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Cerrar sesión");
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -227,21 +230,17 @@ public final class menuVentanas extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ltpsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ltwkButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ltstButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ltshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(closeButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(picLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(ltpsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ltwkButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ltstButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ltshButton, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                     .addComponent(ltprvButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(picLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(form3Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(productButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -252,35 +251,37 @@ public final class menuVentanas extends javax.swing.JFrame{
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(form3Button)
-                    .addComponent(ltprvButton))
-                .addGap(18, 18, 18)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ltpsButton)
-                            .addComponent(form2Button, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(picLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(form3Button)
                                 .addGap(18, 18, 18)
-                                .addComponent(form1Button))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ltwkButton)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(storeButton)
-                            .addComponent(ltstButton)))
-                    .addComponent(picLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ltshButton)
-                    .addComponent(closeButton)
-                    .addComponent(productButton))
-                .addGap(40, 40, 40))
+                                .addComponent(form2Button)
+                                .addGap(18, 18, 18)
+                                .addComponent(form1Button)
+                                .addGap(18, 18, 18)
+                                .addComponent(storeButton)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(productButton)
+                                    .addComponent(closeButton)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ltprvButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(ltpsButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(ltwkButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(ltstButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(ltshButton)))
+                        .addContainerGap())))
         );
 
         pack();
@@ -291,14 +292,16 @@ public final class menuVentanas extends javax.swing.JFrame{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutButton;
     private javax.swing.JButton closeButton;
     private javax.swing.JButton form1Button;
     private javax.swing.JButton form2Button;
     private javax.swing.JButton form3Button;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    public static javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JButton ltprvButton;
     private javax.swing.JButton ltpsButton;
@@ -307,6 +310,7 @@ public final class menuVentanas extends javax.swing.JFrame{
     private javax.swing.JButton ltwkButton;
     private javax.swing.JLabel picLabel;
     private javax.swing.JButton productButton;
+    private javax.swing.JMenuItem properButton;
     private javax.swing.JButton storeButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,11 +2,12 @@ package venPrimarias;
 //clases
 import clases.Icono;
 import clases.laf;
+import paneles.databaseConfig;
 import paneles.databaseExport;
 import paneles.databaseImport;
 //java
 import java.awt.BorderLayout;
-import paneles.databaseConfig;
+import javax.swing.GroupLayout;
 
 public class adminTools extends javax.swing.JFrame{
     public adminTools(){
@@ -18,7 +19,8 @@ public class adminTools extends javax.swing.JFrame{
         
         setLocationRelativeTo(null);
         setTitle("Herramientas de administrador");
-        setResizable(false);
+        setResizable(true);
+        setLayout(new BorderLayout());
     }
     
     protected void settings(){
@@ -32,17 +34,14 @@ public class adminTools extends javax.swing.JFrame{
         });
         
         jMenuItem1.addActionListener((a)->{
-            this.getContentPane().setLayout(new BorderLayout());
             this.getContentPane().add(new databaseConfig(),BorderLayout.CENTER);
         });
         
         jMenuItem2.addActionListener((a)->{
-            this.getContentPane().setLayout(new BorderLayout());
             this.getContentPane().add(new databaseImport(),BorderLayout.CENTER);
         });
         
         jMenuItem3.addActionListener((a)->{
-            this.getContentPane().setLayout(new BorderLayout());
             this.getContentPane().add(new databaseExport(),BorderLayout.CENTER);
         });
     }
