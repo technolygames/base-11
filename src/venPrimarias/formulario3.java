@@ -48,7 +48,7 @@ public class formulario3 extends javax.swing.JFrame{
         });
         
         jMenuItem1.addActionListener((ae)->{
-            new menuDatosVentana3(new javax.swing.JFrame(),true).setVisible(true);
+            new menuDatosVentana3().setVisible(true);
         });
         
         miClearFields.addActionListener((ae)->{

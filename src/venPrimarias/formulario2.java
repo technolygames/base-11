@@ -54,7 +54,7 @@ public class formulario2 extends javax.swing.JFrame{
         });
         
         jMenuItem1.addActionListener((ae)->{
-            new menuDatosVentana2(new javax.swing.JFrame(),true).setVisible(true);
+            new menuDatosVentana2().setVisible(true);
         });
         
         miClearFields.addActionListener((a)->{

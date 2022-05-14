@@ -67,7 +67,7 @@ public final class formulario1 extends javax.swing.JFrame{
         });
         
         jMenuItem1.addActionListener((ae)->{
-            new menuDatosVentana1(new javax.swing.JFrame(),true).setVisible(true);
+            new menuDatosVentana1().setVisible(true);
         });
         
         jMenuItem2.addActionListener((ae)->{
