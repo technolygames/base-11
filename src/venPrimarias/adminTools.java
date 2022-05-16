@@ -34,15 +34,18 @@ public class adminTools extends javax.swing.JFrame{
         });
         
         jMenuItem1.addActionListener((a)->{
-            this.getContentPane().add(new databaseConfig(),BorderLayout.CENTER);
+            adminTools.this.getContentPane().setLayout(new BorderLayout());
+            adminTools.this.getContentPane().add(new databaseConfig(),BorderLayout.CENTER);
         });
         
         jMenuItem2.addActionListener((a)->{
-            this.getContentPane().add(new databaseImport(),BorderLayout.CENTER);
+            adminTools.this.getContentPane().setLayout(new BorderLayout());
+            adminTools.this.getContentPane().add(new databaseImport(),BorderLayout.CENTER);
         });
         
         jMenuItem3.addActionListener((a)->{
-            this.getContentPane().add(new databaseExport(),BorderLayout.CENTER);
+            adminTools.this.getContentPane().setLayout(new BorderLayout());
+            adminTools.this.getContentPane().add(new databaseExport(),BorderLayout.CENTER);
         });
     }
     
