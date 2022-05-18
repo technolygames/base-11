@@ -6240,3 +6240,12 @@ Ocurrió en la clase 'venTerciarias.dataWindow1', en el método 'datosMostrar()'
 may 14, 2022 2:48:38 PM clases.logger staticLogger
 ADVERTENCIA: Error 1IO: C:\Users\erick\Desktop\Base-jdk8\base1\src\data\config\acerca.properties (El sistema no puede encontrar el archivo especificado).
 Ocurrió en la clase 'venTerciarias.about', en el método 'etiquetas()'
+may 18, 2022 3:28:46 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: No suitable driver.
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+may 18, 2022 3:28:48 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venTerciarias.dataWindow1', en el método 'datosMostrar()'
+may 18, 2022 3:28:48 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venTerciarias.dataWindow1', en el método 'datosMostrar()'

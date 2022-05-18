@@ -18,7 +18,7 @@ Let 6: no se aceptan los valores que tratan de escribir (letras)
 Let 7: no se aceptan los valores que tratan de escribir (números)
 
 Error 9: no se inició sesión; los datos solicitdos no son los correctos o no existen-
-Error 10: no se inicializó y/o encendió el puerto de la base de datos--
+Error 10: problemas en la conexión a la base de datos--
 Error 11: no se ingresaron correctamente los datos solicitados-
 Error 12: no se pudo actualizar los datos; los datos solicitados no son los correctos-
 Error 13: no se pudo eliminar los datos; los datos a borrar no son los correctos o no existen-
