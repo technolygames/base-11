@@ -41,7 +41,7 @@ public class datos{
     public Connection getConnection(){
         p=new Properties();
         try{
-            p.load(new FileInputStream("src/data/config/databaseInfo.properties"));
+            p.load(new FileInputStream(System.getProperty("user.dir")+"src/data/config/databaseInfo.properties"));
             
             controlador=p.getProperty("driver");
             ip=p.getProperty("ip");

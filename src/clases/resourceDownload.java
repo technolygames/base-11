@@ -79,7 +79,7 @@ public class resourceDownload{
                 uc=u.openConnection();
                 
                 is=uc.getInputStream();
-                fos=new FileOutputStream("src/data/libs/"+validar);
+                fos=new FileOutputStream(System.getProperty("user.dir")+"/src/data/libs/"+validar);
                 
                 new thread(is,fos).run();
             }

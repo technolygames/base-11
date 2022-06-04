@@ -7,7 +7,6 @@ import paneles.databaseExport;
 import paneles.databaseImport;
 //java
 import java.awt.BorderLayout;
-import javax.swing.GroupLayout;
 
 public class adminTools extends javax.swing.JFrame{
     public adminTools(){
@@ -20,11 +19,11 @@ public class adminTools extends javax.swing.JFrame{
         setLocationRelativeTo(null);
         setTitle("Herramientas de administrador");
         setResizable(true);
-        setLayout(new BorderLayout());
     }
     
     protected void settings(){
-        
+        jMenuItem2.setEnabled(false);
+        jMenuItem3.setEnabled(false);
     }
     
     protected final void botones(){
