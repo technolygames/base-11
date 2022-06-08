@@ -39,6 +39,7 @@ public final class proper1 extends javax.swing.JFrame{
         configIn();
         botones();
         combo1();
+        settings();
         
         setResizable(true);
         setLocationRelativeTo(null);
@@ -57,6 +58,10 @@ public final class proper1 extends javax.swing.JFrame{
     protected String direccion1;
     protected String nombreArchivo1;
     protected String nombreArchivo2;
+    
+    protected void settings(){
+        jLabel5.setText("Advertencia: la imagen y el ícono no son lo mismo. Asegúrate que hayas cambiado ambos, en caso de que lo hayas hecho");
+    }
     
     protected final void configIn(){
         p=new Properties();
@@ -324,6 +329,7 @@ public final class proper1 extends javax.swing.JFrame{
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         toolsButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(new Icono().getIconImage());
@@ -350,6 +356,9 @@ public final class proper1 extends javax.swing.JFrame{
 
         toolsButton.setText("Herramientas");
 
+        jLabel5.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel5.setText("jLabel5");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -357,6 +366,7 @@ public final class proper1 extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(schButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -421,7 +431,9 @@ public final class proper1 extends javax.swing.JFrame{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(imgButton)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(schButton)
                     .addComponent(backButton))
@@ -444,6 +456,7 @@ public final class proper1 extends javax.swing.JFrame{
     protected javax.swing.JLabel jLabel2;
     protected javax.swing.JLabel jLabel3;
     protected javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     protected javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jTextField1;

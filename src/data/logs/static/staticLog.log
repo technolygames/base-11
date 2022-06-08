@@ -6249,3 +6249,76 @@ Ocurrió en la clase 'venTerciarias.dataWindow1', en el método 'datosMostrar()'
 may 18, 2022 3:28:48 PM clases.logger staticLogger
 ADVERTENCIA: Error 0: null.
 Ocurrió en la clase 'venTerciarias.dataWindow1', en el método 'datosMostrar()'
+jun 06, 2022 5:49:03 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: null,  message from server: "Host 'LAPTOP-6LBB26QH' is not allowed to connect to this MariaDB server".
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+jun 06, 2022 5:49:04 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:49:04 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:50:01 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: null,  message from server: "Host 'LAPTOP-6LBB26QH' is not allowed to connect to this MariaDB server".
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+jun 06, 2022 5:50:01 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: null,  message from server: "Host 'LAPTOP-6LBB26QH' is not allowed to connect to this MariaDB server".
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+jun 06, 2022 5:50:01 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: null,  message from server: "Host 'LAPTOP-6LBB26QH' is not allowed to connect to this MariaDB server".
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+jun 06, 2022 5:50:02 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:50:02 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:50:02 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:50:02 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:52:21 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server..
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+jun 06, 2022 5:52:21 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server..
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+jun 06, 2022 5:52:21 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server..
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+jun 06, 2022 5:52:21 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server..
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+jun 06, 2022 5:52:21 PM clases.logger staticLogger
+ADVERTENCIA: Error 10: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server..
+Ocurrió en la clase 'clases.datos', en el método 'getConnection()'
+jun 06, 2022 5:52:22 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:52:22 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:52:22 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:52:22 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:52:22 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 06, 2022 5:52:22 PM clases.logger staticLogger
+ADVERTENCIA: Error 0: null.
+Ocurrió en la clase 'venPrimarias.start', en el método 'login()'

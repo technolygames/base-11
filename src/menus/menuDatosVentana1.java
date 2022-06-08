@@ -3,9 +3,9 @@ package menus;
 import clases.Icono;
 import clases.laf;
 import paneles.delDatosPanel1;
+import paneles.modDatosPanel1;
 //java
 import java.awt.BorderLayout;
-import paneles.modDatosPanel1;
 
 public class menuDatosVentana1 extends javax.swing.JFrame{
     public menuDatosVentana1(){

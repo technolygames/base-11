@@ -428,7 +428,7 @@ public final class ventana2 extends javax.swing.JFrame{
             evt.consume();
         }
     }//GEN-LAST:event_txtPUKeyPressed
-
+    
     private void txtCantKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantKeyPressed
         if(Character.isLetter(evt.getKeyChar())){
             JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);

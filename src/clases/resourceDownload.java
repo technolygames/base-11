@@ -20,6 +20,8 @@ import java.util.logging.Level;
 /**
  * Clase encargada de descargar los recursos necesarios para el correcto funcionamiento del programa.
  * Descarga las librerías e idiomas.
+ * 
+ * @author erick
  */
 public class resourceDownload{
     protected boolean sis=false;

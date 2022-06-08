@@ -47,10 +47,11 @@ public final class loadWindow extends javax.swing.JFrame{
         
         t=new Timer(120,(a)->{
             if(jProgressBar1.getValue()<105){
-                jProgressBar1.setValue(jProgressBar1.getValue()+5);
+                int valor=jProgressBar1.getValue();
+                jProgressBar1.setValue(valor+5);
                 jProgressBar1.setMaximum(105);
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                switch(jProgressBar1.getValue()){
+                switch(valor){
                     case 0:
                         jLabel2.setText(null);
                         jLabel2.setText("bcmail-jdk14-1.38.jar");

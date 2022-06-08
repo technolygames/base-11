@@ -121,11 +121,19 @@ public final class formulario1 extends javax.swing.JFrame{
             txtNombre.setText("");
             txtAP.setText("");
             txtAM.setText("");
+            txtDom.setText("");
             txtExp.setText("");
             txtEstudios.setText("");
+            txtContacto.setText("");
             txtEdad.setText("");
             picLabel.setIcon(null);
-            new PlaceHolder(txtNombre,"Primer y/o segundo nombre").inicializar();
+            picLabel.setText("Foto");
+            jTextArea1.setText("");
+            new PlaceHolder(txtExp,"En años").inicializar();
+        });
+        
+        jMenuItem4.addActionListener((a)->{
+            picLabel.setText("Foto");
         });
         
         svdtButton.addActionListener((ae)->{
@@ -218,6 +226,7 @@ public final class formulario1 extends javax.swing.JFrame{
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(new Icono().getIconImage());
@@ -336,6 +345,9 @@ public final class formulario1 extends javax.swing.JFrame{
 
         jMenuItem3.setText("Limpiar campos");
         jMenu2.add(jMenuItem3);
+
+        jMenuItem4.setText("Limpiar foto");
+        jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
 
@@ -607,6 +619,7 @@ public final class formulario1 extends javax.swing.JFrame{
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     public static javax.swing.JLabel picLabel;

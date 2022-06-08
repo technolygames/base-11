@@ -30,7 +30,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
 //extension larga
-import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 
 public final class menuVentanas extends javax.swing.JFrame{

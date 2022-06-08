@@ -181,6 +181,36 @@ public class formulario3 extends javax.swing.JFrame{
 
         jLabel5.setText("Empresa:");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField2KeyPressed(evt);
+            }
+        });
+
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField3KeyPressed(evt);
+            }
+        });
+
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField4KeyPressed(evt);
+            }
+        });
+
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField5KeyPressed(evt);
+            }
+        });
+
         svdtButton.setText("Guardar datos");
 
         picLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -188,6 +218,12 @@ public class formulario3 extends javax.swing.JFrame{
         picLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel6.setText("Contacto:");
+
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField6KeyPressed(evt);
+            }
+        });
 
         jMenu1.setText("Datos");
 
@@ -280,10 +316,58 @@ public class formulario3 extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(Character.isLetter(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+formulario3.class.getName()+"', en el método 'jTextField1KeyPressed()'",Level.WARNING);
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+    
+    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
+        if(Character.isDigit(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo letras","Let 7",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Let 7: se ingresaron números en un campo equivocado.\nOcurrió en la clase '"+formulario3.class.getName()+"', en el método 'jTextField2KeyPressed()'",Level.WARNING);
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField2KeyPressed
+    
+    private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
+        if(Character.isDigit(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo letras","Let 7",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Let 7: se ingresaron números en un campo equivocado.\nOcurrió en la clase '"+formulario3.class.getName()+"', en el método 'jTextField3KeyPressed()'",Level.WARNING);
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField3KeyPressed
+    
+    private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+        if(Character.isDigit(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo letras","Let 7",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Let 7: se ingresaron números en un campo equivocado.\nOcurrió en la clase '"+formulario3.class.getName()+"', en el método 'jTextField4KeyPressed()'",Level.WARNING);
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField4KeyPressed
+    
+    private void jTextField5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyPressed
+        if(Character.isDigit(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo letras","Let 7",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Let 7: se ingresaron números en un campo equivocado.\nOcurrió en la clase '"+formulario3.class.getName()+"', en el método 'jTextField5KeyPressed()'",Level.WARNING);
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField5KeyPressed
+    
+    private void jTextField6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyPressed
+        if(Character.isLetter(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+formulario3.class.getName()+"', en el método 'jTextField6KeyPressed()'",Level.WARNING);
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField6KeyPressed
+    
     public static void main(String args[]){
         new formulario3().setVisible(true);
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JLabel jLabel1;
