@@ -1,18 +1,20 @@
 package paneles;
-
+//clases
 import clases.laf;
 import clases.logger;
 import clases.thread;
 import venPrimarias.start;
+//java
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+//extension larga
+import java.util.logging.Level;
 
 public class databaseExport extends javax.swing.JPanel{
     public databaseExport(){
@@ -25,9 +27,6 @@ public class databaseExport extends javax.swing.JPanel{
     protected File f;
     protected InputStream is;
     protected OutputStream os;
-    protected JFileChooser j;
-    
-    protected Properties p;
     
     protected final void botones(){
         closeButton.addActionListener((ae)->{
@@ -35,39 +34,43 @@ public class databaseExport extends javax.swing.JPanel{
         });
         
         exportButton.addActionListener((ae)->{
-            copia();
+            new Thread(new exportDB()).start();
         });
     }
     
-    protected void copia(){
-        String nombreUsuario=jTextField1.getText();
-        String passUsuario=jPasswordField1.getPassword().toString();
-        String based=jTextField3.getText();
-        String nombrebdExportada=based+(int)(Math.random()*1000)+".sql";
-        
-        try{
-            Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump.exe -u "+nombreUsuario+" -p "+passUsuario+" "+based);
+    protected class exportDB implements Runnable{
+        @Override
+        public void run(){
+            String nombreUsuario=jTextField1.getText();
+            String passUsuario=jPasswordField1.getPassword().toString();
+            String based=jTextField3.getText();
+            String nombrebdExportada=based+(int)(Math.random()*1000)+".sql";
             
-            pr.getOutputStream().write(13);
-            is=pr.getInputStream();
-            os=new FileOutputStream(new File(System.getProperty("user.dir")+"/src/data/database/MySQL/"+nombrebdExportada));
-            
-            new thread(is,os).run();
-            
-            JOptionPane.showMessageDialog(null,"Se ha exportado correctamente la base de datos","Rel 3E",JOptionPane.INFORMATION_MESSAGE);
-            new logger().staticLogger("Rel 3E: se exportó correctamente la base de datos.\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'copia()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
-            
-            os.close();
-            os.flush();
-            is.close();
-        }catch(IOException e){
-            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 8E",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 8E: "+e.getMessage()+".\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'copia()'",Level.WARNING);
-            new logger().exceptionLogger(databaseExport.class.getName(),Level.WARNING,"copia-8E",e.fillInStackTrace());
-        }catch(NullPointerException x){
-            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 0: "+x.getMessage()+".\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'copia()'",Level.WARNING);
-            new logger().exceptionLogger(databaseExport.class.getName(),Level.WARNING,"copia-0",x.fillInStackTrace());
+            try{
+                Properties p=new Properties();
+                p.load(new FileInputStream(System.getProperty("user.dir")+"/src/data/config/databaseInfo.properties"));
+                Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump.exe -u "+nombreUsuario+" -p "+passUsuario+" -h "+p.getProperty("ip")+" "+based);
+                
+                is=pr.getInputStream();
+                os=new FileOutputStream(new File(System.getProperty("user.dir")+"/src/data/database/MySQL/"+nombrebdExportada));
+                
+                new Thread(new thread(is,os)).start();
+                
+                JOptionPane.showMessageDialog(null,"Se ha exportado correctamente la base de datos","Rel 3E",JOptionPane.INFORMATION_MESSAGE);
+                new logger().staticLogger("Rel 3E: se exportó correctamente la base de datos.\nOcurrió en la clase '"+exportDB.class.getName()+"', en el método 'run()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
+                
+                os.close();
+                os.flush();
+                is.close();
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 8E",JOptionPane.WARNING_MESSAGE);
+                new logger().staticLogger("Error 8E: "+e.getMessage()+".\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'run()'",Level.WARNING);
+                new logger().exceptionLogger(exportDB.class.getName(),Level.WARNING,"run-8E",e.fillInStackTrace());
+            }catch(NullPointerException x){
+                JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
+                new logger().staticLogger("Error 0: "+x.getMessage()+".\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'run()'",Level.WARNING);
+                new logger().exceptionLogger(exportDB.class.getName(),Level.WARNING,"run-0",x.fillInStackTrace());
+            }
         }
     }
     
