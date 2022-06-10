@@ -22,8 +22,8 @@ public class adminTools extends javax.swing.JFrame{
     }
     
     protected void settings(){
-        jMenuItem2.setEnabled(false);
-        jMenuItem3.setEnabled(false);
+        jMenuItem2.setEnabled(true);
+        jMenuItem3.setEnabled(true);
     }
     
     protected final void botones(){

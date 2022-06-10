@@ -51,7 +51,7 @@ public class datos{
             contraseña=p.getProperty("pass");
             
             Class.forName(controlador);
-            cn=DriverManager.getConnection("jdbc:mysql://"+ip+":"+puerto+"/"+bd+"",usuario,contraseña);
+            cn=DriverManager.getConnection("jdbc:mysql://"+ip+":"+puerto+"/"+bd,usuario,contraseña);
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 10",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error 10: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'",Level.WARNING);

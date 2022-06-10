@@ -3,6 +3,7 @@ package paneles;
 import clases.laf;
 import clases.logger;
 import clases.thread;
+import clases.threadReader;
 import venPrimarias.start;
 //java
 import java.io.File;
@@ -50,6 +51,7 @@ public class databaseExport extends javax.swing.JPanel{
                 Properties p=new Properties();
                 p.load(new FileInputStream(System.getProperty("user.dir")+"/src/data/config/databaseInfo.properties"));
                 Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump.exe -u "+nombreUsuario+" -p "+passUsuario+" -h "+p.getProperty("ip")+" "+based);
+                new Thread(new threadReader(pr.getErrorStream())).start();
                 
                 is=pr.getInputStream();
                 os=new FileOutputStream(new File(System.getProperty("user.dir")+"/src/data/database/MySQL/"+nombrebdExportada));
@@ -103,10 +105,10 @@ public class databaseExport extends javax.swing.JPanel{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(exportButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(closeButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

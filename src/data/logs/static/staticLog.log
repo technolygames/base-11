@@ -6322,3 +6322,19 @@ Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
 jun 06, 2022 5:52:22 PM clases.logger staticLogger
 ADVERTENCIA: Error 0: null.
 Ocurrió en la clase 'venPrimarias.start', en el método 'login()'
+jun 09, 2022 6:46:37 PM clases.logger staticLogger
+INFORMACIÓN: Rel 3E: se exportó correctamente la base de datos.
+Ocurrió en la clase 'paneles.databaseExport$exportDB', en el método 'run()'.
+Usuario que hizo la acción: 0
+jun 09, 2022 6:56:44 PM clases.logger staticLogger
+INFORMACIÓN: Rel 3E: se exportó correctamente la base de datos.
+Ocurrió en la clase 'paneles.databaseExport$exportDB', en el método 'run()'.
+Usuario que hizo la acción: 0
+jun 09, 2022 6:56:46 PM clases.logger staticLogger
+INFORMACIÓN: Rel 3E: se exportó correctamente la base de datos.
+Ocurrió en la clase 'paneles.databaseExport$exportDB', en el método 'run()'.
+Usuario que hizo la acción: 0
+jun 09, 2022 6:56:46 PM clases.logger staticLogger
+INFORMACIÓN: Rel 3E: se exportó correctamente la base de datos.
+Ocurrió en la clase 'paneles.databaseExport$exportDB', en el método 'run()'.
+Usuario que hizo la acción: 0
