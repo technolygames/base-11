@@ -30,10 +30,9 @@ public class databaseImport extends javax.swing.JPanel{
         settings();
     }
     
+    protected Properties p;
     protected InputStream is;
     protected OutputStream os;
-    
-    protected Properties p;
     
     protected void settings(){
         jTextField3.setText(databaseWindow.nombredb);
@@ -76,14 +75,19 @@ public class databaseImport extends javax.swing.JPanel{
     protected class importDB implements Runnable{
         @Override
         public void run(){
+            String user=jTextField1.getText();
+            String pass=jPasswordField1.getPassword().toString();
+            String db=jTextField3.getText();
+            String dbDir=jTextField2.getText();
+            
             try{
                 p=new Properties();
                 p.load(new FileInputStream(System.getProperty("user.dir")+"/src/data/config/databaseInfo.properties"));
-                Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysql.exe -u "+jTextField1.getText()+" -p "+jPasswordField1.getPassword().toString()+" -h "+p.getProperty("ip")+" "+jTextField3.getText());
+                Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysql.exe -u "+user+" -p "+pass+" -h "+p.getProperty("ip")+" "+db+"<"+dbDir);
                 new Thread(new threadReader(pr.getErrorStream())).start();
                 
                 os=pr.getOutputStream();
-                is=new FileInputStream(jTextField2.getText());
+                is=new FileInputStream(dbDir);
                 
                 new Thread(new thread(is,os)).start();
                 

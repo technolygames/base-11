@@ -38,8 +38,8 @@ public class threadReader extends Thread{
             }
         }catch(IOException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 2IO: "+e.getMessage()+"\nOcurrió en la clase '"+thread.class.getName()+"', en el método 'run()'",Level.WARNING);
-            new logger().exceptionLogger(thread.class.getName(),Level.WARNING,"run-2IO",e.fillInStackTrace());
+            new logger().staticLogger("Error 2IO: "+e.getMessage()+"\nOcurrió en la clase '"+threadReader.class.getName()+"', en el método 'run()'",Level.WARNING);
+            new logger().exceptionLogger(threadReader.class.getName(),Level.WARNING,"run-2IO",e.fillInStackTrace());
         }
     }
 }

@@ -6,7 +6,6 @@ import clases.thread;
 import clases.threadReader;
 import venPrimarias.start;
 //java
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -25,7 +24,6 @@ public class databaseExport extends javax.swing.JPanel{
         botones();
     }
     
-    protected File f;
     protected InputStream is;
     protected OutputStream os;
     
@@ -54,7 +52,7 @@ public class databaseExport extends javax.swing.JPanel{
                 new Thread(new threadReader(pr.getErrorStream())).start();
                 
                 is=pr.getInputStream();
-                os=new FileOutputStream(new File(System.getProperty("user.dir")+"/src/data/database/MySQL/"+nombrebdExportada));
+                os=new FileOutputStream(System.getProperty("user.dir")+"/src/data/database/MySQL/"+nombrebdExportada);
                 
                 new Thread(new thread(is,os)).start();
                 
