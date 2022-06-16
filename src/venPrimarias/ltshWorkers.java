@@ -81,10 +81,10 @@ public final class ltshWorkers extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error NFE",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error NFE: "+x.getMessage()+".\nOcurrió en la clase '"+ltshWorkers.class.getName()+"', en el método 'datosMostrar()'",Level.WARNING);
             new logger().exceptionLogger(ltshWorkers.class.getName(),Level.WARNING,"datosMostrar-NFE",x.fillInStackTrace());
-        }catch(NullPointerException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 0: "+ñ.getMessage()+".\nOcurrió en la clase '"+ltshWorkers.class.getName()+"', en el método 'datosMostrar()'",Level.WARNING);
-            new logger().exceptionLogger(ltshWorkers.class.getName(),Level.WARNING,"datosMostrar-0",ñ.fillInStackTrace());
+        }catch(NullPointerException n){
+            JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 0: "+n.getMessage()+".\nOcurrió en la clase '"+ltshWorkers.class.getName()+"', en el método 'datosMostrar()'",Level.WARNING);
+            new logger().exceptionLogger(ltshWorkers.class.getName(),Level.WARNING,"datosMostrar-0",n.fillInStackTrace());
         }
     }
     
@@ -178,10 +178,10 @@ public final class ltshWorkers extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error 0: "+x.getMessage()+".\nOcurrió en la clase '"+ltshWorkers.class.getName()+"', en el método 'datosBuscar()'",Level.WARNING);
             new logger().exceptionLogger(ltshWorkers.class.getName(),Level.WARNING,"datosBuscar-0",x.fillInStackTrace());
-        }catch(ArrayIndexOutOfBoundsException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error AIOOBE",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error AIOOBE: "+ñ.getMessage()+".\nOcurrió en la clase '"+ltshWorkers.class.getName()+"', en el método 'datosBuscar()'",Level.WARNING);
-            new logger().exceptionLogger(ltshWorkers.class.getName(),Level.WARNING,"datosBuscar-AIOOBE",ñ.fillInStackTrace());
+        }catch(ArrayIndexOutOfBoundsException n){
+            JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error AIOOBE",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error AIOOBE: "+n.getMessage()+".\nOcurrió en la clase '"+ltshWorkers.class.getName()+"', en el método 'datosBuscar()'",Level.WARNING);
+            new logger().exceptionLogger(ltshWorkers.class.getName(),Level.WARNING,"datosBuscar-AIOOBE",n.fillInStackTrace());
         }catch(IndexOutOfBoundsException p){
             JOptionPane.showMessageDialog(null,"Error:\n"+p.getMessage(),"Error IOOBE",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error IOOBE: "+p.getMessage()+".\nOcurrió en la clase '"+ltshWorkers.class.getName()+"', en el método 'datosBuscar()'",Level.WARNING);

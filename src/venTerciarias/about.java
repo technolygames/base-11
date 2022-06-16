@@ -260,10 +260,10 @@ public final class about extends javax.swing.JDialog{
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error 0: "+x.getMessage()+".\nOcurrió en la clase '"+about.class.getName()+"', en el método 'websiteLabelMouseClicked()'",Level.WARNING);
             new logger().exceptionLogger(about.class.getName(),Level.WARNING,"websiteLabelMouseClicked-0",x.fillInStackTrace());
-        }catch(FileNotFoundException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 1IO: "+ñ.getMessage()+".\nOcurrió en la clase '"+about.class.getName()+"', en el método 'websiteLabelMouseClicked()'",Level.WARNING);
-            new logger().exceptionLogger(about.class.getName(),Level.WARNING,"websiteLabelMouseClicked-1IO",ñ.fillInStackTrace());
+        }catch(FileNotFoundException n){
+            JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 1IO: "+n.getMessage()+".\nOcurrió en la clase '"+about.class.getName()+"', en el método 'websiteLabelMouseClicked()'",Level.WARNING);
+            new logger().exceptionLogger(about.class.getName(),Level.WARNING,"websiteLabelMouseClicked-1IO",n.fillInStackTrace());
         }catch(IOException k){
             JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error 2IO: "+k.getMessage()+".\nOcurrió en la clase '"+about.class.getName()+"', en el método 'websiteLabelMouseClicked()'",Level.WARNING);

@@ -54,7 +54,7 @@ public final class proper1 extends javax.swing.JFrame{
     
     protected String icono;
     protected String nombre;
-    protected String diseños;
+    protected String design;
     protected String direccion1;
     protected String nombreArchivo1;
     protected String nombreArchivo2;
@@ -70,7 +70,7 @@ public final class proper1 extends javax.swing.JFrame{
             
             direccion1=p.getProperty("imagenes");
             icono=p.getProperty("icono");
-            diseños=p.getProperty("look_and_feel");
+            design=p.getProperty("look_and_feel");
             nombre=p.getProperty("nombre");
             
             if(!new File(direccion1).exists()){
@@ -86,7 +86,7 @@ public final class proper1 extends javax.swing.JFrame{
             Icon l=new ImageIcon(im.getImage().getScaledInstance(jLabel3.getWidth(),jLabel3.getHeight(),Image.SCALE_DEFAULT));
             jLabel3.setIcon(l);
             jTextField1.setText(nombre);
-            jComboBox1.getModel().setSelectedItem(diseños);
+            jComboBox1.getModel().setSelectedItem(design);
             
             i.flush();
         }catch(NumberFormatException e){
@@ -97,10 +97,10 @@ public final class proper1 extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error 1IO: "+x.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'configIn()'",Level.WARNING);
             new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"configIn-1IO",x.fillInStackTrace());
-        }catch(IOException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 2IO: "+ñ.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'configIn()'",Level.WARNING);
-            new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"configIn-2IO",ñ.fillInStackTrace());
+        }catch(IOException n){
+            JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 2IO: "+n.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'configIn()'",Level.WARNING);
+            new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"configIn-2IO",n.fillInStackTrace());
         }catch(NullPointerException k){
             JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error 0: "+k.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'configIn()'",Level.WARNING);
@@ -196,17 +196,17 @@ public final class proper1 extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 1IO",JOptionPane.WARNING_MESSAGE);
                 new logger().staticLogger("Error 1IO: "+x.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(imgButton)'",Level.WARNING);
                 new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"botones.img-1IO",x.fillInStackTrace());
-            }catch(IOException ñ){
-                JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
-                new logger().staticLogger("Error 2IO: "+ñ.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(imgButton)'",Level.WARNING);
-                new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"botones.img-2IO",ñ.fillInStackTrace());
+            }catch(IOException n){
+                JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
+                new logger().staticLogger("Error 2IO: "+n.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(imgButton)'",Level.WARNING);
+                new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"botones.img-2IO",n.fillInStackTrace());
             }
         });
         
         jComboBox1.addActionListener((ae)->{
             try{
-                diseños=jComboBox1.getSelectedItem().toString();
-                UIManager.setLookAndFeel(diseños);
+                design=jComboBox1.getSelectedItem().toString();
+                UIManager.setLookAndFeel(design);
                 SwingUtilities.updateComponentTreeUI(this);
             }catch(ClassNotFoundException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.WARNING_MESSAGE);
@@ -216,10 +216,10 @@ public final class proper1 extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error IAE",JOptionPane.WARNING_MESSAGE);
                 new logger().staticLogger("Error IAE: "+x.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(jComboBox2)'",Level.WARNING);
                 new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"botones.combo2-IAE",x.fillInStackTrace());
-            }catch(InstantiationException ñ){
-                JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
-                new logger().staticLogger("Error IE: "+ñ.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(jComboBox2)'",Level.WARNING);
-                new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"botones.combo2-IE",ñ.fillInStackTrace());
+            }catch(InstantiationException n){
+                JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error IE",JOptionPane.WARNING_MESSAGE);
+                new logger().staticLogger("Error IE: "+n.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(jComboBox2)'",Level.WARNING);
+                new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"botones.combo2-IE",n.fillInStackTrace());
             }catch(UnsupportedLookAndFeelException k){
                 JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 28",JOptionPane.WARNING_MESSAGE);
                 new logger().staticLogger("Error 28: "+k.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(jComboBox2)'",Level.WARNING);
@@ -250,10 +250,10 @@ public final class proper1 extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 34",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error 34: "+x.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'combo1()'",Level.WARNING);
             new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"combo1-34",x.fillInStackTrace());
-        }catch(NullPointerException ñ){
-            JOptionPane.showMessageDialog(null,"Error:\n"+ñ.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
-            new logger().staticLogger("Error 0: "+ñ.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'combo1()'",Level.WARNING);
-            new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"combo1-0",ñ.fillInStackTrace());
+        }catch(NullPointerException n){
+            JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error 0",JOptionPane.WARNING_MESSAGE);
+            new logger().staticLogger("Error 0: "+n.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'combo1()'",Level.WARNING);
+            new logger().exceptionLogger(proper1.class.getName(),Level.WARNING,"combo1-0",n.fillInStackTrace());
         }
     }
     
@@ -272,7 +272,7 @@ public final class proper1 extends javax.swing.JFrame{
                 new thread(is,os).run();
                 
                 p.setProperty("imagen_respaldo",dato1+nombreArchivo1);
-                p.setProperty("look_and_feel",diseños);
+                p.setProperty("look_and_feel",design);
                 p.setProperty("icono",icono);
                 p.setProperty("icono_respaldo",dato2+nombreArchivo2);
                 p.setProperty("nombre",jTextField1.getText());
