@@ -89,6 +89,7 @@ public final class proper1 extends javax.swing.JFrame{
             jComboBox1.getModel().setSelectedItem(design);
             
             i.flush();
+            
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 32",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error 32: "+e.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'configIn()'",Level.WARNING);
