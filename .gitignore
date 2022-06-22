@@ -1,3 +1,4 @@
-build/
-src/data/logs/static/
-src/data/logs/exceptions/
+/build/
+/nbproject/private/
+/src/data/logs/static/
+/src/data/logs/exceptions/

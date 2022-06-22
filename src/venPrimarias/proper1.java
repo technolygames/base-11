@@ -269,7 +269,7 @@ public final class proper1 extends javax.swing.JFrame{
                 is=new FileInputStream(direccion1);
                 os=new FileOutputStream(dato1+nombreArchivo1);
                 
-                new thread(is,os).run();
+                new Thread(new thread(is,os)).start();
                 
                 p.setProperty("imagen_respaldo",dato1+nombreArchivo1);
                 p.setProperty("look_and_feel",design);
@@ -280,7 +280,7 @@ public final class proper1 extends javax.swing.JFrame{
                 is=new FileInputStream(icono);
                 os=new FileOutputStream(dato2+nombreArchivo2);
                 
-                new thread(is,os).run();
+                new Thread(new thread(is,os)).start();
                 
                 p.store(new BufferedWriter(new FileWriter(System.getProperty("user.dir")+"/src/data/config/config.properties")),"config1");
                 
@@ -288,8 +288,8 @@ public final class proper1 extends javax.swing.JFrame{
                 new logger().staticLogger("Rel 4: se han guardado las condiguraciones.\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'configOut()'.\nUsuario que hizo los cambios: "+String.valueOf(start.userID),Level.INFO);
                 
                 is.close();
-                os.close();
                 os.flush();
+                os.close();
             }else{
                 f.createNewFile();
             }
