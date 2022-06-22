@@ -94,9 +94,9 @@ public class databaseImport extends javax.swing.JPanel{
                 JOptionPane.showMessageDialog(null,"Se ha importado correctamente la base de datos","Rel 2E",JOptionPane.INFORMATION_MESSAGE);
                 new logger().staticLogger("Rel 2E: se importó correctamente la base de datos.\nOcurrió en la clase '"+importDB.class.getName()+"', en el método 'run()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
                 
-                os.close();
-                os.flush();
                 is.close();
+                os.flush();
+                os.close();
             }catch(IOException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 7E",JOptionPane.WARNING_MESSAGE);
                 new logger().staticLogger("Error 7E: "+e.getMessage()+".\nOcurrió en la clase '"+importDB.class.getName()+"', en el método 'run()'",Level.WARNING);

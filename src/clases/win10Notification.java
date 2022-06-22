@@ -43,7 +43,6 @@ public class win10Notification{
                 ti.displayMessage(notification,message,mt);
                 ti.setToolTip(p.getProperty("nombre"));
                 st.remove(ti);
-                
                 i.flush();
             }
         }catch(AWTException e){
