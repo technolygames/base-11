@@ -59,9 +59,9 @@ public class databaseExport extends javax.swing.JPanel{
                 JOptionPane.showMessageDialog(null,"Se ha exportado correctamente la base de datos","Rel 3E",JOptionPane.INFORMATION_MESSAGE);
                 new logger().staticLogger("Rel 3E: se exportó correctamente la base de datos.\nOcurrió en la clase '"+exportDB.class.getName()+"', en el método 'run()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID),Level.INFO);
                 
+                is.close();
                 os.close();
                 os.flush();
-                is.close();
             }catch(IOException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 8E",JOptionPane.WARNING_MESSAGE);
                 new logger().staticLogger("Error 8E: "+e.getMessage()+".\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'run()'",Level.WARNING);

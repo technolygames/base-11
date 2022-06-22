@@ -9,19 +9,20 @@ import java.util.logging.Level;
 
 /**
  * Clase encargada del flujo de datos.
- * Se encarga de usar un hilo de ejecución para que exista un flujo de datos
+ * Se encarga de usar un hilo (Thread) para que exista un flujo de datos.
+ * Este hilo es usado para leer/escribir el contenido de un archivo para crearlo en una dirección especificada.
  * 
  * @author erick
  */
-public class thread extends Thread{
+public class thread implements Runnable{
     protected InputStream is;
     protected OutputStream os;
     
     /**
-     * Recibe los datos para que haya un flujo de datos y se use el hilo.
+     * Recibe los datos para que haya un flujo de datos y se pueda crear un archivo.
      * 
-     * @param is: flujo de entrada (según sea el caso, se puede usar FileInputStream)
-     * @param os: flujo de salida (según sea el caso, se puede usar FileOutputStream)
+     * @param is: flujo de entrada del archivo a leer.
+     * @param os: flujo de salida del archivo a escribir.
      */
     public thread(InputStream is,OutputStream os){
         this.os=os;
@@ -29,7 +30,7 @@ public class thread extends Thread{
     }
     
     /**
-     * Método sobreescrito para utilizar el flujo de datos.
+     * Método que puede ser uasdo para habilitar el flujo de datos.
      */
     @Override
     public void run(){
