@@ -7,11 +7,12 @@ import javax.swing.JOptionPane;
 import java.util.logging.Level;
 
 /**
- * Hilo para leer errores.
+ * Clase encargada de usar un hilo para leer errores en consola.
+ * Hace uso de un hilo (Thread) para leer errores producidos al leer/escribir un archivo.
  * 
  * @author erick
  */
-public class threadReader extends Thread{
+public class threadReader implements Runnable{
     protected InputStream is;
     
     /**
@@ -24,7 +25,7 @@ public class threadReader extends Thread{
     }
     
     /**
-     * Método sobreescrito para que pueda leer e imprimir el error en consola.
+     * Método que puede ser uasdo para que pueda leer e imprimir el error en consola.
      */
     @Override
     public void run(){
@@ -36,6 +37,8 @@ public class threadReader extends Thread{
                 System.out.println(texto);
                 leido=is.read(buffer);
             }
+            
+            is.close();
         }catch(IOException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 2IO",JOptionPane.WARNING_MESSAGE);
             new logger().staticLogger("Error 2IO: "+e.getMessage()+"\nOcurrió en la clase '"+threadReader.class.getName()+"', en el método 'run()'",Level.WARNING);
