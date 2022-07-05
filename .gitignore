@@ -21,8 +21,6 @@
 *.rar
 
 # Project ignore #
-/data/logs/static/
-/data/logs/exceptions/
 /target/
 /test/
 
