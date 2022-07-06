@@ -6,7 +6,6 @@ import clases.logger;
 import clases.win10Notification;
 import venSecundarias.loadWindow;
 //java
-import java.awt.Image;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -14,9 +13,6 @@ import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 //extension larga
 import java.util.logging.Level;

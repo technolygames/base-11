@@ -28,7 +28,7 @@ public class ltshPartners extends javax.swing.JFrame{
         setSize(1100,600);
         setLocationRelativeTo(null);
         setTitle("Socios");
-        setResizable(false);
+        pack();
     }
     
     protected ResultSet rs;

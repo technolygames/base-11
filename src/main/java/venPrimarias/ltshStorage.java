@@ -28,7 +28,7 @@ public final class ltshStorage extends javax.swing.JFrame{
         setSize(1000,600);
         setLocationRelativeTo(null);
         setTitle("Almacén");
-        setResizable(false);
+        pack();
     }
     
     protected ResultSet rs;

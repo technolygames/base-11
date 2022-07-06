@@ -16,6 +16,7 @@ public final class loadWindow extends javax.swing.JFrame{
         
         setLocationRelativeTo(null);
         setResizable(false);
+        pack();
     }
     
     protected Timer t;
@@ -24,7 +25,7 @@ public final class loadWindow extends javax.swing.JFrame{
     
     protected final void load(){
         t=new Timer(120,(a)->{
-            if(jProgressBar1.getValue()<105){
+            if(jProgressBar1.getValue()<100){
                 int valor=jProgressBar1.getValue();
                 jProgressBar1.setValue(valor+5);
                 jProgressBar1.setMaximum(100);
@@ -79,8 +80,6 @@ public final class loadWindow extends javax.swing.JFrame{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(new guiMediaHandler(loadWindow.class.getName()).getIconImage());
         setUndecorated(true);
-
-        jProgressBar1.setMaximum(90);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Cargando:");

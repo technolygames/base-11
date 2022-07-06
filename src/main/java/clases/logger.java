@@ -28,12 +28,14 @@ public class logger{
         this.level=nivel;
     }
     
+    protected static String userdir=System.getProperty("user.dir");
+    
     protected static FileHandler fh;
     protected FileHandler fh2;
     
     static{
         try{
-            fh=new FileHandler(System.getProperty("user.dir")+"/data/logs/static/staticLog.log",0,1,true);
+            fh=new FileHandler(userdir+"/data/logs/static/staticLog.log",0,1,true);
         }catch(SecurityException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error SE",JOptionPane.ERROR_MESSAGE);
         }catch(IOException x){
@@ -68,7 +70,7 @@ public class logger{
     public void exceptionLogger(String className,String methodName,Throwable exception){
         Logger logger=Logger.getLogger("exceptionLogger");
         try{
-            fh2=new FileHandler(System.getProperty("user.dir")+"/data/logs/exceptions/"+className+"."+methodName+"-("+(int)(Math.random()*10000)+","+new SimpleDateFormat("dd-MM-yyyy").format(new Date())+").log");
+            fh2=new FileHandler(userdir+"/data/logs/exceptions/"+className+"."+methodName+"-("+(int)(Math.random()*10000)+","+new SimpleDateFormat("dd-MM-yyyy").format(new Date())+").log");
             fh2.setFormatter(new SimpleFormatter());
             logger.addHandler(fh2);
             logger.log(level,methodName,exception);

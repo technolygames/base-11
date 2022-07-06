@@ -28,7 +28,7 @@ public class ltshProviders extends javax.swing.JFrame{
         setSize(950,500);
         setLocationRelativeTo(null);
         setTitle("Proveedores");
-        setResizable(false);
+        pack();
     }
     
     protected ResultSet rs;

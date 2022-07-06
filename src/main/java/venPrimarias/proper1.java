@@ -9,6 +9,7 @@ import venTerciarias.valVentanas.validacionVentana7;
 import java.awt.Image;
 import java.awt.HeadlessException;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +19,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.UIManager;
 import javax.swing.ImageIcon;
@@ -29,7 +29,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 //extension larga
 import java.util.logging.Level;
 import java.awt.event.ActionEvent;
-import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -43,9 +42,10 @@ public final class proper1 extends javax.swing.JFrame{
         combo();
         settings();
         
-        setResizable(true);
         setLocationRelativeTo(null);
         setTitle("Configuración");
+        setResizable(false);
+        pack();
     }
     
     protected File f1;
@@ -57,6 +57,7 @@ public final class proper1 extends javax.swing.JFrame{
     protected String icono;
     protected String nombre;
     protected String design;
+    protected String userdir=System.getProperty("user.dir");
     protected String imagenes;
     protected String nombreArchivo1;
     protected String nombreArchivo2;
@@ -68,7 +69,7 @@ public final class proper1 extends javax.swing.JFrame{
     protected final void configIn(){
         p=new Properties();
         try{
-            p.load(new FileReader(System.getProperty("user.dir")+"/data/config/config.properties",StandardCharsets.UTF_8));
+            p.load(new FileReader(userdir+"/data/config/config.properties",StandardCharsets.UTF_8));
             
             imagenes=p.getProperty("imagenes");
             File f2=new File(imagenes);
@@ -128,7 +129,7 @@ public final class proper1 extends javax.swing.JFrame{
         iconButton.addActionListener((ae)->{
             try{
                 p=new Properties();
-                p.load(new FileInputStream(System.getProperty("user.dir")+"/data/config/filechooserd.properties"));
+                p.load(new FileInputStream(userdir+"/data/config/filechooserd.properties"));
                 jfc=new JFileChooser(p.getProperty("lastdirectory_icon"));
                 
                 jfc.setFileFilter(new FileNameExtensionFilter("Archivo PNG","png"));
@@ -140,7 +141,7 @@ public final class proper1 extends javax.swing.JFrame{
                         nombreArchivo2=f3.getName();
                         
                         p.setProperty("lastdirectory_icon",f1.getParent());
-                        p.store(new BufferedWriter(new FileWriter(System.getProperty("user.dir")+"/data/config/filechooserd.properties")),"JFileChooserDirection");
+                        p.store(new BufferedWriter(new FileWriter(userdir+"/data/config/filechooserd.properties")),"JFileChooserDirection");
                     }catch(IOException e){
                         JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 24",JOptionPane.ERROR_MESSAGE);
                         new logger(Level.SEVERE).staticLogger("Error 24: "+e.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(iconButton)'");
@@ -165,7 +166,7 @@ public final class proper1 extends javax.swing.JFrame{
         imgButton.addActionListener((ActionEvent ae)->{
             try{
                 p=new Properties();
-                p.load(new FileInputStream(System.getProperty("user.dir")+"/data/config/filechooserd.properties"));
+                p.load(new FileInputStream(userdir+"/data/config/filechooserd.properties"));
                 jfc=new JFileChooser(p.getProperty("lastdirectory_image"));
                 
                 jfc.setFileFilter(new FileNameExtensionFilter("Archivo PNG","png"));
@@ -184,7 +185,7 @@ public final class proper1 extends javax.swing.JFrame{
                         jLabel3.setIcon(l);
                         
                         p.setProperty("lastdirectory_image",f1.getParent());
-                        p.store(new BufferedWriter(new FileWriter(System.getProperty("user.dir")+"/data/config/filechooserd.properties")),"JFil eChooserDirection");
+                        p.store(new BufferedWriter(new FileWriter(userdir+"/data/config/filechooserd.properties")),"JFil eChooserDirection");
                     }catch(IOException x){
                         JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 24",JOptionPane.ERROR_MESSAGE);
                         new logger(Level.SEVERE).staticLogger("Error 24: "+x.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(imgButton)'");
@@ -212,6 +213,7 @@ public final class proper1 extends javax.swing.JFrame{
                 UIManager.setLookAndFeel(design);
                 for(Frame frame:Frame.getFrames()){
                     SwingUtilities.updateComponentTreeUI(frame);
+                    frame.pack();
                 }
             }catch(ClassNotFoundException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.ERROR_MESSAGE);
@@ -242,9 +244,8 @@ public final class proper1 extends javax.swing.JFrame{
     }
     
     protected final void combo(){
-        UIManager.LookAndFeelInfo[] lafi=UIManager.getInstalledLookAndFeels();
         try{
-            for(UIManager.LookAndFeelInfo lafi1:lafi){
+            for(UIManager.LookAndFeelInfo lafi1:UIManager.getInstalledLookAndFeels()){
                 jComboBox1.addItem(lafi1.getClassName());
             }
         }catch(NumberFormatException e){
@@ -264,9 +265,9 @@ public final class proper1 extends javax.swing.JFrame{
     
     protected final void configOut(){
         p=new Properties();
-        f1=new File(System.getProperty("user.dir")+"/data/config/config.properties");
-        String dato1=System.getProperty("user.dir")+"\\data\\media\\forms\\copy\\";
-        String dato2=System.getProperty("user.dir")+"\\data\\media\\icon\\copy\\";
+        f1=new File(userdir+"/data/config/config.properties");
+        String dato1=userdir+"\\data\\media\\forms\\copy\\";
+        String dato2=userdir+"\\data\\media\\icon\\copy\\";
         try{
             if(f1.exists()){
                 p.setProperty("imagenes",imagenes);
@@ -287,7 +288,7 @@ public final class proper1 extends javax.swing.JFrame{
                 
                 new Thread(new thread(is,os)).start();
                 
-                p.store(new BufferedWriter(new FileWriter(System.getProperty("user.dir")+"/data/config/config.properties")),"config1");
+                p.store(new BufferedWriter(new FileWriter(userdir+"/data/config/config.properties")),"config1");
                 
                 JOptionPane.showMessageDialog(null,"Se guardaron correctamente","Rel 4",JOptionPane.INFORMATION_MESSAGE);
                 new logger(Level.INFO).staticLogger("Rel 4: se han guardado las condiguraciones.\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'configOut()'.\nUsuario que hizo los cambios: "+String.valueOf(start.userID));

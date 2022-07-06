@@ -25,7 +25,7 @@ public final class ventana1 extends javax.swing.JFrame{
         
         setLocationRelativeTo(null);
         setTitle("Productos");
-        setResizable(false);
+        pack();
     }
     
     protected PreparedStatement ps;

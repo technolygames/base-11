@@ -34,6 +34,7 @@ public class dataWindow4 extends javax.swing.JDialog{
         setLocationRelativeTo(null);
         setTitle("Datos del empleado");
         setResizable(false);
+        pack();
     }
     
     protected ResultSet rs;
@@ -185,7 +186,7 @@ public class dataWindow4 extends javax.swing.JDialog{
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel1.setText("Datos");
 
-        etiFoto.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setText("Código de empleado:");
 
@@ -207,37 +208,37 @@ public class dataWindow4 extends javax.swing.JDialog{
 
         jLabel13.setText("Última sesión:");
 
-        etiCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiNombre.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiApellidoP.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiApellidoP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiApellidoM.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiApellidoM.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiPuesto.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiPuesto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiExp.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiExp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiEstudios.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiEstudios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiEdad.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiEdad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiIngreso.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiIngreso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiSesion.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiSesion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         backButton.setText("Regresar");
 
         jLabel3.setText("Contraseña:");
 
-        etiContra.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         storeImgButton.setText("Guardar imagen");
 
         jLabel14.setText("CURP:");
 
-        etiCURP.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiCURP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setText("Domicilio:");
 
@@ -246,17 +247,17 @@ public class dataWindow4 extends javax.swing.JDialog{
         jTextArea1.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea1);
 
-        etiContacto.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiContacto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel15.setText("Contacto:");
 
-        etiFN.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiFN.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel16.setText("F. nacimiento:");
 
         jLabel17.setText("Estado:");
 
-        etiEstado.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiEstado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel18.setText("Datos extra:");
 
@@ -287,9 +288,8 @@ public class dataWindow4 extends javax.swing.JDialog{
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -319,7 +319,7 @@ public class dataWindow4 extends javax.swing.JDialog{
                             .addComponent(etiContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(etiPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 31, Short.MAX_VALUE)))
+                        .addGap(0, 28, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

@@ -34,6 +34,7 @@ public class dataWindow1 extends javax.swing.JDialog{
         setLocationRelativeTo(null);
         setTitle("Datos del empleado");
         setResizable(false);
+        pack();
     }
     
     protected ResultSet rs;
@@ -192,38 +193,38 @@ public class dataWindow1 extends javax.swing.JDialog{
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel1.setText("Datos");
 
-        etiFoto.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         backButton.setText("Regresar");
 
         genLabel.setText("99876");
 
-        etiApellidoM.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiApellidoM.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel18.setText("Datos extra:");
 
-        etiPuesto.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiPuesto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jTextArea2.setFocusable(false);
         jScrollPane2.setViewportView(jTextArea2);
 
-        etiExp.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiExp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiEstudios.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiEstudios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiEdad.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiEdad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiIngreso.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiIngreso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiSesion.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiSesion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel3.setText("Contraseña:");
 
         jLabel4.setText("Código de empleado:");
 
-        etiContra.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel5.setText("Nombre:");
 
@@ -233,7 +234,7 @@ public class dataWindow1 extends javax.swing.JDialog{
 
         jLabel7.setText("Apellido materno:");
 
-        etiCURP.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiCURP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel8.setText("Puesto:");
 
@@ -252,25 +253,25 @@ public class dataWindow1 extends javax.swing.JDialog{
 
         jLabel12.setText("Fecha de ingreso:");
 
-        etiContacto.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiContacto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel15.setText("Contacto:");
 
         jLabel13.setText("Última sesión:");
 
-        etiFN.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiFN.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel16.setText("F. nacimiento:");
 
-        etiNombre.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel17.setText("Estado:");
 
-        etiApellidoP.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiApellidoP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        etiEstado.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        etiEstado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         storeImgButton.setText("Guardar imagen");
 
@@ -338,7 +339,7 @@ public class dataWindow1 extends javax.swing.JDialog{
                                     .addComponent(etiApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(etiCURP, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 180, Short.MAX_VALUE)))
+                        .addGap(0, 28, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -424,7 +425,7 @@ public class dataWindow1 extends javax.swing.JDialog{
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(etiSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backButton)
                     .addComponent(storeImgButton))

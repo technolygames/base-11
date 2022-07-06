@@ -20,7 +20,6 @@ import venTerciarias.valVentanas.validacionVentana6;
 //java
 import java.awt.TrayIcon;
 import java.util.Properties;
-import javax.swing.JOptionPane;
 //extension larga
 import java.util.logging.Level;
 
@@ -37,6 +36,7 @@ public final class menuVentanas extends javax.swing.JFrame{
         setLocationRelativeTo(null);
         setTitle("Ventana principal");
         setResizable(false);
+        pack();
     }
     
     protected Properties p;

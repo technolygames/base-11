@@ -18,6 +18,7 @@ public class adminTools extends javax.swing.JFrame{
         setLocationRelativeTo(null);
         setTitle("Herramientas de administrador");
         setResizable(true);
+        pack();
     }
     
     protected void settings(){

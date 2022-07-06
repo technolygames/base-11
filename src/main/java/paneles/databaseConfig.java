@@ -23,12 +23,14 @@ public class databaseConfig extends javax.swing.JPanel{
         loadConfig();
     }
     
+    protected String userdir=System.getProperty("user.dir");
+    
     protected Properties p;
     
     protected void loadConfig(){
         p=new Properties();
         try{
-            p.load(new FileInputStream(System.getProperty("user.dir")+"/data/config/databaseInfo.properties"));
+            p.load(new FileInputStream(userdir+"/data/config/databaseInfo.properties"));
             jComboBox1.getModel().setSelectedItem(p.getProperty("driver"));
             jTextField1.setText(p.getProperty("database"));
             jTextField2.setText(p.getProperty("user"));
@@ -64,7 +66,7 @@ public class databaseConfig extends javax.swing.JPanel{
                 JOptionPane.showMessageDialog(null,"Se guardaron correctamente","Rel 4",JOptionPane.INFORMATION_MESSAGE);
                 new logger(Level.INFO).staticLogger("Rel 4: se han guardado las condiguraciones.\nOcurrió en la clase '"+databaseConfig.class.getName()+"', en el método 'botones(storeButton)'.\nUsuario que hizo los cambios: "+String.valueOf(start.userID));
                 
-                p.store(new BufferedWriter(new FileWriter(System.getProperty("user.dir")+"/data/config/databaseInfo.properties")),"Configuración de la base de datos");
+                p.store(new BufferedWriter(new FileWriter(userdir+"/data/config/databaseInfo.properties")),"Configuración de la base de datos");
             }catch(FileNotFoundException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.ERROR_MESSAGE);
                 new logger(Level.SEVERE).staticLogger("Error 1IO: "+e.getMessage()+".\nOcurrió en la clase '"+databaseConfig.class.getName()+"', en el método 'botones(storeButton)'");

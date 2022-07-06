@@ -20,11 +20,15 @@ public class validacionVentana5 extends javax.swing.JDialog{
         new guiMediaHandler(validacionVentana5.class.getName()).LookAndFeel(validacionVentana5.this);
         
         botones();
+        settings();
         
         setLocationRelativeTo(null);
         setTitle("Validación");
         setResizable(false);
-        
+        pack();
+    }
+    
+    protected void settings(){
         jTextField1.setText(start.nameUser);
     }
     
