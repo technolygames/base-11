@@ -34,6 +34,7 @@ public class datos{
     protected String usuario;
     protected String contraseña;
     
+    public static String userdir=System.getProperty("user.dir");
     /**
      * Conexión a la base de datos
      * 
@@ -42,7 +43,7 @@ public class datos{
     public Connection getConnection(){
         p=new Properties();
         try{
-            p.load(new FileInputStream(System.getProperty("user.dir")+"/data/config/databaseInfo.properties"));
+            p.load(new FileInputStream(userdir+"/data/config/databaseInfo.properties"));
             
             controlador=p.getProperty("driver");
             ip=p.getProperty("ip");
@@ -52,7 +53,7 @@ public class datos{
             contraseña=p.getProperty("pass");
             
             Class.forName(controlador);
-            cn=DriverManager.getConnection("jdbc:mysql://"+ip+":"+puerto+"/"+bd,usuario,contraseña);
+            cn=DriverManager.getConnection("jdbc:mysql://"+ip+":"+puerto+"/"+bd+"?serverTimezone=UTC",usuario,contraseña);
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 10",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 10: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'");

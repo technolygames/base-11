@@ -1,5 +1,6 @@
 package clases.tickets;
 //clases
+import clases.datos;
 import clases.logger;
 //java
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class datosTicket{
     protected String precio;
     protected String cantidad;
     protected String items;
-    protected String userdir=System.getProperty("user.dir");
+    protected String userdir=datos.userdir;
     
     /**
      * Método encargado de imprimir el ticket.

@@ -17,13 +17,13 @@ public class adminTools extends javax.swing.JFrame{
         
         setLocationRelativeTo(null);
         setTitle("Herramientas de administrador");
-        setResizable(true);
+        setResizable(false);
         pack();
     }
     
     protected void settings(){
-        jMenuItem2.setEnabled(false);
-        jMenuItem3.setEnabled(false);
+        jMenuItem2.setEnabled(true);
+        jMenuItem3.setEnabled(true);
     }
     
     protected final void botones(){
@@ -84,14 +84,14 @@ public class adminTools extends javax.swing.JFrame{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(333, Short.MAX_VALUE)
+                .addContainerGap(339, Short.MAX_VALUE)
                 .addComponent(backButton)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(255, Short.MAX_VALUE)
+                .addContainerGap(258, Short.MAX_VALUE)
                 .addComponent(backButton)
                 .addContainerGap())
         );

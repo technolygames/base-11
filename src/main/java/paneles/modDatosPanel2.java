@@ -1,11 +1,9 @@
 package paneles;
 //clases
-import clases.guiMediaHandler;
 
 public class modDatosPanel2 extends javax.swing.JPanel{
     public modDatosPanel2(){
         initComponents();
-        new guiMediaHandler(modDatosPanel2.class.getName()).LookAndFeel(modDatosPanel2.this);
         
         botones();
         settings();

@@ -44,7 +44,7 @@ public final class start extends javax.swing.JFrame{
     protected final void settings(){
         p=new Properties();
         try{
-            p.load(new FileInputStream(System.getProperty("user.dir")+"/data/config/config.properties"));
+            p.load(new FileInputStream(datos.userdir+"/data/config/config.properties"));
             nameLabel.setText(p.getProperty("nombre"));
         }catch(FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.ERROR_MESSAGE);

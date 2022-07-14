@@ -1,6 +1,6 @@
 package paneles;
 //clases
-import clases.guiMediaHandler;
+import clases.datos;
 import clases.logger;
 import venPrimarias.start;
 //java
@@ -17,13 +17,12 @@ import java.util.logging.Level;
 public class databaseConfig extends javax.swing.JPanel{
     public databaseConfig(){
         initComponents();
-        new guiMediaHandler(databaseConfig.class.getName()).LookAndFeel(databaseConfig.this);
         
         botones();
         loadConfig();
     }
     
-    protected String userdir=System.getProperty("user.dir");
+    protected String userdir=datos.userdir;
     
     protected Properties p;
     

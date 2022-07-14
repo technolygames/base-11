@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.Socket;
-import java.net.InetAddress;
 import java.net.SocketAddress;
 import java.net.URLConnection;
 import java.net.InetSocketAddress;
@@ -25,15 +25,14 @@ import java.util.logging.Level;
  */
 public class resourceDownload{
     protected boolean sis=false;
-    protected String userdir=System.getProperty("user.dir");
+    protected String userdir=datos.userdir;
     
-    protected InputStream is;
-    protected FileOutputStream fos;
     protected File f;
+    protected InputStream is;
+    protected OutputStream os;
     
     protected URL u;
     protected Socket s;
-    protected InetAddress ia;
     protected SocketAddress sa;
     protected URLConnection uc;
     
@@ -46,8 +45,8 @@ public class resourceDownload{
     public boolean checkConnection(String url,int puerto){
         try{
             s=new Socket();
-            ia=InetAddress.getByName(url);
-            sa=new InetSocketAddress(ia,puerto);
+            
+            sa=new InetSocketAddress(url,puerto);
             
             s.bind(sa);
             s.connect(sa);
@@ -77,19 +76,20 @@ public class resourceDownload{
             if(!f.exists()){
                 f.createNewFile();
             }
+            
             if(!f.exists()&&f.length()==0){
                 u=new URL(link);
                 uc=u.openConnection();
                 
                 is=uc.getInputStream();
-                fos=new FileOutputStream(userdir+"/data/libs/"+validar);
+                os=new FileOutputStream(userdir+"/data/libs/"+validar);
                 
-                new Thread(new thread(is,fos)).start();
+                new Thread(new thread(is,os)).start();
             }
             
             is.close();
-            fos.flush();
-            fos.close();
+            os.flush();
+            os.close();
         }catch(MalformedURLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1I",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 1I: "+e.getMessage()+"\nOcurrió en la clase '"+resourceDownload.class.getName()+"', en el método 'downloadLibs()'");

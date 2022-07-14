@@ -1,6 +1,6 @@
 package paneles;
 //clases
-import clases.guiMediaHandler;
+import clases.datos;
 import clases.logger;
 import clases.thread;
 import clases.threadReader;
@@ -24,13 +24,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class databaseImport extends javax.swing.JPanel{
     public databaseImport(){
         initComponents();
-        new guiMediaHandler(databaseImport.class.getName()).LookAndFeel(databaseImport.this);
         
         botones();
         settings();
     }
     
-    protected String userdir=System.getProperty("user.dir");
+    protected String userdir=datos.userdir;
     
     protected Properties p;
     protected InputStream is;

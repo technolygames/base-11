@@ -1,5 +1,6 @@
 package venTerciarias;
 //clases
+import clases.datos;
 import clases.guiMediaHandler;
 import clases.logger;
 //java
@@ -32,7 +33,7 @@ public final class about extends javax.swing.JDialog{
     
     protected Properties p;
     
-    protected String userdir=System.getProperty("user.dir");
+    protected String userdir=datos.userdir;
     
     protected void settings(){
         websiteLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

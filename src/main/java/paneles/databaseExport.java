@@ -1,6 +1,6 @@
 package paneles;
 //clases
-import clases.guiMediaHandler;
+import clases.datos;
 import clases.logger;
 import clases.thread;
 import clases.threadReader;
@@ -19,7 +19,6 @@ import java.util.logging.Level;
 public class databaseExport extends javax.swing.JPanel{
     public databaseExport(){
         initComponents();
-        new guiMediaHandler(databaseExport.class.getName()).LookAndFeel(databaseExport.this);
         
         botones();
     }
@@ -38,7 +37,7 @@ public class databaseExport extends javax.swing.JPanel{
     }
     
     protected class exportDB implements Runnable{
-        protected String userdir=System.getProperty("user.dir");
+        protected String userdir=datos.userdir;
         
         @Override
         public void run(){

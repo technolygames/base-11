@@ -39,7 +39,7 @@ public class guiMediaHandler{
     
     protected String icon;
     protected String image;
-    protected String userdir=System.getProperty("user.dir");
+    protected String userdir=datos.userdir;
     
     protected Image retValue;
     protected Properties p;

@@ -28,7 +28,7 @@ public class logger{
         this.level=nivel;
     }
     
-    protected static String userdir=System.getProperty("user.dir");
+    protected static String userdir=datos.userdir;
     
     protected static FileHandler fh;
     protected FileHandler fh2;

@@ -1,7 +1,6 @@
 package paneles;
 //clases
 import clases.datos;
-import clases.guiMediaHandler;
 import clases.logger;
 //java
 import javax.swing.JOptionPane;
@@ -11,7 +10,6 @@ import java.util.logging.Level;
 public class delDatosPanel3 extends javax.swing.JPanel{
     public delDatosPanel3(){
         initComponents();
-        new guiMediaHandler(delDatosPanel3.class.getName()).LookAndFeel(delDatosPanel3.this);
         
         botones();
     }

@@ -40,7 +40,7 @@ public class formulario2 extends javax.swing.JFrame{
     protected Properties p;
     protected JFileChooser jfc;
     
-    protected String userdir=System.getProperty("user.dir");
+    protected String userdir=datos.userdir;
     protected String direccion;
     
     protected void settings(){

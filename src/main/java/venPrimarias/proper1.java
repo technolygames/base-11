@@ -1,5 +1,6 @@
 package venPrimarias;
 //clases
+import clases.datos;
 import clases.guiMediaHandler;
 import clases.logger;
 import clases.thread;
@@ -57,7 +58,7 @@ public final class proper1 extends javax.swing.JFrame{
     protected String icono;
     protected String nombre;
     protected String design;
-    protected String userdir=System.getProperty("user.dir");
+    protected String userdir=datos.userdir;
     protected String imagenes;
     protected String nombreArchivo1;
     protected String nombreArchivo2;
@@ -241,6 +242,11 @@ public final class proper1 extends javax.swing.JFrame{
         toolsButton.addActionListener((a)->{
             new validacionVentana7(new javax.swing.JFrame(),true).setVisible(true);
         });
+    }
+    
+    static{
+        //(en) - Here goes look and feel to be install
+        //(es) - Aquí van los look and feel para ser instalado
     }
     
     protected final void combo(){
