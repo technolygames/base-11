@@ -33,17 +33,18 @@ public class datosTicket{
     /**
      * Método encargado de imprimir el ticket.
      * 
-     * @param tabla Tabla que obtendrá los datos para el ticket.
-     * @param empleado Empleado que atendió en la venta.
+     * @param tabla que obtendrá los datos para el ticket.
+     * @param empleado que atendió en la venta.
      * @param total0 Precio total de los productos.
      * @param pago Método de pago utilizado al comprar.
-     * @param cambio Cambio devuelto al comprador.
+     * @param cambio devuelto al comprador.
+     * @param flag para abrir o dejar cerrada la gaveta de efectivo.
      */
-    public void imprimirTicket(JTable tabla,String empleado,int total0,String pago,int cambio){
+    public void imprimirTicket(JTable tabla,String empleado,int total0,String pago,int cambio,boolean flag){
         try{
             Date date=new Date();
             Properties p=new Properties();
-            ticket ticket=new ticket();
+            ticket ticket=new ticket(userdir+"/data/generic/tickets/ticket-("+new SimpleDateFormat("dd-MM-yyyy hh.mm.ss aa").format(new Date())+").txt",flag);
             
             SimpleDateFormat fecha=new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat hora=new SimpleDateFormat("hh:mm:ss aa");
@@ -132,8 +133,6 @@ public class datosTicket{
             ticket.addTotal("Cambio: ",String.valueOf(cambio));
             ticket.addPieLinea(ticket.darEspacio());
             ticket.addPieLinea("Gracias por su preferencia.");
-            
-            ticket.imprimirDocumento(userdir+"/data/generic/tickets/ticket-("+new SimpleDateFormat("dd-MM-yyyy hh.mm.ss aa").format(new Date())+").txt",true);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 18",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 18: "+e.getMessage()+"\nOcurrió en la clase '"+datosTicket.class.getName()+"', en el método 'imprimirTicket()'");

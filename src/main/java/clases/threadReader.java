@@ -30,11 +30,11 @@ public class threadReader implements Runnable{
     @Override
     public void run(){
         try{
-            byte[] buffer=new byte[1000];
+            byte[] buffer=new byte[1024];
             int leido;
             while((leido=is.read(buffer))>0){
                 String texto=new String(buffer,0,leido);
-                JOptionPane.showMessageDialog(null,"Error:\n"+texto,"Error 9E",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Error:\n"+texto,"Error 9E",JOptionPane.ERROR_MESSAGE);
                 leido=is.read(buffer);
             }
             

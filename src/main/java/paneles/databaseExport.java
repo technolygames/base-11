@@ -23,7 +23,6 @@ public class databaseExport extends javax.swing.JPanel{
         botones();
     }
     
-    protected InputStream is;
     protected OutputStream os;
     
     protected final void botones(){
@@ -45,24 +44,23 @@ public class databaseExport extends javax.swing.JPanel{
             String passUsuario=jPasswordField1.getPassword().toString();
             String based=jTextField3.getText();
             String nombrebdExportada=based+(int)(Math.random()*1000)+".sql";
+            String dir=userdir+"/data/database/MySQL/"+nombrebdExportada;
             
             try{
                 Properties p=new Properties();
                 p.load(new FileInputStream(userdir+"/data/config/databaseInfo.properties"));
-                Process pr=Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump.exe -u "+nombreUsuario+" -p "+passUsuario+" -h "+p.getProperty("ip")+" "+based);
+                Process pr=Runtime.getRuntime().exec("cmd /c mysqldump.exe -u "+nombreUsuario+" -p "+based+">"+dir+" -password="+passUsuario+" -h "+p.getProperty("ip"));
                 new Thread(new threadReader(pr.getErrorStream())).start();
                 
-                is=pr.getInputStream();
-                os=new FileOutputStream(userdir+"/data/database/MySQL/"+nombrebdExportada);
+                os=new FileOutputStream(dir);
                 
-                new Thread(new thread(is,os)).start();
+                new Thread(new thread(pr.getInputStream(),os)).start();
                 
                 JOptionPane.showMessageDialog(null,"Se ha exportado correctamente la base de datos","Rel 3E",JOptionPane.INFORMATION_MESSAGE);
                 new logger(Level.INFO).staticLogger("Rel 3E: se exportó correctamente la base de datos.\nOcurrió en la clase '"+exportDB.class.getName()+"', en el método 'run()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID));
                 
-                is.close();
-                os.close();
                 os.flush();
+                os.close();
             }catch(IOException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 8E",JOptionPane.ERROR_MESSAGE);
                 new logger(Level.SEVERE).staticLogger("Error 8E: "+e.getMessage()+".\nOcurrió en la clase '"+exportDB.class.getName()+"', en el método 'run()'");
