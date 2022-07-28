@@ -25,7 +25,7 @@ public final class calcWindow extends javax.swing.JDialog{
     }
     
     protected void settings(){
-        txtTotal.setText(String.valueOf(ventana1.resultado));
+        txtTotal.setText(String.valueOf(paymentWindow.result));
     }
     
     protected final void botones(){
@@ -43,7 +43,7 @@ public final class calcWindow extends javax.swing.JDialog{
                 String res=Integer.toString(Math.abs(resultado));
                 
                 txtCambio.setText(res);
-                ventana1.jLabel1.setText(txtCambio.getText());
+                paymentWindow.jLabel6.setText(txtCambio.getText());
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 32",JOptionPane.ERROR_MESSAGE);
                 new logger(Level.SEVERE).staticLogger("Error 32: "+e.getMessage()+".\nOcurrió en la clase '"+calcWindow.class.getName()+"', en el método 'botones(calcButton)'");

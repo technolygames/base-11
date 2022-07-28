@@ -393,14 +393,6 @@ public final class ventana2 extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_txtMarcaKeyPressed
     
-    private void txtPUKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPUKeyPressed
-        if(Character.isLetter(evt.getKeyChar())){
-            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
-            new logger(Level.WARNING).staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+ventana2.class.getName()+"', en el método 'txtPUKeyPressed()'");
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtPUKeyPressed
-    
     private void txtCantKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantKeyPressed
         if(Character.isLetter(evt.getKeyChar())){
             JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
@@ -408,6 +400,14 @@ public final class ventana2 extends javax.swing.JFrame{
             evt.consume();
         }
     }//GEN-LAST:event_txtCantKeyPressed
+    
+    private void txtPUKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPUKeyPressed
+        if(Character.isLetter(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
+            new logger(Level.WARNING).staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+ventana2.class.getName()+"', en el método 'txtPUKeyPressed()'");
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPUKeyPressed
     
     public static void main(String[] args){
         new ventana2().setVisible(true);

@@ -41,14 +41,11 @@ public final class ventana1 extends javax.swing.JFrame{
     protected int codigo_emp;
     public static int resultado;
     protected int cantidad;
-    public static int cambio;
     protected int precio;
     protected int total;
     
     protected final void settings(){
         txtCodEmp.setText(String.valueOf(start.userID));
-        jLabel1.setText(String.valueOf(cambio));
-        jLabel1.setVisible(false);
         
         dtm=new DefaultTableModel(){
             @Override
@@ -110,28 +107,9 @@ public final class ventana1 extends javax.swing.JFrame{
             dispose();
         });
         
-        calcButton.addActionListener((a)->{
-            try{
-                int res=0;
-                for(int i=0;i<dtm.getRowCount();i++){
-                    int n1=Integer.parseInt(dtm.getValueAt(i,5).toString());
-                    res+=n1;
-                    
-                    resultado=res;
-                }
-                
-                new calcWindow(new javax.swing.JFrame(),true).setVisible(true);
-            }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 32",JOptionPane.ERROR_MESSAGE);
-                new logger(Level.SEVERE).staticLogger("Error 32: "+e.getMessage()+".\nOcurrió en la clase '"+ventana1.class.getName()+"', en el método 'botones(calcButton)'");
-                new logger(Level.SEVERE).exceptionLogger(ventana1.class.getName(),"botones.calc-32",e.fillInStackTrace());
-            }
-        });
-        
         cleanButton.addActionListener((a)->{
             dtm.setRowCount(0);
             
-            jLabel1.setText("");
             txtCodigo.setText("");
             txtProd.setText("");
             txtMarca.setText("");
@@ -155,7 +133,6 @@ public final class ventana1 extends javax.swing.JFrame{
                     total=Integer.parseInt(dtm.getValueAt(i,5).toString());
                 }
                 
-                cambio=Integer.parseInt(jLabel1.getText());
                 nombre_emp=txtCodEmp.getText();
                 new paymentWindow(new javax.swing.JFrame(),true).setVisible(true);
             }catch(NumberFormatException e){
@@ -189,7 +166,6 @@ public final class ventana1 extends javax.swing.JFrame{
         jLabel8 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        calcButton = new javax.swing.JButton();
         cleanButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -199,7 +175,6 @@ public final class ventana1 extends javax.swing.JFrame{
         jLabel7 = new javax.swing.JLabel();
         txtCodEmp = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -261,8 +236,6 @@ public final class ventana1 extends javax.swing.JFrame{
 
         jLabel9.setText("Total:");
 
-        calcButton.setText("Calcular");
-
         cleanButton.setText("Limpiar campos");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -293,8 +266,6 @@ public final class ventana1 extends javax.swing.JFrame{
 
         jButton2.setText("Eliminar fila");
 
-        jLabel1.setText("jLabel1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -310,18 +281,13 @@ public final class ventana1 extends javax.swing.JFrame{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(calcButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(addButton)
-                                .addGap(64, 64, 64)
+                                .addGap(109, 109, 109)
                                 .addComponent(cleanButton)
                                 .addGap(32, 32, 32))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel1))
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -362,9 +328,7 @@ public final class ventana1 extends javax.swing.JFrame{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel1))
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -401,7 +365,6 @@ public final class ventana1 extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backButton)
-                    .addComponent(calcButton)
                     .addComponent(cleanButton)
                     .addComponent(addButton)
                     .addComponent(mkPaidButton)
@@ -420,6 +383,14 @@ public final class ventana1 extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_txtCodigoKeyPressed
     
+    private void txtCodEmpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEmpKeyPressed
+        if(Character.isLetter(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
+            new logger(Level.WARNING).staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+ventana1.class.getName()+"', en el método 'txtCodEmpKeyPressed()'");
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodEmpKeyPressed
+    
     private void txtProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProdKeyPressed
         if(Character.isDigit(evt.getKeyChar())){
             JOptionPane.showMessageDialog(null,"Solo letras","Let 7",JOptionPane.WARNING_MESSAGE);
@@ -436,14 +407,6 @@ public final class ventana1 extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_txtMarcaKeyPressed
     
-    private void txtPrecioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyPressed
-        if(Character.isLetter(evt.getKeyChar())){
-            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
-            new logger(Level.WARNING).staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+ventana1.class.getName()+"', en el método 'txtPrecioKeyPressed()'");
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtPrecioKeyPressed
-    
     private void txtCantKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantKeyPressed
         if(Character.isLetter(evt.getKeyChar())){
             JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
@@ -451,6 +414,14 @@ public final class ventana1 extends javax.swing.JFrame{
             evt.consume();
         }
     }//GEN-LAST:event_txtCantKeyPressed
+    
+    private void txtPrecioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyPressed
+        if(Character.isLetter(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
+            new logger(Level.WARNING).staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+ventana1.class.getName()+"', en el método 'txtPrecioKeyPressed()'");
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrecioKeyPressed
     
     private void txtTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalKeyPressed
         if(Character.isLetter(evt.getKeyChar())){
@@ -460,14 +431,6 @@ public final class ventana1 extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_txtTotalKeyPressed
     
-    private void txtCodEmpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEmpKeyPressed
-        if(Character.isLetter(evt.getKeyChar())){
-            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
-            new logger(Level.WARNING).staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+ventana1.class.getName()+"', en el método 'txtCodEmpKeyPressed()'");
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtCodEmpKeyPressed
-
     private void txtCodigoKeyPressed2(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed2
         try{
             ps=new datos().getConnection().prepareStatement("select*from almacen where codigo_prod="+txtCodigo.getText()+";");
@@ -486,7 +449,7 @@ public final class ventana1 extends javax.swing.JFrame{
             new logger(Level.SEVERE).exceptionLogger(ventana1.class.getName(),"txtCodigoKeyPressed2-14",e.fillInStackTrace());*/
         }
     }//GEN-LAST:event_txtCodigoKeyPressed2
-
+    
     private void txtCantKeyPressed2(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantKeyPressed2
         try{
             int n1=Integer.parseInt(txtCant.getText());
@@ -507,11 +470,9 @@ public final class ventana1 extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JButton addButton;
     protected javax.swing.JButton backButton;
-    protected javax.swing.JButton calcButton;
     protected javax.swing.JButton cleanButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    public static javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

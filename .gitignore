@@ -23,6 +23,7 @@
 # Project ignore #
 /data/logs/static/
 /data/logs/exceptions/
+/data/generic/tickets/
 /target/
 /test/
 

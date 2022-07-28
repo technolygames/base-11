@@ -536,14 +536,6 @@ public final class formulario1 extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_txtContactoKeyPressed
     
-    private void txtEdadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyPressed
-        if(Character.isLetter(evt.getKeyChar())){
-            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
-            new logger(Level.WARNING).staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+formulario1.class.getName()+"', en el método 'txtEdadKeyPressed()'");
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtEdadKeyPressed
-    
     private void txtFNKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFNKeyPressed
         try{
             DateTimeFormatter format=DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -554,6 +546,14 @@ public final class formulario1 extends javax.swing.JFrame{
             //not catch
         }
     }//GEN-LAST:event_txtFNKeyPressed
+    
+    private void txtEdadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyPressed
+        if(Character.isLetter(evt.getKeyChar())){
+            JOptionPane.showMessageDialog(null,"Solo números","Let 6",JOptionPane.WARNING_MESSAGE);
+            new logger(Level.WARNING).staticLogger("Let 6: se ingresaron letras en un campo equivocado.\nOcurrió en la clase '"+formulario1.class.getName()+"', en el método 'txtEdadKeyPressed()'");
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtEdadKeyPressed
     
     public static void main(String[] args){
         new formulario1().setVisible(true);

@@ -4,8 +4,6 @@ import clases.datos;
 import clases.guiMediaHandler;
 import clases.logger;
 import clases.tickets.datosTicket;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import venPrimarias.ventana1;
 //java
 import javax.swing.JOptionPane;
@@ -39,7 +37,10 @@ public class paymentWindow extends javax.swing.JDialog{
     protected int resultado;
     protected int cantidad;
     protected int precio;
+    public static int result;
     protected int total;
+    
+    protected boolean state=false;
     
     protected void settings(){
         dtm=new DefaultTableModel();
@@ -62,6 +63,7 @@ public class paymentWindow extends javax.swing.JDialog{
                 ventana1.dtm.getValueAt(i,5)
             });
         }
+        
         jLabel4.setText(ventana1.nombre_emp);
         try{
             int res=0;
@@ -77,7 +79,6 @@ public class paymentWindow extends javax.swing.JDialog{
             new logger(Level.SEVERE).staticLogger("Error 32: "+e.getMessage()+".\nOcurrió en la clase '"+paymentWindow.class.getName()+"', en el método 'settings()'");
             new logger(Level.SEVERE).exceptionLogger(paymentWindow.class.getName(),"settings-32",e.fillInStackTrace());
         }
-        jLabel6.setText(String.valueOf(ventana1.cambio));
         
         jTable1.setEnabled(false);
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -85,12 +86,43 @@ public class paymentWindow extends javax.swing.JDialog{
     }
     
     protected final void botones(){
+        calcButton.addActionListener((a)->{
+            result=Integer.parseInt(jLabel5.getText());
+            new calcWindow(new javax.swing.JFrame(),true).setVisible(true);
+        });
+        
         cancelButton.addActionListener((a)->{
-            int i=JOptionPane.showConfirmDialog(null,"¿Deseas cancelar la compra?","Notice 1",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-            switch(i){
+            while(state==false){
+                int i=JOptionPane.showConfirmDialog(null,"¿Deseas cancelar la compra?","Notice 1",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                switch(i){
+                    case 0:{
+                        setVisible(false);
+                        dispose();
+                        break;
+                    }
+                }
+                break;
+            }
+            if(state==true){
+                setVisible(false);
+                dispose();
+            }
+        });
+        
+        jComboBox1.addActionListener((a)->{
+            switch(jComboBox1.getSelectedIndex()){
                 case 0:{
-                    setVisible(false);
-                    dispose();
+                    calcButton.setVisible(true);
+                    jLabel3.setVisible(true);
+                    jLabel6.setVisible(true);
+                    jLabel8.setVisible(true);
+                    break;
+                }
+                case 1:{
+                    calcButton.setVisible(false);
+                    jLabel3.setVisible(false);
+                    jLabel6.setVisible(false);
+                    jLabel8.setVisible(false);
                     break;
                 }
             }
@@ -112,6 +144,8 @@ public class paymentWindow extends javax.swing.JDialog{
                             new datos().insertarDatosProducto(codigo_prod,codigo_emp,nombre_prod,marca_prod,cantidad,precio,total);
                         }
                         
+                        state=true;
+                        cancelButton.setText("Regresar");
                         new datosTicket().imprimirTicket(jTable1,jLabel2.getText(),Integer.parseInt(jLabel4.getText()),jComboBox1.getSelectedItem().toString(),Integer.parseInt(jLabel6.getText()),true);
                         JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
                         new logger(Level.INFO).staticLogger("Rel 1: se guardaron correctamente los datos a ka base de datos.\nOcurrió en la clase '"+paymentWindow.class.getName()+"', en el método 'botones(mkPaidButton)'.\nUsuario que hizo los cambios: "+String.valueOf(start.userID));
@@ -120,12 +154,12 @@ public class paymentWindow extends javax.swing.JDialog{
                     case 1:{
                         for(int i=0;i<dtm.getRowCount();i++){
                             codigo_prod=Integer.parseInt(dtm.getValueAt(i,0).toString());
-                            codigo_emp=Integer.parseInt(dtm.getValueAt(i,1).toString());
-                            nombre_prod=dtm.getValueAt(i,2).toString();
-                            marca_prod=dtm.getValueAt(i,3).toString();
-                            cantidad=Integer.parseInt(dtm.getValueAt(i,4).toString());
-                            precio=Integer.parseInt(dtm.getValueAt(i,5).toString());
-                            total=Integer.parseInt(dtm.getValueAt(i,6).toString());
+                            codigo_emp=Integer.parseInt(jLabel4.getText());
+                            nombre_prod=dtm.getValueAt(i,1).toString();
+                            marca_prod=dtm.getValueAt(i,2).toString();
+                            cantidad=Integer.parseInt(dtm.getValueAt(i,3).toString());
+                            precio=Integer.parseInt(dtm.getValueAt(i,4).toString());
+                            total=Integer.parseInt(dtm.getValueAt(i,5).toString());
                             
                             new datos().insertarDatosProducto(codigo_prod,codigo_emp,nombre_prod,marca_prod,cantidad,precio,total);
                         }
@@ -133,7 +167,9 @@ public class paymentWindow extends javax.swing.JDialog{
                         Aquí deberá ir el código para que se pague con tarjeta
                         Here will be write card payment code
                         */
-                        new datosTicket().imprimirTicket(jTable1,jLabel2.getText(),Integer.parseInt(jLabel4.getText()),jComboBox1.getSelectedItem().toString(),Integer.parseInt(jLabel6.getText()),false);
+                        state=true;
+                        cancelButton.setText("Regresar");
+                        new datosTicket().imprimirTicket(jTable1,jLabel2.getText(),Integer.parseInt(jLabel4.getText()),jComboBox1.getSelectedItem().toString(),Integer.parseInt("0"),false);
                         JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
                         new logger(Level.INFO).staticLogger("Rel 1: se guardaron correctamente los datos a ka base de datos.\nOcurrió en la clase '"+paymentWindow.class.getName()+"', en el método 'botones(mkPaidButton)'.\nUsuario que hizo los cambios: "+String.valueOf(start.userID));
                         break;
@@ -168,6 +204,7 @@ public class paymentWindow extends javax.swing.JDialog{
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        calcButton = new javax.swing.JButton();
 
         setIconImage(new guiMediaHandler(paymentWindow.class.getName()).getIconImage());
 
@@ -206,6 +243,8 @@ public class paymentWindow extends javax.swing.JDialog{
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Tarjeta" }));
 
+        calcButton.setText("Calcular");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -216,6 +255,8 @@ public class paymentWindow extends javax.swing.JDialog{
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(mkPaidButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(calcButton)
+                        .addGap(119, 119, 119)
                         .addComponent(cancelButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -263,7 +304,8 @@ public class paymentWindow extends javax.swing.JDialog{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
-                    .addComponent(mkPaidButton))
+                    .addComponent(mkPaidButton)
+                    .addComponent(calcButton))
                 .addContainerGap())
         );
 
@@ -275,6 +317,7 @@ public class paymentWindow extends javax.swing.JDialog{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton calcButton;
     private javax.swing.JButton cancelButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -282,7 +325,7 @@ public class paymentWindow extends javax.swing.JDialog{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    public static javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;

@@ -245,8 +245,10 @@ public final class proper1 extends javax.swing.JFrame{
     }
     
     static{
-        //(en) - Here goes look and feel to be install
-        //(es) - Aquí van los look and feel para ser instalado
+        /*
+        Aquí van los look and feel para ser instalado
+        Here goes look and feel to be install
+        */
     }
     
     protected final void combo(){
