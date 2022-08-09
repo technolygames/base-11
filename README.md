@@ -17,7 +17,7 @@ A program made on Java 11 to manage a grocery. Features:
 - Exception handling
 - Execution threads
 
-To start programming, everything is on "src" folder. In root path there is database, libraries, configuration files and visual media.
+To start programming, everything is on "src" folder. In root path there is database, libraries, configuration files and visual media.<br>
 Sometimes will be outdated because I don't give too much support to this version
 
 Installation:
@@ -44,7 +44,7 @@ Programa hecho en Java 11 para administrar una tienda de abarrotes. Sus caracter
 - Gestión de errores
 - Hilos de ejecución
 
-Para poder programar, todo el código está en la carpeta "src". En la carpeta raíz del proyecto, están la base de datos, librerias (pom.xml), archivos de configuración y medios visuales.
+Para poder programar, todo el código está en la carpeta "src". En la carpeta raíz del proyecto, están la base de datos, librerias (pom.xml), archivos de configuración y medios visuales.<br>
 A veces dejaré desactualizado esta versión porque no le doy mucho soporte
 
 Instalación:
