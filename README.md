@@ -1,6 +1,6 @@
 # base11
 (EN)<br>
-IMPORTANT: There's a version in JDK 17. If you want to watch it, follow this [link](https://github.com/technolygames/base-17)<br>
+IMPORTANT: There's a version in JDK 17. If you want to watch it, follow this [link](https://github.com/technolygames/base-17).<br>
 A program made on Java 11 to manage a grocery. Features:
 - Can store data from a graphical table to database table
 - Employee, partners and providers data storage
@@ -18,7 +18,7 @@ A program made on Java 11 to manage a grocery. Features:
 - Execution threads
 
 To start programming, everything is on "src" folder. In root path there is database, libraries, configuration files and visual media.<br>
-Sometimes will be outdated because I don't give too much support to this version
+Sometimes will be outdated because I don't give too much support to this version.
 
 Installation:
 
@@ -27,8 +27,8 @@ Installation:
 - In case if you have a MySQL database server previously configurated and completed database import step, you'll need configurate on "Configurar BD" ("DB Config") panel inside in the window called "Herramientas de administrador" ("Administrator Tools") the server connection.
 
 (ES)<br>
-IMPORTANTE: hay una versión en JDK 17. Si quieres verla, clic en el siguiente [link](https://github.com/technolygames/base-17)<br>
-Programa hecho en Java 11 para administrar una tienda de abarrotes. Sus características:
+IMPORTANTE: hay una versión en JDK 17. Si quieres verla, clic en el siguiente [link](https://github.com/technolygames/base-17).<br>
+Programa hecho en Java 11 para administrar una tienda de abarrotes. Características:
 - Poder guardar, desde una tabla, datos a una base de datos
 - Almacena datos de empleados, socios y proveedores
 - Almacenamiento de las imágenes de los socios, proveedores y/o empleados en caso de crear una credencial física
@@ -45,7 +45,7 @@ Programa hecho en Java 11 para administrar una tienda de abarrotes. Sus caracter
 - Hilos de ejecución
 
 Para poder programar, todo el código está en la carpeta "src". En la carpeta raíz del proyecto, están la base de datos, librerias (pom.xml), archivos de configuración y medios visuales.<br>
-A veces dejaré desactualizado esta versión porque no le doy mucho soporte
+A veces dejaré desactualizado esta versión porque no le doy mucho soporte.
 
 Instalación:
 
