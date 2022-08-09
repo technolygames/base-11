@@ -1,6 +1,6 @@
 # base11
 (EN)<br>
-IMPORTANT: There's a version in JDK 17. If you want to watch it, follow this [link](https://github.com/technolygames/base-17)
+IMPORTANT: There's a version in JDK 17. If you want to watch it, follow this [link](https://github.com/technolygames/base-17)<br>
 A program made on Java 11 to manage a grocery. Features:
 - Can store data from a graphical table to database table
 - Employee, partners and providers data storage
@@ -27,7 +27,7 @@ Installation:
 - In case if you have a MySQL database server previously configurated and completed database import step, you'll need configurate on "Configurar BD" ("DB Config") panel inside in the window called "Herramientas de administrador" ("Administrator Tools") the server connection.
 
 (ES)<br>
-IMPORTANTE: hay una versión en JDK 17. Si quieres verla, clic en el siguiente [link](https://github.com/technolygames/base-17)
+IMPORTANTE: hay una versión en JDK 17. Si quieres verla, clic en el siguiente [link](https://github.com/technolygames/base-17)<br>
 Programa hecho en Java 11 para administrar una tienda de abarrotes. Sus características:
 - Poder guardar, desde una tabla, datos a una base de datos
 - Almacena datos de empleados, socios y proveedores
