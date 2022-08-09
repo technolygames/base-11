@@ -12,7 +12,7 @@ A program made on Java 11 to manage a grocery. Features:
 * Customable window icon
 * Customable frame image
 * Switchable name
-- in case of update, download files from internet
+- In case of update, download files from internet
 - Import/export database
 - Exception handling
 - Execution threads
