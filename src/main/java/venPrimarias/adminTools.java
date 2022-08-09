@@ -18,6 +18,7 @@ public class adminTools extends javax.swing.JFrame{
         setLocationRelativeTo(null);
         setTitle("Herramientas de administrador");
         setResizable(false);
+        setSize(420,310);
         pack();
     }
     
@@ -33,18 +34,21 @@ public class adminTools extends javax.swing.JFrame{
         });
         
         jMenuItem1.addActionListener((a)->{
-            adminTools.this.getContentPane().setLayout(new BorderLayout());
-            adminTools.this.getContentPane().add(new databaseConfig(),BorderLayout.CENTER);
+            this.getContentPane().setLayout(new BorderLayout());
+            this.getContentPane().add(new databaseConfig(),BorderLayout.CENTER);
+            this.pack();
         });
         
         jMenuItem2.addActionListener((a)->{
-            adminTools.this.getContentPane().setLayout(new BorderLayout());
-            adminTools.this.getContentPane().add(new databaseImport(),BorderLayout.CENTER);
+            this.getContentPane().setLayout(new BorderLayout());
+            this.getContentPane().add(new databaseImport(),BorderLayout.CENTER);
+            this.pack();
         });
         
         jMenuItem3.addActionListener((a)->{
-            adminTools.this.getContentPane().setLayout(new BorderLayout());
-            adminTools.this.getContentPane().add(new databaseExport(),BorderLayout.CENTER);
+            this.getContentPane().setLayout(new BorderLayout());
+            this.getContentPane().add(new databaseExport(),BorderLayout.CENTER);
+            this.pack();
         });
     }
     

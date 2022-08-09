@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import java.util.logging.Level;
 
 /**
- * Clase encargada del flujo de datos.
+ * Clase encargada del flujo de datos.<br>
  * Se encarga de usar un hilo (Thread) para que exista un flujo de datos.
  * Este hilo es usado para leer/escribir el contenido de un archivo para crearlo en una dirección especificada.
  * 

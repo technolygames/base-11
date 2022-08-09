@@ -1,11 +1,11 @@
 package venPrimarias;
 //clases
-import clases.datos;
 import clases.guiMediaHandler;
 import clases.logger;
+import clases.dirs;
 import clases.thread;
+import clases.validation;
 import java.awt.Frame;
-import venTerciarias.valVentanas.validacionVentana7;
 //java
 import java.awt.Image;
 import java.awt.HeadlessException;
@@ -58,7 +58,7 @@ public final class proper1 extends javax.swing.JFrame{
     protected String icono;
     protected String nombre;
     protected String design;
-    protected String userdir=datos.userdir;
+    protected String userdir=dirs.userdir;
     protected String imagenes;
     protected String nombreArchivo1;
     protected String nombreArchivo2;
@@ -141,8 +141,8 @@ public final class proper1 extends javax.swing.JFrame{
                         icono=f3.getPath();
                         nombreArchivo2=f3.getName();
                         
-                        p.setProperty("lastdirectory_icon",f1.getParent());
-                        p.store(new BufferedWriter(new FileWriter(userdir+"/data/config/filechooserd.properties")),"JFileChooserDirection");
+                        p.setProperty("lastdirectory_icon",f3.getParent());
+                        p.store(new FileOutputStream(userdir+"/data/config/filechooserd.properties"),"JFileChooserDirection");
                     }catch(IOException e){
                         JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 24",JOptionPane.ERROR_MESSAGE);
                         new logger(Level.SEVERE).staticLogger("Error 24: "+e.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(iconButton)'");
@@ -170,23 +170,20 @@ public final class proper1 extends javax.swing.JFrame{
                 p.load(new FileInputStream(userdir+"/data/config/filechooserd.properties"));
                 jfc=new JFileChooser(p.getProperty("lastdirectory_image"));
                 
-                jfc.setFileFilter(new FileNameExtensionFilter("Archivo PNG","png"));
-                jfc.setFileFilter(new FileNameExtensionFilter("Archivo JPG","jpg"));
-                jfc.setFileFilter(new FileNameExtensionFilter("Archivo JPEG","jpeg"));
+                for(FileNameExtensionFilter filtro:new FileNameExtensionFilter[]{new FileNameExtensionFilter("Archivo PNG","png"),new FileNameExtensionFilter("Archivo JPG","jpg"),new FileNameExtensionFilter("Archivo JPEG","jpeg")}){
+                    jfc.setFileFilter(filtro);
+                }
                 
-                int ñ=jfc.showOpenDialog(null);
-                if(JFileChooser.APPROVE_OPTION==ñ){
+                if(JFileChooser.APPROVE_OPTION==jfc.showOpenDialog(null)){
                     try{
                         File f2=jfc.getSelectedFile();
                         imagenes=f2.getPath();
                         nombreArchivo1=f2.getName();
                         
-                        ImageIcon im=new ImageIcon(imagenes);
-                        Icon l=new ImageIcon(im.getImage().getScaledInstance(jLabel3.getWidth(),jLabel3.getHeight(),Image.SCALE_DEFAULT));
-                        jLabel3.setIcon(l);
+                        jLabel3.setIcon(new ImageIcon(new ImageIcon(imagenes).getImage().getScaledInstance(jLabel3.getWidth(),jLabel3.getHeight(),Image.SCALE_DEFAULT)));
                         
-                        p.setProperty("lastdirectory_image",f1.getParent());
-                        p.store(new BufferedWriter(new FileWriter(userdir+"/data/config/filechooserd.properties")),"JFil eChooserDirection");
+                        p.setProperty("lastdirectory_image",f2.getParent());
+                        p.store(new FileOutputStream(userdir+"/data/config/filechooserd.properties"),"JFil eChooserDirection");
                     }catch(IOException x){
                         JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 24",JOptionPane.ERROR_MESSAGE);
                         new logger(Level.SEVERE).staticLogger("Error 24: "+x.getMessage()+".\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'botones(imgButton)'");
@@ -240,7 +237,7 @@ public final class proper1 extends javax.swing.JFrame{
         });
         
         toolsButton.addActionListener((a)->{
-            new validacionVentana7(new javax.swing.JFrame(),true).setVisible(true);
+            new validation(new adminTools(),start.role,adminTools.class.getName()).toRestrictedForm();
         });
     }
     
@@ -296,7 +293,7 @@ public final class proper1 extends javax.swing.JFrame{
                 
                 new Thread(new thread(is,os)).start();
                 
-                p.store(new BufferedWriter(new FileWriter(userdir+"/data/config/config.properties")),"config1");
+                p.store(new BufferedWriter(new FileWriter(userdir+"/data/config/config.properties",StandardCharsets.UTF_8)),"config1");
                 
                 JOptionPane.showMessageDialog(null,"Se guardaron correctamente","Rel 4",JOptionPane.INFORMATION_MESSAGE);
                 new logger(Level.INFO).staticLogger("Rel 4: se han guardado las condiguraciones.\nOcurrió en la clase '"+proper1.class.getName()+"', en el método 'configOut()'.\nUsuario que hizo los cambios: "+String.valueOf(start.userID));
@@ -356,7 +353,7 @@ public final class proper1 extends javax.swing.JFrame{
 
         backButton.setText("Regresar");
 
-        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setText("Look And Feel:");
 
@@ -462,19 +459,19 @@ public final class proper1 extends javax.swing.JFrame{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    protected javax.swing.JButton backButton;
-    protected javax.swing.JButton iconButton;
-    protected javax.swing.JButton imgButton;
-    protected javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton backButton;
+    private javax.swing.JButton iconButton;
+    private javax.swing.JButton imgButton;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    protected javax.swing.JLabel jLabel2;
-    protected javax.swing.JLabel jLabel3;
-    protected javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    protected javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jTextField1;
-    protected javax.swing.JButton schButton;
+    private javax.swing.JButton schButton;
     private javax.swing.JButton toolsButton;
     // End of variables declaration//GEN-END:variables
 }

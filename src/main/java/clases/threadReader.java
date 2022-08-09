@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import java.util.logging.Level;
 
 /**
- * Clase encargada de usar un hilo para leer errores en consola.
+ * Clase encargada de usar un hilo para leer errores en consola.<br>
  * Hace uso de un hilo (Thread) para leer errores producidos al leer/escribir un archivo.
  * 
  * @author erick

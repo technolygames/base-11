@@ -3,21 +3,20 @@ package venPrimarias;
 import clases.datos;
 import clases.guiMediaHandler;
 import clases.logger;
+import clases.dirs;
 import menus.menuDatosVentana1;
 //java
 import java.awt.Image;
 import java.awt.HeadlessException;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.time.Period;
 import java.time.LocalDate;
 import java.util.Properties;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
@@ -45,7 +44,7 @@ public final class formulario1 extends javax.swing.JFrame{
     protected Properties p;
     protected JFileChooser jfc;
     
-    protected String userdir=datos.userdir;
+    protected String userdir=dirs.userdir;
     protected String direccion;
     
     protected void settings(){
@@ -79,13 +78,11 @@ public final class formulario1 extends javax.swing.JFrame{
                         File f=jfc.getSelectedFile();
                         direccion=f.getPath();
                         
-                        ImageIcon ii=new ImageIcon(direccion);
-                        Icon i=new ImageIcon(ii.getImage().getScaledInstance(picLabel.getWidth(),picLabel.getHeight(),Image.SCALE_DEFAULT));
                         picLabel.setText(null);
-                        picLabel.setIcon(i);
+                        picLabel.setIcon(new ImageIcon(new ImageIcon(direccion).getImage().getScaledInstance(picLabel.getWidth(),picLabel.getHeight(),Image.SCALE_DEFAULT)));
                         
                         p.setProperty("lastdirectory_form1",f.getParent());
-                        p.store(new BufferedWriter(new FileWriter(userdir+"/data/config/filechooserd.properties")),"JFileChooserDirection");
+                        p.store(new FileOutputStream(userdir+"/data/config/filechooserd.properties"),"JFileChooserDirection");
                     }catch(IOException e){
                         JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 24",JOptionPane.ERROR_MESSAGE);
                         new logger(Level.SEVERE).staticLogger("Error 24: "+e.getMessage()+".\nOcurrió en la clase '"+formulario1.class.getName()+"', en el método 'botones(insimgButton)'");
@@ -287,7 +284,7 @@ public final class formulario1 extends javax.swing.JFrame{
 
         picLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         picLabel.setText("Foto");
-        picLabel.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        picLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel9.setText("Contraseña:");
 
@@ -587,7 +584,7 @@ public final class formulario1 extends javax.swing.JFrame{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JMenuItem miClearFields;
-    public static javax.swing.JLabel picLabel;
+    private javax.swing.JLabel picLabel;
     private javax.swing.JButton storeButton;
     private javax.swing.JTextField txtAM;
     private javax.swing.JTextField txtAP;

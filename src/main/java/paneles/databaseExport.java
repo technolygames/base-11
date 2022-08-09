@@ -1,13 +1,12 @@
 package paneles;
 //clases
-import clases.datos;
 import clases.logger;
+import clases.dirs;
 import clases.thread;
 import clases.threadReader;
 import venPrimarias.start;
 //java
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,21 +24,20 @@ public class databaseExport extends javax.swing.JPanel{
     
     protected OutputStream os;
     
+    protected String userdir=dirs.userdir;
+    
     protected final void botones(){
         closeButton.addActionListener((ae)->{
             setVisible(false);
         });
         
         exportButton.addActionListener((ae)->{
-            new Thread(new exportDB()).start();
+            exportDatabase();
         });
     }
     
-    protected class exportDB implements Runnable{
-        protected String userdir=datos.userdir;
-        
-        @Override
-        public void run(){
+    protected void exportDatabase(){
+        new Thread(()->{
             String nombreUsuario=jTextField1.getText();
             String passUsuario=jPasswordField1.getPassword().toString();
             String based=jTextField3.getText();
@@ -57,20 +55,20 @@ public class databaseExport extends javax.swing.JPanel{
                 new Thread(new thread(pr.getInputStream(),os)).start();
                 
                 JOptionPane.showMessageDialog(null,"Se ha exportado correctamente la base de datos","Rel 3E",JOptionPane.INFORMATION_MESSAGE);
-                new logger(Level.INFO).staticLogger("Rel 3E: se exportó correctamente la base de datos.\nOcurrió en la clase '"+exportDB.class.getName()+"', en el método 'run()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID));
+                new logger(Level.INFO).staticLogger("Rel 3E: se exportó correctamente la base de datos.\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'exportDatabase()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID));
                 
                 os.flush();
                 os.close();
             }catch(IOException e){
                 JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 8E",JOptionPane.ERROR_MESSAGE);
-                new logger(Level.SEVERE).staticLogger("Error 8E: "+e.getMessage()+".\nOcurrió en la clase '"+exportDB.class.getName()+"', en el método 'run()'");
-                new logger(Level.SEVERE).exceptionLogger(exportDB.class.getName(),"run-8E",e.fillInStackTrace());
+                new logger(Level.SEVERE).staticLogger("Error 8E: "+e.getMessage()+".\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'exportDatabase()'");
+                new logger(Level.SEVERE).exceptionLogger(databaseExport.class.getName(),"exportDatabase-8E",e.fillInStackTrace());
             }catch(NullPointerException x){
                 JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 0",JOptionPane.ERROR_MESSAGE);
-                new logger(Level.SEVERE).staticLogger("Error 0: "+x.getMessage()+".\nOcurrió en la clase '"+exportDB.class.getName()+"', en el método 'run()'");
-                new logger(Level.SEVERE).exceptionLogger(exportDB.class.getName(),"run-0",x.fillInStackTrace());
+                new logger(Level.SEVERE).staticLogger("Error 0: "+x.getMessage()+".\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'exportDatabase()'");
+                new logger(Level.SEVERE).exceptionLogger(databaseExport.class.getName(),"exportDatabase-0",x.fillInStackTrace());
             }
-        }
+        }).start();
     }
     
     @SuppressWarnings("unchecked")
@@ -112,12 +110,12 @@ public class databaseExport extends javax.swing.JPanel{
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                             .addComponent(jPasswordField1)
                             .addComponent(jTextField3))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +124,7 @@ public class databaseExport extends javax.swing.JPanel{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -134,7 +132,7 @@ public class databaseExport extends javax.swing.JPanel{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(exportButton)
                     .addComponent(closeButton))

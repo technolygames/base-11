@@ -24,7 +24,7 @@ public final class loadWindow extends javax.swing.JFrame{
     protected Properties p;
     
     protected final void load(){
-        t=new Timer(120,(a)->{
+        t=new Timer(100,(a)->{
             if(jProgressBar1.getValue()<100){
                 int valor=jProgressBar1.getValue();
                 jProgressBar1.setValue(valor+5);
@@ -57,7 +57,7 @@ public final class loadWindow extends javax.swing.JFrame{
                         break;
                     case 100:
                         break;
-                    }
+                }
             }else{
                 t.stop();
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));

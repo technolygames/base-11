@@ -3,6 +3,7 @@ package venPrimarias;
 import clases.datos;
 import clases.guiMediaHandler;
 import clases.logger;
+import clases.dirs;
 import clases.win10Notification;
 import venSecundarias.loadWindow;
 //java
@@ -10,13 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.io.IOException;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 //extension larga
 import java.util.logging.Level;
 import java.awt.TrayIcon.MessageType;
+import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
 
 public final class start extends javax.swing.JFrame{
     public start(){
@@ -38,13 +40,15 @@ public final class start extends javax.swing.JFrame{
     protected ResultSet rs;
     protected PreparedStatement ps;
     
-    public static String nameUser;
     public static int userID;
+    
+    public static String nameUser;
+    public static String role;
     
     protected final void settings(){
         p=new Properties();
         try{
-            p.load(new FileInputStream(datos.userdir+"/data/config/config.properties"));
+            p.load(new FileReader(dirs.userdir+"/data/config/config.properties",StandardCharsets.UTF_8));
             nameLabel.setText(p.getProperty("nombre"));
         }catch(FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.ERROR_MESSAGE);
@@ -85,6 +89,7 @@ public final class start extends javax.swing.JFrame{
                     dispose();
                     nameUser=rs.getString("nombre_emp");
                     userID=rs.getInt("codigo_emp");
+                    role=rs.getString("puesto");
                     
                     new win10Notification().trayNotify("Inicio de sesión","Bienvenido, "+nameUser,MessageType.INFO);
                     new logger(Level.INFO).staticLogger("Inicio de sesión correcto.\nOcurrió en la clase '"+start.class.getName()+"', en el método 'login()'.\nUsuario logeado: "+userID);
@@ -140,7 +145,7 @@ public final class start extends javax.swing.JFrame{
 
         nameLabel.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
 
-        picLabel.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        picLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,14 +205,14 @@ public final class start extends javax.swing.JFrame{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    protected javax.swing.JButton closeButton;
+    private javax.swing.JButton closeButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    protected javax.swing.JButton loginButton;
+    private javax.swing.JButton loginButton;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel picLabel;
     private java.awt.TextField textField1;
-    protected javax.swing.JPasswordField txtContraseña;
-    protected javax.swing.JTextField txtUsuario;
+    private javax.swing.JPasswordField txtContraseña;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

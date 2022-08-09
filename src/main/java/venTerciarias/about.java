@@ -1,8 +1,8 @@
 package venTerciarias;
 //clases
-import clases.datos;
 import clases.guiMediaHandler;
 import clases.logger;
+import clases.dirs;
 //java
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -11,6 +11,8 @@ import java.net.URISyntaxException;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 //extension larga
@@ -33,7 +35,7 @@ public final class about extends javax.swing.JDialog{
     
     protected Properties p;
     
-    protected String userdir=datos.userdir;
+    protected String userdir=dirs.userdir;
     
     protected void settings(){
         websiteLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -42,7 +44,7 @@ public final class about extends javax.swing.JDialog{
     protected void etiquetas(){
         p=new Properties();
         try{
-            p.load(new FileInputStream(userdir+"/data/config/acerca.properties"));
+            p.load(new FileReader(userdir+"/data/config/acerca.properties",StandardCharsets.UTF_8));
             
             versionLabel.setText(p.getProperty("version"));
             estableLabel.setText(p.getProperty("estable"));

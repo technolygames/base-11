@@ -11,7 +11,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 
 /**
- * Clase encargada de manejar los eventos del programa.
+ * Clase encargada de manejar los eventos del programa.<br>
  * Guarda los eventos del programa mientras este se está ejecutando.
  * 
  * @author erick
@@ -28,7 +28,7 @@ public class logger{
         this.level=nivel;
     }
     
-    protected static String userdir=datos.userdir;
+    protected static String userdir=dirs.userdir;
     
     protected static FileHandler fh;
     protected FileHandler fh2;

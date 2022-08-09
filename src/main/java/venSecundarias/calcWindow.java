@@ -2,12 +2,12 @@ package venSecundarias;
 //clases
 import clases.guiMediaHandler;
 import clases.logger;
-import venPrimarias.ventana1;
 //java
 import javax.swing.JOptionPane;
 //extension larga
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
 import java.util.logging.Level;
-
 
 public final class calcWindow extends javax.swing.JDialog{
     public calcWindow(java.awt.Frame parent,boolean modal){
@@ -34,22 +34,35 @@ public final class calcWindow extends javax.swing.JDialog{
             dispose();
         });
         
-        calButton.addActionListener((ae)->{
-            try{
-                int n1=Integer.parseInt(txtTotal.getText());
-                int n2=Integer.parseInt(txtDinIng.getText());
-                int resultado=n1-n2;
-                
-                String res=Integer.toString(Math.abs(resultado));
-                
-                txtCambio.setText(res);
-                paymentWindow.jLabel6.setText(txtCambio.getText());
-            }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 32",JOptionPane.ERROR_MESSAGE);
-                new logger(Level.SEVERE).staticLogger("Error 32: "+e.getMessage()+".\nOcurrió en la clase '"+calcWindow.class.getName()+"', en el método 'botones(calcButton)'");
-                new logger(Level.SEVERE).exceptionLogger(calcWindow.class.getName(),"botones.calc-32",e.fillInStackTrace());
+        calButton.addActionListener((a)->{
+            calculate();
+        });
+        
+        txtDinIng.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent a){
+                if(a.getKeyCode()==KeyEvent.VK_ENTER){
+                    calculate();
+                }
             }
         });
+    }
+    
+    protected void calculate(){
+        try{
+            int n1=Integer.parseInt(txtTotal.getText());
+            int n2=Integer.parseInt(txtDinIng.getText());
+            int resultado=n1-n2;
+            
+            String res=Integer.toString(Math.abs(resultado));
+            
+            txtCambio.setText(res);
+            paymentWindow.jLabel6.setText(txtCambio.getText());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 32",JOptionPane.ERROR_MESSAGE);
+            new logger(Level.SEVERE).staticLogger("Error 32: "+e.getMessage()+".\nOcurrió en la clase '"+calcWindow.class.getName()+"', en el método 'botones(calcButton)'");
+            new logger(Level.SEVERE).exceptionLogger(calcWindow.class.getName(),"botones.calc-32",e.fillInStackTrace());
+        }
     }
     
     @SuppressWarnings("unchecked")

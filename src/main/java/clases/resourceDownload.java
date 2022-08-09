@@ -18,14 +18,14 @@ import javax.swing.JOptionPane;
 import java.util.logging.Level;
 
 /**
- * Clase encargada de descargar los recursos necesarios para el correcto funcionamiento del programa.
+ * Clase encargada de descargar los recursos necesarios para el correcto funcionamiento del programa.<br>
  * Descarga las librerías e idiomas.
  * 
  * @author erick
  */
 public class resourceDownload{
-    protected boolean sis=false;
-    protected String userdir=datos.userdir;
+    protected boolean estado=false;
+    protected String userdir=dirs.userdir;
     
     protected File f;
     protected InputStream is;
@@ -45,13 +45,16 @@ public class resourceDownload{
     public boolean checkConnection(String url,int puerto){
         try{
             s=new Socket();
-            
             sa=new InetSocketAddress(url,puerto);
             
             s.bind(sa);
             s.connect(sa);
             
-            sis=s.isConnected();
+            if(s.isConnected()==true){
+                estado=true;
+            }else{
+                estado=false;
+            }
         }catch(UnknownHostException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1I",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 1I: "+e.getMessage()+"\nOcurrió en la clase '"+resourceDownload.class.getName()+"', en el método 'checkConnection()'");
@@ -61,7 +64,7 @@ public class resourceDownload{
             new logger(Level.SEVERE).staticLogger("Error 1IO: "+x.getMessage()+"\nOcurrió en la clase '"+resourceDownload.class.getName()+"', en el método 'checkConnection()'");
             new logger(Level.SEVERE).exceptionLogger(resourceDownload.class.getName(),"checkConnection-1IO",x.fillInStackTrace());
         }
-        return sis;
+        return estado;
     }
     
     /**
@@ -73,11 +76,7 @@ public class resourceDownload{
     public void downloadLibs(String validar,String link){
         f=new File(userdir+"/data/libs/"+validar);
         try{
-            if(!f.exists()){
-                f.createNewFile();
-            }
-            
-            if(!f.exists()&&f.length()==0){
+            if(f.exists()&&f.length()==0){
                 u=new URL(link);
                 uc=u.openConnection();
                 
@@ -85,6 +84,8 @@ public class resourceDownload{
                 os=new FileOutputStream(userdir+"/data/libs/"+validar);
                 
                 new Thread(new thread(is,os)).start();
+            }else{
+                f.createNewFile();
             }
             
             is.close();

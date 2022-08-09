@@ -29,8 +29,8 @@ public class paymentWindow extends javax.swing.JDialog{
     
     protected DefaultTableModel dtm;
     
-    protected String nombre_prod;
-    protected String marca_prod;
+    protected String nombre;
+    protected String marca;
     
     protected int codigo_prod;
     protected int codigo_emp;
@@ -64,7 +64,7 @@ public class paymentWindow extends javax.swing.JDialog{
             });
         }
         
-        jLabel4.setText(ventana1.nombre_emp);
+        jLabel4.setText(String.valueOf(ventana1.codigo_emp));
         try{
             int res=0;
             for(int i=0;i<dtm.getRowCount();i++){
@@ -132,44 +132,56 @@ public class paymentWindow extends javax.swing.JDialog{
             try{
                 switch(jComboBox1.getSelectedIndex()){
                     case 0:{
+                        /*
+                        Efectivo
+                        Cash
+                        */
                         for(int i=0;i<dtm.getRowCount();i++){
                             codigo_prod=Integer.parseInt(dtm.getValueAt(i,0).toString());
                             codigo_emp=Integer.parseInt(jLabel4.getText());
-                            nombre_prod=dtm.getValueAt(i,1).toString();
-                            marca_prod=dtm.getValueAt(i,2).toString();
+                            nombre=dtm.getValueAt(i,1).toString();
+                            marca=dtm.getValueAt(i,2).toString();
                             cantidad=Integer.parseInt(dtm.getValueAt(i,3).toString());
                             precio=Integer.parseInt(dtm.getValueAt(i,4).toString());
                             total=Integer.parseInt(dtm.getValueAt(i,5).toString());
                             
-                            new datos().insertarDatosProducto(codigo_prod,codigo_emp,nombre_prod,marca_prod,cantidad,precio,total);
+                            new datos().insertarDatosProducto(codigo_prod,codigo_emp,nombre,marca,cantidad,precio,total);
+                            new datos().actualizarDatosAlmacen("set cantidad=cantidad-'"+cantidad+"' where codigo_prod='"+codigo_prod+"';");
                         }
                         
                         state=true;
                         cancelButton.setText("Regresar");
                         new datosTicket().imprimirTicket(jTable1,jLabel2.getText(),Integer.parseInt(jLabel4.getText()),jComboBox1.getSelectedItem().toString(),Integer.parseInt(jLabel6.getText()),true);
+                        
                         JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
                         new logger(Level.INFO).staticLogger("Rel 1: se guardaron correctamente los datos a ka base de datos.\nOcurrió en la clase '"+paymentWindow.class.getName()+"', en el método 'botones(mkPaidButton)'.\nUsuario que hizo los cambios: "+String.valueOf(start.userID));
                         break;
                     }
                     case 1:{
+                        /*
+                        Tarjeta
+                        Card
+                        */
                         for(int i=0;i<dtm.getRowCount();i++){
                             codigo_prod=Integer.parseInt(dtm.getValueAt(i,0).toString());
                             codigo_emp=Integer.parseInt(jLabel4.getText());
-                            nombre_prod=dtm.getValueAt(i,1).toString();
-                            marca_prod=dtm.getValueAt(i,2).toString();
+                            nombre=dtm.getValueAt(i,1).toString();
+                            marca=dtm.getValueAt(i,2).toString();
                             cantidad=Integer.parseInt(dtm.getValueAt(i,3).toString());
                             precio=Integer.parseInt(dtm.getValueAt(i,4).toString());
                             total=Integer.parseInt(dtm.getValueAt(i,5).toString());
                             
-                            new datos().insertarDatosProducto(codigo_prod,codigo_emp,nombre_prod,marca_prod,cantidad,precio,total);
+                            new datos().insertarDatosProducto(codigo_prod,codigo_emp,nombre,marca,cantidad,precio,total);
+                            new datos().actualizarDatosAlmacen("set cantidad=cantidad-'"+cantidad+"' where codigo_prod='"+codigo_prod+"';");
                         }
                         /*
                         Aquí deberá ir el código para que se pague con tarjeta
-                        Here will be write card payment code
+                        Here will being the code for payment with card
                         */
                         state=true;
                         cancelButton.setText("Regresar");
-                        new datosTicket().imprimirTicket(jTable1,jLabel2.getText(),Integer.parseInt(jLabel4.getText()),jComboBox1.getSelectedItem().toString(),Integer.parseInt("0"),false);
+                        new datosTicket().imprimirTicket(jTable1,jLabel2.getText(),Integer.parseInt(jLabel4.getText()),jComboBox1.getSelectedItem().toString(),false);
+                        
                         JOptionPane.showMessageDialog(null,"Se han guardado los datos","Rel 1",JOptionPane.INFORMATION_MESSAGE);
                         new logger(Level.INFO).staticLogger("Rel 1: se guardaron correctamente los datos a ka base de datos.\nOcurrió en la clase '"+paymentWindow.class.getName()+"', en el método 'botones(mkPaidButton)'.\nUsuario que hizo los cambios: "+String.valueOf(start.userID));
                         break;

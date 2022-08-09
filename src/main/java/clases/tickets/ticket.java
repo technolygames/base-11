@@ -151,7 +151,7 @@ public class ticket{
     
     public static void abrirGaveta(FileWriter fw,boolean flag){
         try{
-            if(flag){
+            if(flag==true){
                 char abrir[]={(char)27,(char)112,(char)0,(char)10,(char)100};
                 fw.write(abrir);
             }

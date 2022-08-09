@@ -17,10 +17,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
 //extension larga
 import java.util.logging.Level;
+
 /**
- * Clase encargada de manejar los diseños de las ventanas o interfaces gráficas de usuario.
- * Carga y valida las imágenes seleccionadas en la ventana de configuración.
- * Carga el diseño, o color de fondo del programa, de las ventanas.
+ * Clase encargada de manejar los diseños de las ventanas o interfaces gráficas de usuario.<br>
+ * <ul>
+ * <li>Carga y valida las imágenes seleccionadas en la ventana de configuración.</li>
+ * <li>Carga el diseño, o color de fondo del programa, de las ventanas.</li>
+ * <li>Carga el ícono de la ventana.</li>
+ * </ul>
  * 
  * @author erick
  */
@@ -28,7 +32,7 @@ public class guiMediaHandler{
     protected String clase;
     
     /**
-     * Inicializa la instancia para que registre en qué clase se ustá usando las funciones de esta clase.
+     * Inicializa la instancia para que registre en qué clase se ustá usando las funciones de esta clase.<br>
      * Esto para ver si hay problemas en la clase que usa las funciones de esta clase.
      * 
      * @param clase que está usando las funciones.
@@ -39,7 +43,7 @@ public class guiMediaHandler{
     
     protected String icon;
     protected String image;
-    protected String userdir=datos.userdir;
+    protected String userdir=dirs.userdir;
     
     protected Image retValue;
     protected Properties p;
@@ -59,17 +63,15 @@ public class guiMediaHandler{
                 image=p.getProperty("imagen_respaldo");
             }
             
-            ImageIcon im=new ImageIcon(image);
-            Icon l=new ImageIcon(im.getImage().getScaledInstance(etiqueta.getWidth(),etiqueta.getHeight(),Image.SCALE_DEFAULT));
-            etiqueta.setIcon(l);
-        }catch(FileNotFoundException s){
-            JOptionPane.showMessageDialog(null,"Error:\n"+s.getMessage(),"Error 1IO",JOptionPane.ERROR_MESSAGE);
-            new logger(Level.SEVERE).staticLogger("Error 1IO: "+s.getMessage()+".\nOcurrió en la clase '"+clase+"', en el método 'FormImage()'");
-            new logger(Level.SEVERE).exceptionLogger(clase,"FormImage-1IO",s.fillInStackTrace());
-        }catch(IOException d){
-            JOptionPane.showMessageDialog(null,"Error:\n"+d.getMessage(),"Error 2IO",JOptionPane.ERROR_MESSAGE);
-            new logger(Level.SEVERE).staticLogger("Error 2IO: "+d.getMessage()+".\nOcurrió en la clase '"+clase+"', en el método 'FormImage()'");
-            new logger(Level.SEVERE).exceptionLogger(clase,"FormImage-2IO",d.fillInStackTrace());
+            etiqueta.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(etiqueta.getWidth(),etiqueta.getHeight(),Image.SCALE_DEFAULT)));
+        }catch(FileNotFoundException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 1IO",JOptionPane.ERROR_MESSAGE);
+            new logger(Level.SEVERE).staticLogger("Error 1IO: "+e.getMessage()+".\nOcurrió en la clase '"+clase+"', en el método 'FormImage()'");
+            new logger(Level.SEVERE).exceptionLogger(clase,"FormImage-1IO",e.fillInStackTrace());
+        }catch(IOException x){
+            JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 2IO",JOptionPane.ERROR_MESSAGE);
+            new logger(Level.SEVERE).staticLogger("Error 2IO: "+x.getMessage()+".\nOcurrió en la clase '"+clase+"', en el método 'FormImage()'");
+            new logger(Level.SEVERE).exceptionLogger(clase,"FormImage-2IO",x.fillInStackTrace());
         }
     }
     
@@ -110,9 +112,9 @@ public class guiMediaHandler{
      */
     public void LookAndFeel(Component componente){
         try{
-            Properties style=new Properties();
-            style.load(new FileInputStream(userdir+"/data/config/config.properties"));
-            UIManager.setLookAndFeel(style.getProperty("look_and_feel"));
+            p=new Properties();
+            p.load(new FileInputStream(userdir+"/data/config/config.properties"));
+            UIManager.setLookAndFeel(p.getProperty("look_and_feel"));
             SwingUtilities.updateComponentTreeUI(componente);
         }catch(ClassNotFoundException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error CNFE",JOptionPane.ERROR_MESSAGE);

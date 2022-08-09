@@ -17,8 +17,10 @@ import javax.swing.JOptionPane;
 import java.util.logging.Level;
 
 /**
- * Clase intermedia entre el gestor de base de datos y el programa.
+ * Clase intermedia entre el gestor de base de datos y el programa.<br>
  * Se encarga de registrar, actualizar y eliminar los datos que el usuario desee.
+ * 
+ * @author erick
  */
 public class datos{
     protected Connection cn;
@@ -27,33 +29,32 @@ public class datos{
     
     protected Properties p;
     
-    protected String controlador;
+    protected String db;
+    protected String driver;
     protected String ip;
-    protected String puerto;
-    protected String bd;
-    protected String usuario;
-    protected String contraseña;
+    protected String pass;
+    protected String port;
+    protected String user;
     
-    public static String userdir=System.getProperty("user.dir");
     /**
-     * Conexión a la base de datos
+     * Conexión a la base de datos.
      * 
-     * @return Regresa la conexión a la base de datos
+     * @return conexión a la base de datos.
      */
     public Connection getConnection(){
         p=new Properties();
         try{
-            p.load(new FileInputStream(userdir+"/data/config/databaseInfo.properties"));
+            p.load(new FileInputStream(dirs.userdir+"/data/config/databaseInfo.properties"));
             
-            controlador=p.getProperty("driver");
+            db=p.getProperty("database");
+            driver=p.getProperty("driver");
             ip=p.getProperty("ip");
-            puerto=p.getProperty("port");
-            bd=p.getProperty("database");
-            usuario=p.getProperty("user");
-            contraseña=p.getProperty("pass");
+            pass=p.getProperty("pass");
+            port=p.getProperty("port");
+            user=p.getProperty("user");
             
-            Class.forName(controlador);
-            cn=DriverManager.getConnection("jdbc:mysql://"+ip+":"+puerto+"/"+bd+"?serverTimezone=UTC",usuario,contraseña);
+            Class.forName(driver);
+            cn=DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+db+"?serverTimezone=UTC",user,pass);
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 10",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 10: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'");
@@ -268,6 +269,25 @@ public class datos{
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 11: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosProveedor()'");
             new logger(Level.SEVERE).exceptionLogger(datos.class.getName(),"insertarDatosProveedor-11",e.fillInStackTrace());
+        }
+    }
+    
+    /**
+     * Actualiza datos de la tabla de empleados.<br>
+     * Esta es específica para almacén. No usar como universal.
+     * 
+     * @param consulta para cambiar los datos especificados.
+     */
+    public void actualizarDatosAlmacen(String consulta){
+        try{
+            ps=getConnection().prepareStatement("update almacen "+consulta);
+            ps.executeUpdate();
+            
+            ps.close();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 12",JOptionPane.ERROR_MESSAGE);
+            new logger(Level.SEVERE).staticLogger("Error 12: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'actualizarDatosAlmacen()'");
+            new logger(Level.SEVERE).exceptionLogger(datos.class.getName(),"actualizarDatosAlmacen-12",e.fillInStackTrace());
         }
     }
     

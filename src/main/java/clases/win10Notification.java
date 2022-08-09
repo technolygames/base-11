@@ -1,6 +1,5 @@
 package clases;
 //java
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.SystemTray;
@@ -15,7 +14,7 @@ import java.util.logging.Level;
 import java.awt.TrayIcon.MessageType;
 
 /**
- * Clase encargada de mostrar notificaciones.
+ * Clase encargada de mostrar notificaciones.<br>
  * Muestra notificaciones en sistemas que lo soporten.
  * 
  * @author erick
@@ -27,24 +26,21 @@ public class win10Notification{
      * Método encargado en mostrar la notificiación.
      * 
      * @param notification Título de la notificacion.
-     * @param message Mensaje que se mostrará en la notificación.
-     * @param mt Tipo de mensaje (puede se ERROR, INFO, NONE y WARNING).
+     * @param message que se mostrará en la notificación.
+     * @param messageType de la notificación (puede ser ERROR, INFO, NONE y WARNING).
      */
-    public void trayNotify(String notification,String message,MessageType mt){
+    public void trayNotify(String notification,String message,MessageType messageType){
         SystemTray st=SystemTray.getSystemTray();
         try{
-            if(st.isSupported()){
+            if(SystemTray.isSupported()){
                 p=new Properties();
-                p.load(new FileInputStream(datos.userdir+"/data/config/config.properties"));
-                Image i=Toolkit.getDefaultToolkit().getImage(p.getProperty("icono"));
-                TrayIcon ti=new TrayIcon(i);
+                p.load(new FileInputStream(dirs.userdir+"/data/config/config.properties"));
+                TrayIcon ti=new TrayIcon(Toolkit.getDefaultToolkit().getImage(p.getProperty("icono")));
                 st.add(ti);
                 ti.setImageAutoSize(true);
-                ti.displayMessage(notification,message,mt);
+                ti.displayMessage(notification,message,messageType);
                 ti.setToolTip(p.getProperty("nombre"));
                 st.remove(ti);
-                
-                i.flush();
             }
         }catch(AWTException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 24",JOptionPane.ERROR_MESSAGE);
