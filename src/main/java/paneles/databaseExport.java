@@ -2,8 +2,8 @@ package paneles;
 //clases
 import clases.logger;
 import clases.dirs;
-import clases.thread;
-import clases.threadReader;
+import clases.thread1;
+import clases.thread3;
 import venPrimarias.start;
 //java
 import java.io.IOException;
@@ -48,11 +48,11 @@ public class databaseExport extends javax.swing.JPanel{
                 Properties p=new Properties();
                 p.load(new FileInputStream(userdir+"/data/config/databaseInfo.properties"));
                 Process pr=Runtime.getRuntime().exec("cmd /c mysqldump.exe -u "+nombreUsuario+" -p "+based+">"+dir+" -password="+passUsuario+" -h "+p.getProperty("ip"));
-                new Thread(new threadReader(pr.getErrorStream())).start();
+                new Thread(new thread3(pr.getErrorStream())).start();
                 
                 os=new FileOutputStream(dir);
                 
-                new Thread(new thread(pr.getInputStream(),os)).start();
+                new Thread(new thread1(pr.getInputStream(),os)).start();
                 
                 JOptionPane.showMessageDialog(null,"Se ha exportado correctamente la base de datos","Rel 3E",JOptionPane.INFORMATION_MESSAGE);
                 new logger(Level.INFO).staticLogger("Rel 3E: se exportó correctamente la base de datos.\nOcurrió en la clase '"+databaseExport.class.getName()+"', en el método 'exportDatabase()'.\nUsuario que hizo la acción: "+String.valueOf(start.userID));

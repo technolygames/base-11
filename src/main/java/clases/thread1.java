@@ -14,7 +14,7 @@ import java.util.logging.Level;
  * 
  * @author erick
  */
-public class thread implements Runnable{
+public class thread1 implements Runnable{
     protected InputStream is;
     protected OutputStream os;
     
@@ -24,7 +24,7 @@ public class thread implements Runnable{
      * @param is: flujo de entrada del archivo a leer.
      * @param os: flujo de salida del archivo a escribir.
      */
-    public thread(InputStream is,OutputStream os){
+    public thread1(InputStream is,OutputStream os){
         this.os=os;
         this.is=is;
     }
@@ -47,8 +47,8 @@ public class thread implements Runnable{
             os.close();
         }catch(IOException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 2IO",JOptionPane.ERROR_MESSAGE);
-            new logger(Level.SEVERE).staticLogger("Error 2IO: "+e.getMessage()+"\nOcurrió en la clase '"+thread.class.getName()+"', en el método 'run()'");
-            new logger(Level.SEVERE).exceptionLogger(thread.class.getName(),"run-2IO",e.fillInStackTrace());
+            new logger(Level.SEVERE).staticLogger("Error 2IO: "+e.getMessage()+"\nOcurrió en la clase '"+thread1.class.getName()+"', en el método 'run()'");
+            new logger(Level.SEVERE).exceptionLogger(thread1.class.getName(),"run-2IO",e.fillInStackTrace());
         }
     }
 }

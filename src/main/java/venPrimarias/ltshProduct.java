@@ -1,10 +1,9 @@
 package venPrimarias;
 //clases
 import clases.datos;
+import clases.dbUtils;
 import clases.guiMediaHandler;
 import clases.logger;
-//librerías
-import net.proteanit.sql.DbUtils;
 //java
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +11,8 @@ import java.sql.PreparedStatement;
 import javax.swing.RowSorter;
 import javax.swing.JOptionPane;
 //extension larga
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
 import java.util.logging.Level;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -25,7 +26,6 @@ public final class ltshProduct extends javax.swing.JFrame{
         datosMostrar();
         botones();
         
-        setSize(950,550);
         setLocationRelativeTo(null);
         setTitle("Ventas");
         pack();
@@ -44,17 +44,50 @@ public final class ltshProduct extends javax.swing.JFrame{
         });
         
         refreshButton.addActionListener((e)->{
-            datosMostrar();
+            searchAndClean();
         });
         
         searchButton.addActionListener((ae)->{
-            datosBuscar();
+            searchData();
         });
+        
+        txtBuscar.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent a){
+                if(a.getKeyCode()==KeyEvent.VK_ENTER){
+                    searchData();
+                }
+            }
+        });
+        
+        jComboBox1.addActionListener((a)->{
+            int i=jComboBox1.getSelectedIndex();
+            if(i>=0&&i<4){
+                searchAndClean();
+            }
+        });
+    }
+    
+    //NO USAR PARA BUSCAR DATOS
+    //Este método se encarga de limpiar el cuadro de búsqueda y la tabla, también de esconder el botón de ver datos detallados
+    protected void searchAndClean(){
+        textField("");
+        datosMostrar();
+    }
+    
+    //Este es para buscar datos en concreto
+    protected void searchData(){
+        if(!txtBuscar.getText().isEmpty()){
+            datosBuscar();
+        }else{
+            JOptionPane.showMessageDialog(null,"Error:\nEscribe la palabra clave que deseas buscar","Error 14",JOptionPane.WARNING_MESSAGE);
+            new logger(Level.WARNING).staticLogger("Error 18: no se escribió la palabra clave para hacer la búsqueda.\nOcurrió en la clase '"+ltshProduct.class.getName()+"', en el método 'botones(searchButton)'");
+        }
     }
     
     protected final void datosMostrar(){
         dtm=new DefaultTableModel();
-        sorter=new TableRowSorter<TableModel>(dtm);
+        sorter=new TableRowSorter<>(dtm);
         try{
             ps=new datos().getConnection().prepareStatement("select * from productos;");
             rs=ps.executeQuery();
@@ -78,11 +111,12 @@ public final class ltshProduct extends javax.swing.JFrame{
     
     protected final void datosBuscar(){
         dtm=new DefaultTableModel();
-        sorter=new TableRowSorter<TableModel>(dtm);
+        sorter=new TableRowSorter<>(dtm);
         try{
             switch(jComboBox1.getSelectedIndex()){
                 case 0:
-                    ps=new datos().getConnection().prepareStatement("select * from productos where codigo_prod='"+txtBuscar.getText()+"';");
+                    ps=new datos().getConnection().prepareStatement("select * from productos where codigo_prod=?;");
+                    ps.setInt(1,Integer.parseInt(txtBuscar.getText()));
                     rs=ps.executeQuery();
                     dtm.setColumnIdentifiers(new Object[]{"Código del producto","Código del empleado","Nombre del producto","Marca","Cantidad","Precio","Total","Fecha de compra"});
                     if(rs.next()){
@@ -94,14 +128,15 @@ public final class ltshProduct extends javax.swing.JFrame{
                     jTable1.setRowSorter(sorter);
                     jTable1.getRowSorter().toggleSortOrder(0);
                     jTable1.getTableHeader().setReorderingAllowed(false);
-                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                    jTable1.setModel(dbUtils.resultSetToTableModel(rs));
                     jTable1.setModel(dtm);
                     
                     ps.close();
                     rs.close();
                     break;
                 case 1:
-                    ps=new datos().getConnection().prepareStatement("select * from productos where codigo_emp='"+txtBuscar.getText()+"';");
+                    ps=new datos().getConnection().prepareStatement("select * from productos where codigo_emp=?;");
+                    ps.setInt(1,Integer.parseInt(txtBuscar.getText()));
                     rs=ps.executeQuery();
                     dtm.setColumnIdentifiers(new Object[]{"Código del producto","Código del empleado","Nombre del producto","Marca","Cantidad","Precio","Total","Fecha de compra"});
                     if(rs.next()){
@@ -113,14 +148,15 @@ public final class ltshProduct extends javax.swing.JFrame{
                     jTable1.setRowSorter(sorter);
                     jTable1.getRowSorter().toggleSortOrder(0);
                     jTable1.getTableHeader().setReorderingAllowed(false);
-                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                    jTable1.setModel(dbUtils.resultSetToTableModel(rs));
                     jTable1.setModel(dtm);
                     
                     ps.close();
                     rs.close();
                     break;
                 case 2:
-                    ps=new datos().getConnection().prepareStatement("select * from productos where nombre_prod='"+txtBuscar.getText()+"';");
+                    ps=new datos().getConnection().prepareStatement("select * from productos where nombre_prod=?;");
+                    ps.setString(1,txtBuscar.getText());
                     rs=ps.executeQuery();
                     dtm.setColumnIdentifiers(new Object[]{"Código del producto","Código del empleado","Nombre del producto","Marca","Cantidad","Precio","Total","Fecha de compra"});
                     if(rs.next()){
@@ -132,14 +168,15 @@ public final class ltshProduct extends javax.swing.JFrame{
                     jTable1.setRowSorter(sorter);
                     jTable1.getRowSorter().toggleSortOrder(0);
                     jTable1.getTableHeader().setReorderingAllowed(false);
-                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                    jTable1.setModel(dbUtils.resultSetToTableModel(rs));
                     jTable1.setModel(dtm);
                     
                     ps.close();
                     rs.close();
                     break;
                 case 3:
-                    ps=new datos().getConnection().prepareStatement("select * from productos where marca='"+txtBuscar.getText()+"';");
+                    ps=new datos().getConnection().prepareStatement("select * from productos where marca=?;");
+                    ps.setString(1,txtBuscar.getText());
                     rs=ps.executeQuery();
                     dtm.setColumnIdentifiers(new Object[]{"Código del producto","Código del empleado","Nombre del producto","Marca","Cantidad","Precio","Total","Fecha de compra"});
                     if(rs.next()){
@@ -151,7 +188,7 @@ public final class ltshProduct extends javax.swing.JFrame{
                     jTable1.setRowSorter(sorter);
                     jTable1.getRowSorter().toggleSortOrder(0);
                     jTable1.getTableHeader().setReorderingAllowed(false);
-                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                    jTable1.setModel(dbUtils.resultSetToTableModel(rs));
                     jTable1.setModel(dtm);
                     
                     ps.close();
@@ -175,6 +212,10 @@ public final class ltshProduct extends javax.swing.JFrame{
             new logger(Level.SEVERE).staticLogger("Error IOOBE: "+n.getMessage()+".\nOcurrió en la clase '"+ltshProduct.class.getName()+"', en el método 'datosBuscar()'");
             new logger(Level.SEVERE).exceptionLogger(ltshProduct.class.getName(),"datosBuscar-IOOBE",n.fillInStackTrace());
         }
+    }
+    
+    protected void textField(String text){
+        txtBuscar.setText(text);
     }
     
     @SuppressWarnings("unchecked")
@@ -222,10 +263,10 @@ public final class ltshProduct extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 523, Short.MAX_VALUE)
                         .addComponent(searchButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,7 +288,7 @@ public final class ltshProduct extends javax.swing.JFrame{
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(refreshButton)

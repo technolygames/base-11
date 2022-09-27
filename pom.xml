@@ -66,15 +66,5 @@
             <version>8.0.17</version>
         </dependency>
         <!--Fin principales-->
-        
-        <!--Dependencias propias-->
-        <dependency>
-            <groupId>rs2xml</groupId>
-            <artifactId>rs2xml</artifactId>
-            <scope>system</scope>
-            <version>1.0</version>
-            <systemPath>${project.basedir}/data/libs/rs2xml.jar</systemPath>
-        </dependency>
-        <!--Fin dependencias propias-->
     </dependencies>
 </project>

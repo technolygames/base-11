@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 //extension larga
@@ -25,7 +25,6 @@ import java.util.logging.Level;
 public class datos{
     protected Connection cn;
     protected PreparedStatement ps;
-    protected Statement s;
     
     protected Properties p;
     
@@ -44,7 +43,7 @@ public class datos{
     public Connection getConnection(){
         p=new Properties();
         try{
-            p.load(new FileInputStream(dirs.userdir+"/data/config/databaseInfo.properties"));
+            p.load(new FileInputStream("data/config/databaseInfo.properties"));
             
             db=p.getProperty("database");
             driver=p.getProperty("driver");
@@ -54,25 +53,28 @@ public class datos{
             user=p.getProperty("user");
             
             Class.forName(driver);
-            cn=DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+db+"?serverTimezone=UTC",user,pass);
+            return DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+db+"?serverTimezone=UTC",user,pass);
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 10",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 10: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'");
             new logger(Level.SEVERE).exceptionLogger(datos.class.getName(),"getConnection-10",e.fillInStackTrace());
+            return null;
         }catch(ClassNotFoundException x){
             JOptionPane.showMessageDialog(null,"Error:\n"+x.getMessage(),"Error 37",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 37: "+x.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'");
             new logger(Level.SEVERE).exceptionLogger(datos.class.getName(),"getConnection-37",x.fillInStackTrace());
+            return null;
         }catch(FileNotFoundException n){
             JOptionPane.showMessageDialog(null,"Error:\n"+n.getMessage(),"Error 1IO",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 1IO: "+n.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'");
             new logger(Level.SEVERE).exceptionLogger(datos.class.getName(),"getConnection-1IO",n.fillInStackTrace());
+            return null;
         }catch(IOException k){
             JOptionPane.showMessageDialog(null,"Error:\n"+k.getMessage(),"Error 2IO",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 2IO: "+k.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'getConnection()'");
             new logger(Level.SEVERE).exceptionLogger(datos.class.getName(),"getConnection-2IO",k.fillInStackTrace());
+            return null;
         }
-        return cn;
     }
     
     /**
@@ -110,11 +112,20 @@ public class datos{
      */
     public void insertarDatosProducto(int codigoProducto,int codigoEmpleado,String nombreProducto,String marca,int cantidad,int precio,int total){
         try{
-            s=getConnection().createStatement();
-            s.addBatch("insert into productos values('"+codigoProducto+"','"+codigoEmpleado+"','"+nombreProducto+"','"+marca+"','"+cantidad+"','"+precio+"','"+total+"',now())");
-            s.executeBatch();
+            ps=getConnection().prepareStatement("insert into productos values(?,?,?,?,?,?,?,now())");
             
-            s.close();
+            ps.setInt(1,codigoProducto);
+            ps.setInt(2,codigoEmpleado);
+            ps.setString(3,nombreProducto);
+            ps.setString(4,marca);
+            ps.setInt(5,cantidad);
+            ps.setInt(6,precio);
+            ps.setInt(7,total);
+            ps.addBatch();
+            
+            ps.executeBatch();
+            
+            ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 11: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosProducto()'");
@@ -136,11 +147,21 @@ public class datos{
      */
     public void insertarDatosAlmacen(int codigoProducto,int codigoLote,int codigoProveedor,String nombreProducto,String marca,int cantidad,int precioUnitario,String stock){
         try{
-            s=getConnection().createStatement();
-            s.addBatch("insert into almacen values('"+codigoProducto+"','"+codigoLote+"','"+codigoProveedor+"','"+nombreProducto+"','"+marca+"','"+cantidad+"','"+precioUnitario+"','"+stock+"',now())");
-            s.executeBatch();
+            ps=getConnection().prepareStatement("insert into almacen values(?,?,?,?,?,?,?,?,now())");
             
-            s.close();
+            ps.setInt(1,codigoProducto);
+            ps.setInt(2,codigoLote);
+            ps.setInt(3,codigoProveedor);
+            ps.setString(4,nombreProducto);
+            ps.setString(5,marca);
+            ps.setInt(6,cantidad);
+            ps.setInt(7,precioUnitario);
+            ps.setString(8,stock);
+            ps.addBatch();
+            
+            ps.executeBatch();
+            
+            ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 11: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosAlmacen()'");
@@ -170,7 +191,7 @@ public class datos{
      */
     public void insertarDatosEmpleado(String password,int codigoEmpleado,String nombreEmpleado,String apellidoPaternoEmpleado,String apellidoMaternoEmpleado,String curp,String domicilio,String puesto,int experiencia,String gradoEstudios,int contacto,String fechaNacimiento,int edad,String estado,String datosExtra,InputStream foto){
         try{
-            ps=getConnection().prepareStatement("insert into empleados(password,codigo_emp,nombre_emp,apellidop_emp,apellidom_emp,curp,domicilio,puesto,experiencia,grado_estudios,contacto,fecha_nacimiento,edad,estado,datos_extra,foto,fecha_registro,fecha_sesion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),now());");
+            ps=getConnection().prepareStatement("insert into empleados values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),now());");
             ps.setString(1,password);
             ps.setInt(2,codigoEmpleado);
             ps.setString(3,nombreEmpleado);
@@ -215,7 +236,7 @@ public class datos{
      */
     public void insertarDatosSocio(int codigoSocio,String nombreSocio,String apellidoPaternoSocio,String apellidoMaternoSocio,String tipoSocio,String correo,String rfc,String datosExtra,InputStream foto){
         try{
-            ps=getConnection().prepareStatement("insert into socios(codigo_part,nombre_part,apellidop_part,apellidom_part,tipo_socio,correo,rfc,datos_extra,foto,fecha_ingreso,fecha_ucompra) values(?,?,?,?,?,?,?,?,?,now(),now());");
+            ps=getConnection().prepareStatement("insert into socios values(?,?,?,?,?,?,?,?,?,now(),now());");
             ps.setInt(1,codigoSocio);
             ps.setString(2,nombreSocio);
             ps.setString(3,apellidoPaternoSocio);
@@ -251,7 +272,7 @@ public class datos{
      */
     public void insertarDatosProveedor(int codigoProveedor,String nombreProveedor,String apellidoPaternoProveedor,String apellidoMaternoProveedor,String empresa,int contacto,InputStream foto){
         try{
-            ps=getConnection().prepareStatement("insert into proveedor(codigo_prov,nombre_prov,apellidop_prov,apellidom_prov,empresa,contacto,foto,fecha_ingreso,fecha_uentrega) value(?,?,?,?,?,?,?,now(),now());");
+            ps=getConnection().prepareStatement("insert into proveedor value(?,?,?,?,?,?,?,now(),now());");
             ps.setInt(1,codigoProveedor);
             ps.setString(2,nombreProveedor);
             ps.setString(3,apellidoPaternoProveedor);
@@ -269,6 +290,22 @@ public class datos{
             JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 11",JOptionPane.ERROR_MESSAGE);
             new logger(Level.SEVERE).staticLogger("Error 11: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'insertarDatosProveedor()'");
             new logger(Level.SEVERE).exceptionLogger(datos.class.getName(),"insertarDatosProveedor-11",e.fillInStackTrace());
+        }
+    }
+    
+    public ResultSet login(String password,String user1){
+        try{
+            ps=getConnection().prepareStatement("select * from empleados where password=? and nombre_emp=? or curp=?;");
+            ps.setString(1,password);
+            ps.setString(2,user1);
+            ps.setString(3,user1);
+            
+            return ps.executeQuery();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"Error:\n"+e.getMessage(),"Error 9",JOptionPane.ERROR_MESSAGE);
+            new logger(Level.SEVERE).staticLogger("Error 9: "+e.getMessage()+".\nOcurrió en la clase '"+datos.class.getName()+"', en el método 'login()'");
+            new logger(Level.SEVERE).exceptionLogger(datos.class.getName(),"login-9",e.fillInStackTrace());
+            return null;
         }
     }
     

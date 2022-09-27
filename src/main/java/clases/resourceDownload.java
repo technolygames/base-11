@@ -83,7 +83,7 @@ public class resourceDownload{
                 is=uc.getInputStream();
                 os=new FileOutputStream(userdir+"/data/libs/"+validar);
                 
-                new Thread(new thread(is,os)).start();
+                new Thread(new thread1(is,os)).start();
             }else{
                 f.createNewFile();
             }

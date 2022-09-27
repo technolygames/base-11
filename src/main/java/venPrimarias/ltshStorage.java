@@ -1,10 +1,9 @@
 package venPrimarias;
 //clases
 import clases.datos;
+import clases.dbUtils;
 import clases.guiMediaHandler;
 import clases.logger;
-//librerías
-import net.proteanit.sql.DbUtils;
 //java
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +11,8 @@ import java.sql.PreparedStatement;
 import javax.swing.RowSorter;
 import javax.swing.JOptionPane;
 //extension larga
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
 import java.util.logging.Level;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -25,7 +26,6 @@ public final class ltshStorage extends javax.swing.JFrame{
         botones();
         datosMostrar();
         
-        setSize(1000,600);
         setLocationRelativeTo(null);
         setTitle("Almacén");
         pack();
@@ -44,17 +44,63 @@ public final class ltshStorage extends javax.swing.JFrame{
         });
         
         refreshButton.addActionListener((a)->{
-            datosMostrar();
+            searchAndClean();
         });
         
         searchButton.addActionListener((ae)->{
-            datosBuscar();
+            searchData();
+        });
+        
+        txtBuscar.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent a){
+                if(a.getKeyCode()==KeyEvent.VK_ENTER){
+                    searchData();
+                }
+            }
+        });
+        
+        jComboBox1.addActionListener((a)->{
+            int i=jComboBox1.getSelectedIndex();
+            if(i>=0&&i<6){
+                searchAndClean();
+            }
         });
     }
     
+    //NO USAR PARA BUSCAR DATOS
+    //Este método se encarga de limpiar el cuadro de búsqueda y la tabla, también de esconder el botón de ver datos detallados
+    protected void searchAndClean(){
+        textField("");
+        datosMostrar();
+    }
+    
+    //Este es para buscar datos en concreto
+    protected void searchData(){
+        if(!txtBuscar.getText().isEmpty()){
+            datosBuscar();
+        }else{
+            JOptionPane.showMessageDialog(null,"Error:\nEscribe la palabra clave que deseas buscar","Error 14",JOptionPane.WARNING_MESSAGE);
+            new logger(Level.WARNING).staticLogger("Error 18: no se escribió la palabra clave para hacer la búsqueda.\nOcurrió en la clase '"+ltshStorage.class.getName()+"', en el método 'botones(searchButton)'");
+        }
+    }
+    
     protected final void datosMostrar(){
-        dtm=new DefaultTableModel();
-        sorter=new TableRowSorter<TableModel>(dtm);
+        dtm=new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                //all cells false
+                return false;
+            }
+        };
+        
+        for(int i=0;i<dtm.getRowCount();i++){
+            for(int j=0;j<dtm.getColumnCount();j++){
+                dtm.isCellEditable(i,j);
+            }
+        }
+        
+        sorter=new TableRowSorter<>(dtm);
         try{
             ps=new datos().getConnection().prepareStatement("select * from almacen;");
             rs=ps.executeQuery();
@@ -77,12 +123,26 @@ public final class ltshStorage extends javax.swing.JFrame{
     }
     
     protected final void datosBuscar(){
-        dtm=new DefaultTableModel();
-        sorter=new TableRowSorter<TableModel>(dtm);
+        dtm=new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                //all cells false
+                return false;
+            }
+        };
+        
+        for(int i=0;i<dtm.getRowCount();i++){
+            for(int j=0;j<dtm.getColumnCount();j++){
+                dtm.isCellEditable(i,j);
+            }
+        }
+        
+        sorter=new TableRowSorter<>(dtm);
         try{
             switch(jComboBox1.getSelectedIndex()){
                 case 0:
-                    ps=new datos().getConnection().prepareStatement("select * from almacen where codigo_prod="+txtBuscar.getText()+";");
+                    ps=new datos().getConnection().prepareStatement("select * from almacen where codigo_prod=?;");
+                    ps.setInt(1,Integer.parseInt(txtBuscar.getText()));
                     rs=ps.executeQuery();
                     dtm.setColumnIdentifiers(new Object[]{"Código del producto","Código del lote","Código del proveedor","Nombre del producto","Marca","Cantidad","Precio unitario","Stock","Fecha de ingreso"});
                     if(rs.next()){
@@ -94,14 +154,15 @@ public final class ltshStorage extends javax.swing.JFrame{
                     jTable1.setRowSorter(sorter);
                     jTable1.getRowSorter().toggleSortOrder(0);
                     jTable1.getTableHeader().setReorderingAllowed(false);
-                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                    jTable1.setModel(dbUtils.resultSetToTableModel(rs));
                     jTable1.setModel(dtm);
                     
                     ps.close();
                     rs.close();
                     break;
                 case 1:
-                    ps=new datos().getConnection().prepareStatement("select * from almacen where codigo_lote="+txtBuscar.getText()+";");
+                    ps=new datos().getConnection().prepareStatement("select * from almacen where codigo_lote=?;");
+                    ps.setInt(1,Integer.parseInt(txtBuscar.getText()));
                     rs=ps.executeQuery();
                     dtm.setColumnIdentifiers(new Object[]{"Código del producto","Código del lote","Código del proveedor","Nombre del producto","Marca","Cantidad","Precio unitario","Stock","Fecha de ingreso"});
                     if(rs.next()){
@@ -113,14 +174,15 @@ public final class ltshStorage extends javax.swing.JFrame{
                     jTable1.setRowSorter(sorter);
                     jTable1.getRowSorter().toggleSortOrder(0);
                     jTable1.getTableHeader().setReorderingAllowed(false);
-                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                    jTable1.setModel(dbUtils.resultSetToTableModel(rs));
                     jTable1.setModel(dtm);
                     
                     ps.close();
                     rs.close();
                     break;
                 case 2:
-                    ps=new datos().getConnection().prepareStatement("select * from almacen where codigo_prov="+txtBuscar.getText()+";");
+                    ps=new datos().getConnection().prepareStatement("select * from almacen where codigo_prov=?;");
+                    ps.setInt(1,Integer.parseInt(txtBuscar.getText()));
                     rs=ps.executeQuery();
                     dtm.setColumnIdentifiers(new Object[]{"Código del producto","Código del lote","Código del proveedor","Nombre del producto","Marca","Cantidad","Precio unitario","Stock","Fecha de ingreso"});
                     if(rs.next()){
@@ -132,14 +194,15 @@ public final class ltshStorage extends javax.swing.JFrame{
                     jTable1.setRowSorter(sorter);
                     jTable1.getRowSorter().toggleSortOrder(0);
                     jTable1.getTableHeader().setReorderingAllowed(false);
-                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                    jTable1.setModel(dbUtils.resultSetToTableModel(rs));
                     jTable1.setModel(dtm);
                     
                     ps.close();
                     rs.close();
                     break;
                 case 3:
-                    ps=new datos().getConnection().prepareStatement("select * from almacen where nombre_prod='"+txtBuscar.getText()+"';");
+                    ps=new datos().getConnection().prepareStatement("select * from almacen where nombre_prod=?;");
+                    ps.setString(1,txtBuscar.getText());
                     rs=ps.executeQuery();
                     dtm.setColumnIdentifiers(new Object[]{"Código del producto","Código del lote","Código del proveedor","Nombre del producto","Marca","Cantidad","Precio unitario","Stock","Fecha de ingreso"});
                     if(rs.next()){
@@ -151,14 +214,15 @@ public final class ltshStorage extends javax.swing.JFrame{
                     jTable1.setRowSorter(sorter);
                     jTable1.getRowSorter().toggleSortOrder(0);
                     jTable1.getTableHeader().setReorderingAllowed(false);
-                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                    jTable1.setModel(dbUtils.resultSetToTableModel(rs));
                     jTable1.setModel(dtm);
                     
                     ps.close();
                     rs.close();
                     break;
                 case 4:
-                    ps=new datos().getConnection().prepareStatement("select * from almacen where marca='"+txtBuscar.getText()+"';");
+                    ps=new datos().getConnection().prepareStatement("select * from almacen where marca=?;");
+                    ps.setString(1,txtBuscar.getText());
                     rs=ps.executeQuery();
                     dtm.setColumnIdentifiers(new Object[]{"Código del producto","Código del lote","Código del proveedor","Nombre del producto","Marca","Cantidad","Precio unitario","Stock","Fecha de ingreso"});
                     if(rs.next()){
@@ -170,7 +234,7 @@ public final class ltshStorage extends javax.swing.JFrame{
                     jTable1.setRowSorter(sorter);
                     jTable1.getRowSorter().toggleSortOrder(0);
                     jTable1.getTableHeader().setReorderingAllowed(false);
-                    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                    jTable1.setModel(dbUtils.resultSetToTableModel(rs));
                     jTable1.setModel(dtm);
                     
                     ps.close();
@@ -196,13 +260,16 @@ public final class ltshStorage extends javax.swing.JFrame{
         }
     }
     
+    protected void textField(String text){
+        txtBuscar.setText(text);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         txtBuscar = new javax.swing.JTextField();
@@ -250,12 +317,10 @@ public final class ltshStorage extends javax.swing.JFrame{
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(refreshButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(103, 103, 103)
                         .addComponent(backButton)))
                 .addContainerGap())
         );
@@ -269,17 +334,12 @@ public final class ltshStorage extends javax.swing.JFrame{
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(refreshButton)
-                            .addComponent(backButton))
-                        .addContainerGap())))
+                    .addComponent(refreshButton)
+                    .addComponent(backButton))
+                .addContainerGap())
         );
 
         pack();
@@ -292,7 +352,6 @@ public final class ltshStorage extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

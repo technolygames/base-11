@@ -2,8 +2,8 @@ package paneles;
 //clases
 import clases.logger;
 import clases.dirs;
-import clases.thread;
-import clases.threadReader;
+import clases.thread1;
+import clases.thread3;
 import venPrimarias.start;
 import venTerciarias.databaseWindow;
 //java
@@ -82,11 +82,11 @@ public class databaseImport extends javax.swing.JPanel{
                 p=new Properties();
                 p.load(new FileInputStream(userdir+"/data/config/databaseInfo.properties"));
                 Process pr=Runtime.getRuntime().exec("cmd /c mysql.exe -u "+user+" -p "+db+"<"+dbDir+" --password="+pass+" -h "+p.getProperty("ip"));
-                new Thread(new threadReader(pr.getErrorStream())).start();
+                new Thread(new thread3(pr.getErrorStream())).start();
                 
                 is=new FileInputStream(dbDir);
                 
-                new Thread(new thread(is,pr.getOutputStream())).start();
+                new Thread(new thread1(is,pr.getOutputStream())).start();
                 
                 JOptionPane.showMessageDialog(null,"Se ha importado correctamente la base de datos","Rel 2E",JOptionPane.INFORMATION_MESSAGE);
                 new logger(Level.INFO).staticLogger("Rel 2E: se importó correctamente la base de datos.\nOcurrió en la clase '"+databaseImport.class.getName()+"', en el método 'botones(importButton)'.\nUsuario que hizo la acción: "+String.valueOf(start.userID));

@@ -17,7 +17,7 @@ import venPrimarias.start;
 import venPrimarias.ventana1;
 import venPrimarias.ventana2;
 import venTerciarias.about;
-import venTerciarias.dataWindow4;
+import venTerciarias.dataWindow1;
 //java
 import java.awt.TrayIcon;
 import java.util.Properties;
@@ -103,7 +103,7 @@ public final class menuVentanas extends javax.swing.JFrame{
         });
         
         jMenuItem2.addActionListener((a)->{
-            new dataWindow4(new javax.swing.JFrame(),true).setVisible(true);
+            new dataWindow1(new javax.swing.JFrame(),true,start.userID).setVisible(true);
         });
         
         jMenuItem3.addActionListener((a)->{
