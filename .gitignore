@@ -1,3 +1,6 @@
+# Created by https://www.toptal.com/developers/gitignore/api/java
+# Edit at https://www.toptal.com/developers/gitignore?templates=java
+
 ### Java ###
 # Compiled class file
 *.class
@@ -21,12 +24,20 @@
 *.rar
 
 # Project ignore #
+/data/database/MySQL/diagram_sql.dia~
+/data/media/
+/data/databackup/
 /data/logs/static/
 /data/logs/exceptions/
+/data/generic/Jasper/
+/data/generic/temp/
 /data/generic/tickets/
+/nbproject/
 /target/
 /test/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# End of https://www.toptal.com/developers/gitignore/api/java
